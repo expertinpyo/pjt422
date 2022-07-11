@@ -31,7 +31,7 @@
   - Raspberry Pi
   - REST API
 * 참조 리소스
-  * Material-UI: React Component Library
+  * Material-UI: React Component Library 
 * 배포 환경
   - URL: // 웹 서비스, 랜딩 페이지, 프로젝트 소개 등의 배포 URL 기입
   - 테스트 계정: // 로그인이 필요한 경우, 사용 가능한 테스트 계정(ID/PW) 기입
