@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
 urlpatterns = [
-    path('<int:floor_num>/', views.floor),
+    path('', views.buildings),
+    path('<b_name>/', views.floors),
+    
 ]
