@@ -45,7 +45,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'accounts',
-    'skeleton',
+    'buildings',
 
     'django_extensions',
     'rest_framework',
