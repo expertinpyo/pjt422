@@ -13,7 +13,10 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div
+        class="collapse navbar-collapse flex-grow-0"
+        id="navbarSupportedContent"
+      >
         <ul class="navbar-nav mb-2 mb-lg-0 d-flex">
           <li class="nav-item">
             <RouterLink class="nav-link" active-class="active" to="/" exact>
@@ -30,8 +33,26 @@
               설정
             </RouterLink>
           </li>
+          <li v-if="isLoggedIn" class="nav-item">
+            <RouterLink class="nav-link" to="/logout">로그아웃</RouterLink>
+          </li>
+          <li v-else class="nav-item">
+            <RouterLink class="nav-link" to="/login">로그인</RouterLink>
+          </li>
         </ul>
       </div>
     </div>
   </nav>
 </template>
+
+<script>
+export default {
+  name: "NavBar",
+  computed: {
+    isLoggedIn() {
+      // TODO: 로그인 방법과 저장공간 정의
+      return false;
+    },
+  },
+};
+</script>
