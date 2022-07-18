@@ -43,11 +43,12 @@
 
 ## 팀 소개
 
-* 안다영: 팀장, FE, UCC
-* 김지인: FE, UCC
-* 박정미: FE, UCC
-* 장세진: BE, Infra
-* 홍인표: BE, Infra
+* 안다영 : 팀장, FE, HW, UCC
+* 김지인 : FE, HW, UCC
+* 박정미 : FE, HW, UCC
+* 장세진 : BE, Infra
+* 최동범 : FE, HW, UCC
+* 홍인표 : BE, Infra
 
 
 ## 개발 스택
