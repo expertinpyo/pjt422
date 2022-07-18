@@ -1,6 +1,8 @@
 <template>
-  <TrashMapFloorSelector />
-  <TrashMap />
+  <div class="trash-map-container">
+    <TrashMapFloorSelector />
+    <TrashMap />
+  </div>
 </template>
 
 <script>
@@ -16,3 +18,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.trash-map-container {
+  display: flex;
+}
+</style>
