@@ -1,12 +1,17 @@
 <template>
   <div class="floor-selector">
     <button
-      v-for="floor of floors"
-      :key="floor"
-      class="floor-button btn btn-secondary"
+      v-for="floor in floors"
+      :key="floor.id"
+      @click="button_clicked(floor)"
+      class="floor-button btn"
+      :class="{
+        'btn-primary': current_floor == floor.id,
+        'btn-secondary': current_floor != floor.id,
+      }"
       type="button"
     >
-      {{ floor }}
+      {{ floor.name }}F
     </button>
   </div>
 </template>
@@ -14,14 +19,12 @@
 <script>
 export default {
   name: "TrashMapFloorSelector",
-  data() {
-    return {
-      floors: [],
-    };
-  },
-  mounted() {
-    // TODO: 층수 불러오기 기능
-    this.floors = ["B1", "1", "2", "3"];
+  props: ["floors", "current_floor"],
+  methods: {
+    button_clicked(floor) {
+      if (floor.id == this.current_floor) return;
+      this.$emit("floor_changed", floor);
+    },
   },
 };
 </script>
