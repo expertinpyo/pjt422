@@ -23,22 +23,37 @@ export default {
       this.offset_y = this.base_offset_y;
       this.load_map_and_draw();
     },
+    width() {
+      this.zoom = this.base_zoom;
+      this.offset_x = this.base_offset_x;
+      this.offset_y = this.base_offset_y;
+      this.draw();
+    },
+    height() {
+      this.zoom = this.base_zoom;
+      this.offset_x = this.base_offset_x;
+      this.offset_y = this.base_offset_y;
+      this.draw();
+    },
   },
   computed: {
     base_zoom() {
       return Math.min(
         1,
-        this.width / this.floor.width,
-        this.height / this.floor.height
+        this.canvas.width / this.floor.width,
+        this.canvas.height / this.floor.height
       );
     },
     base_offset_x() {
-      return Math.max(0, (this.width - this.floor.width * this.base_zoom) / 2);
+      return Math.max(
+        0,
+        (this.canvas.width / this.base_zoom - this.floor.width) / 2
+      );
     },
     base_offset_y() {
       return Math.max(
         0,
-        (this.height - this.floor.height * this.base_zoom) / 2
+        (this.canvas.height / this.base_zoom - this.floor.height) / 2
       );
     },
   },
@@ -51,21 +66,20 @@ export default {
 
       this.ctx.drawImage(this.img, 0, 0);
 
-      const trash_bin_rect_size = 20;
       for (let trash_bin of this.floor.trash_bins) {
         this.ctx.save();
         this.ctx.fillStyle = trash_bin.color;
         this.ctx.fillRect(
-          trash_bin.x - trash_bin_rect_size / 2,
-          trash_bin.y - trash_bin_rect_size / 2,
-          trash_bin_rect_size,
-          trash_bin_rect_size
+          trash_bin.x - trash_bin.size / 2,
+          trash_bin.y - trash_bin.size / 2,
+          trash_bin.size,
+          trash_bin.size
         );
         this.ctx.strokeRect(
-          trash_bin.x - trash_bin_rect_size / 2,
-          trash_bin.y - trash_bin_rect_size / 2,
-          trash_bin_rect_size,
-          trash_bin_rect_size
+          trash_bin.x - trash_bin.size / 2,
+          trash_bin.y - trash_bin.size / 2,
+          trash_bin.size,
+          trash_bin.size
         );
         this.ctx.restore();
       }
@@ -77,18 +91,18 @@ export default {
       };
       this.img.src = this.floor.src;
     },
-    set_zoom(zoom) {
-      if (this.zoom * zoom < this.base_zoom * 0.75) {
+    change_zoom(zoom_ratio) {
+      if (this.zoom * zoom_ratio < this.base_zoom * 0.75) {
         this.zoom = this.base_zoom * 0.75;
-      } else if (this.zoom * zoom > this.base_zoom * 4) {
+      } else if (this.zoom * zoom_ratio > this.base_zoom * 4) {
         this.zoom = this.base_zoom * 4;
       } else {
-        this.zoom *= zoom;
+        this.zoom *= zoom_ratio;
       }
     },
-    set_offset(offset_x, offset_y) {
-      this.offset_x += offset_x;
-      this.offset_y += offset_y;
+    change_offset(offset_x_delta, offset_y_delta) {
+      this.offset_x += offset_x_delta;
+      this.offset_y += offset_y_delta;
     },
     mousedown(ev) {
       this.mouse_prev_x = ev.offsetX;
@@ -101,7 +115,7 @@ export default {
     mousemove(ev) {
       if (!this.mouse_pressed) return;
 
-      this.set_offset(
+      this.change_offset(
         (ev.offsetX - this.mouse_prev_x) / this.zoom,
         (ev.offsetY - this.mouse_prev_y) / this.zoom
       );
@@ -111,9 +125,9 @@ export default {
     },
     wheel(ev) {
       const prev_zoom = this.zoom;
-      if (ev.deltaY < 0) this.set_zoom(1.1);
-      else if (ev.deltaY > 0) this.set_zoom(1 / 1.1);
-      this.set_offset(
+      if (ev.deltaY < 0) this.change_zoom(1.1);
+      else if (ev.deltaY > 0) this.change_zoom(1 / 1.1);
+      this.change_offset(
         ev.offsetX / this.zoom - ev.offsetX / prev_zoom,
         ev.offsetY / this.zoom - ev.offsetY / prev_zoom
       );
