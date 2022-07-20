@@ -23,6 +23,18 @@ export default {
       this.offset_y = this.base_offset_y;
       this.load_map_and_draw();
     },
+    width() {
+      this.zoom = this.base_zoom;
+      this.offset_x = this.base_offset_x;
+      this.offset_y = this.base_offset_y;
+      this.draw();
+    },
+    height() {
+      this.zoom = this.base_zoom;
+      this.offset_x = this.base_offset_x;
+      this.offset_y = this.base_offset_y;
+      this.draw();
+    },
   },
   computed: {
     base_zoom() {
