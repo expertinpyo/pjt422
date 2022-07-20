@@ -40,17 +40,20 @@ export default {
     base_zoom() {
       return Math.min(
         1,
-        this.width / this.floor.width,
-        this.height / this.floor.height
+        this.canvas.width / this.floor.width,
+        this.canvas.height / this.floor.height
       );
     },
     base_offset_x() {
-      return Math.max(0, (this.width / this.base_zoom - this.floor.width) / 2);
+      return Math.max(
+        0,
+        (this.canvas.width / this.base_zoom - this.floor.width) / 2
+      );
     },
     base_offset_y() {
       return Math.max(
         0,
-        (this.height / this.base_zoom - this.floor.height) / 2
+        (this.canvas.height / this.base_zoom - this.floor.height) / 2
       );
     },
   },
