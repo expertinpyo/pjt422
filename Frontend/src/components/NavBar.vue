@@ -1,7 +1,10 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-sm navbar-light bg-light">
     <div class="container-fluid">
-      <RouterLink class="navbar-brand" to="/" exact>프로젝트명</RouterLink>
+      <RouterLink class="navbar-brand" to="/" exact>
+        <img src="@/assets/logo.png" width="39" height="39" />
+        422
+      </RouterLink>
       <button
         class="navbar-toggler"
         type="button"
@@ -23,21 +26,25 @@
               메인
             </RouterLink>
           </li>
-          <li class="nav-item">
+          <li v-if="is_authed" class="nav-item">
             <RouterLink class="nav-link" active-class="active" to="/stats">
               통계
             </RouterLink>
           </li>
-          <li class="nav-item">
+          <li v-if="is_authed" class="nav-item">
             <RouterLink class="nav-link" active-class="active" to="/settings">
               설정
             </RouterLink>
           </li>
-          <li v-if="isLoggedIn" class="nav-item">
-            <RouterLink class="nav-link" to="/logout">로그아웃</RouterLink>
+          <li v-if="is_authed" class="nav-item">
+            <RouterLink class="nav-link" active-class="active" to="/logout">
+              로그아웃
+            </RouterLink>
           </li>
-          <li v-else class="nav-item">
-            <RouterLink class="nav-link" to="/login">로그인</RouterLink>
+          <li v-if="!is_authed" class="nav-item">
+            <RouterLink class="nav-link" active-class="active" to="/login">
+              로그인
+            </RouterLink>
           </li>
         </ul>
       </div>
@@ -49,10 +56,21 @@
 export default {
   name: "NavBar",
   computed: {
-    isLoggedIn() {
-      // TODO: 로그인 방법과 저장공간 정의
-      return false;
+    is_authed() {
+      return this.$store.getters.is_authed;
     },
   },
 };
 </script>
+
+<style>
+.nav-link {
+  max-width: 120px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: bold;
+}
+.nav-link.active {
+  border-bottom: 1px solid black;
+}
+</style>
