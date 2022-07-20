@@ -31,6 +31,32 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # customized apps
+    'accounts',
+    'campus',
+
+    # 여러 앱 사용 가능해짐 / 대표적으로 shell_plus -> shell에 접근 가능
+    'django_extensions', 
+    # 데이터 직렬화를 위한 도구
+    'rest_framework',
+    # 다른 서버의 자원을 요청하는 메커니즘 => Vue와 통신을 위한 방법
+    'corsheaders',
+
+    # token base authentication
+    'rest_framework.authtoken',
+
+    # DRF auth(login) 담당
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
+
+    # django allauth 
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    # allauth 사용을 위해 필요
+    'django.contrib.sites',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,7 +65,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+# HTTP 요청 & 응답처리 중간에서 작용하는 시스템
+# 데이터 관리 / 앱 서비스 / 메시징 / 인증 및 api 관리
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -121,5 +151,22 @@ STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+
+# django.contrib.sites에서 등록 필요
+SITE_ID = 1
+
+# drf 설정
+REST_FRAMEWORK = {
+    # 기본 인증을 기본 TOKEN으로 설정
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    
+    # 기본 권한 설정
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',  # 기본적으로 모두에게 허용
+        # 'rest_framework.permissions.IsAuthenticated', # 로그인 한 사람에게만 허용
+    ],
+}
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
