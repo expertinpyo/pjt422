@@ -58,6 +58,9 @@ INSTALLED_APPS = [
     # allauth 사용을 위해 필요
     'django.contrib.sites',
 
+    # Mariadb관련 앱
+    # 'board.apps.BoardConfig',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -105,9 +108,20 @@ WSGI_APPLICATION = 'pjt422.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
+    # SQLITE
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
+
+    # MariaDB 사용
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql', # mysqlclient librarly 설치 => pip install mysqlclient
+        'NAME': 'pjt422db', # db 이름
+        'USER': 'root', 
+        'PASSWORD': 'root', # mariaDB 설치 시 입력한 root 비밀번호 입력
+        'HOST': 'localhost',
+        'PORT': ''  # default 3306 / Mariadb 설치 시 해당 포트 변경했다면 변경해줘야함
     }
 }
 
@@ -136,7 +150,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
@@ -171,3 +185,5 @@ REST_FRAMEWORK = {
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'accounts.User'
