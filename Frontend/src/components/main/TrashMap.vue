@@ -1,5 +1,11 @@
 <template>
-  <canvas ref="canvas" :width="width" :height="height"></canvas>
+  <canvas
+    ref="canvas"
+    @mousedown.prevent="mousedown"
+    @mouseup.prevent="mouseup"
+    @mousemove.prevent="mousemove"
+    @wheel.prevent="wheel"
+  ></canvas>
 </template>
 
 <script>
@@ -18,43 +24,14 @@ export default {
   },
   watch: {
     floor() {
-      this.zoom = this.base_zoom;
-      this.offset_x = this.base_offset_x;
-      this.offset_y = this.base_offset_y;
+      this.calc_and_apply_base_values();
       this.load_map_and_draw();
     },
     width() {
-      this.zoom = this.base_zoom;
-      this.offset_x = this.base_offset_x;
-      this.offset_y = this.base_offset_y;
+      this.canvas.width = this.width;
+      this.canvas.height = this.height;
+      this.calc_and_apply_base_values();
       this.draw();
-    },
-    height() {
-      this.zoom = this.base_zoom;
-      this.offset_x = this.base_offset_x;
-      this.offset_y = this.base_offset_y;
-      this.draw();
-    },
-  },
-  computed: {
-    base_zoom() {
-      return Math.min(
-        1,
-        this.canvas.width / this.floor.width,
-        this.canvas.height / this.floor.height
-      );
-    },
-    base_offset_x() {
-      return Math.max(
-        0,
-        (this.canvas.width / this.base_zoom - this.floor.width) / 2
-      );
-    },
-    base_offset_y() {
-      return Math.max(
-        0,
-        (this.canvas.height / this.base_zoom - this.floor.height) / 2
-      );
     },
   },
   methods: {
@@ -90,6 +67,25 @@ export default {
         this.draw();
       };
       this.img.src = this.floor.src;
+    },
+    calc_and_apply_base_values() {
+      this.base_zoom = Math.min(
+        1,
+        this.canvas.width / this.floor.width,
+        this.canvas.height / this.floor.height
+      );
+      this.base_offset_x = Math.max(
+        0,
+        (this.canvas.width / this.base_zoom - this.floor.width) / 2
+      );
+      this.base_offset_y = Math.max(
+        0,
+        (this.canvas.height / this.base_zoom - this.floor.height) / 2
+      );
+
+      this.zoom = this.base_zoom;
+      this.offset_x = this.base_offset_x;
+      this.offset_y = this.base_offset_y;
     },
     change_zoom(zoom_ratio) {
       if (this.zoom * zoom_ratio < this.base_zoom * 0.75) {
@@ -136,14 +132,10 @@ export default {
   },
   mounted() {
     this.canvas = this.$refs.canvas;
-    this.canvas.addEventListener("mousedown", this.mousedown);
-    this.canvas.addEventListener("mouseup", this.mouseup);
-    this.canvas.addEventListener("mousemove", this.mousemove);
-    this.canvas.addEventListener("wheel", this.wheel);
+    this.canvas.width = this.width;
+    this.canvas.height = this.height;
     this.ctx = this.canvas.getContext("2d");
-    this.zoom = this.base_zoom;
-    this.offset_x = this.base_offset_x;
-    this.offset_y = this.base_offset_y;
+    this.calc_and_apply_base_values();
     this.load_map_and_draw();
   },
 };
