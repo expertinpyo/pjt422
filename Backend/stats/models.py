@@ -5,7 +5,7 @@ from campus.models import Trashbin
 
 # 기존 설계 계획
 # 하루 단위로 레코드 생성
-# 하루에 총 24개의 데
+# 하루에 총 24개의 데이터
 class Stats(models.Model):
   date = models.DateTimeField()
   time = models.CharField(max_length=15)
