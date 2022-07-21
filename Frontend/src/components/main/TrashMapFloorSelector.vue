@@ -31,11 +31,10 @@ export default {
 
 <style scoped>
 .floor-selector {
-  width: 80px;
   justify-content: center;
 }
 .floor-button {
-  width: 60px;
+  width: 80px;
   margin-bottom: 10px;
 }
 </style>
