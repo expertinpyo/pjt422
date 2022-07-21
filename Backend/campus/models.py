@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.conf import settings
 # Create your models here.
 
 class Campus(models.Model):
@@ -7,6 +7,7 @@ class Campus(models.Model):
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
 
     def __str__(self):
         return self.name
@@ -46,7 +47,7 @@ class Trashbin(models.Model):
     location_y = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
+    discard_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='discard_trashbin')
 
 
 class Student(models.Model):
@@ -60,3 +61,6 @@ class Student(models.Model):
 
     def __str__(self):
         return self.name
+
+
+

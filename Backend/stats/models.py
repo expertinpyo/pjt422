@@ -1,4 +1,5 @@
 from django.db import models
+from campus.models import Trashbin
 
 # Create your models here.
 
@@ -11,6 +12,7 @@ class Stats(models.Model):
   empty_num = models.IntegerField()
   use_num = models.IntegerField()
   amount = models.FloatField()
+  trashbin = models.ForeignKey(Trashbin, on_delete=models.CASCADE)
   
   def __str__(self):
     return self.date
