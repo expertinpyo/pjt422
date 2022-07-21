@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from accounts.models import Campus
+from campus.models import Campus
+from django.utils.translation import gettext_lazy as _
 # Create your models here.
 # 관리자가 User 대체
 class User(AbstractUser):
@@ -12,6 +13,14 @@ class User(AbstractUser):
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
   campus = models.ForeignKey(Campus, on_delete=models.CASCADE)
+
+  class Manager(models.TextChoices):
+    JUNIOR = 'JR', _('Junior')
+    SENIOR = 'SR', _('Senior')
+    MASTER = 'MR', _('Master')
+  
+  manager = models.CharField(max_length=2, choices=Manager.choices, default=Manager.JUNIOR)
+
 
   def __str__(self):
     return self.username
