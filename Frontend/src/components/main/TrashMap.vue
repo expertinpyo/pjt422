@@ -1,8 +1,7 @@
 <template>
   <canvas
     ref="canvas"
-    @mousedown.prevent="mousedown"
-    @mouseup.prevent="mouseup"
+    @mousedown="mousedown"
     @mousemove.prevent="mousemove"
     @wheel.prevent="wheel"
   ></canvas>
@@ -19,7 +18,8 @@ export default {
       offset_y: 0,
       mouse_prev_x: 0,
       mouse_prev_y: 0,
-      mouse_pressed: false,
+      current_mouseover_trash_bin: -1,
+      current_trash_bin: -1,
     };
   },
   watch: {
@@ -31,6 +31,9 @@ export default {
       this.canvas.width = this.width;
       this.canvas.height = this.height;
       this.calc_and_apply_base_values();
+      this.draw();
+    },
+    highlighted_trash_bins() {
       this.draw();
     },
   },
@@ -52,6 +55,17 @@ export default {
           trash_bin.size,
           trash_bin.size
         );
+
+        this.ctx.lineWidth = 1;
+        this.ctx.strokeStyle = "#000000";
+        if (trash_bin.hovered) {
+          this.ctx.lineWidth = 2;
+          this.ctx.strokeStyle = "#88FF88";
+        }
+        if (trash_bin.selected) {
+          this.ctx.lineWidth = 2;
+          this.ctx.strokeStyle = "#FF8888";
+        }
         this.ctx.strokeRect(
           trash_bin.x - trash_bin.size / 2,
           trash_bin.y - trash_bin.size / 2,
@@ -101,23 +115,89 @@ export default {
       this.offset_y += offset_y_delta;
     },
     mousedown(ev) {
+      if ((ev.buttons & 1) === 0) return;
+      ev.stopPropagation();
+
       this.mouse_prev_x = ev.offsetX;
       this.mouse_prev_y = ev.offsetY;
-      this.mouse_pressed = true;
-    },
-    mouseup() {
-      this.mouse_pressed = false;
+
+      const canvas_x = -this.offset_x + ev.offsetX / this.zoom;
+      const canvas_y = -this.offset_y + ev.offsetY / this.zoom;
+
+      for (let trash_bin of this.floor.trash_bins) {
+        const left = trash_bin.x - trash_bin.size / 2;
+        const right = trash_bin.x + trash_bin.size / 2;
+        const top = trash_bin.y - trash_bin.size / 2;
+        const bottom = trash_bin.y + trash_bin.size / 2;
+
+        if (
+          canvas_x > left &&
+          canvas_x < right &&
+          canvas_y > top &&
+          canvas_y < bottom
+        ) {
+          if (this.current_trash_bin == trash_bin.id) {
+            return;
+          }
+          if (this.current_trash_bin >= 0) {
+            this.$emit("trash_bin_event", { type: "unselect" });
+          }
+          this.$emit("trash_bin_event", { type: "select", trash_bin });
+          this.current_trash_bin = trash_bin.id;
+          this.draw();
+          return;
+        }
+      }
+      if (this.current_trash_bin >= 0) {
+        this.$emit("trash_bin_event", { type: "unselect" });
+        this.current_trash_bin = -1;
+        this.draw();
+      }
     },
     mousemove(ev) {
-      if (!this.mouse_pressed) return;
+      if ((ev.buttons & 1) === 1) {
+        this.change_offset(
+          (ev.offsetX - this.mouse_prev_x) / this.zoom,
+          (ev.offsetY - this.mouse_prev_y) / this.zoom
+        );
+        this.mouse_prev_x = ev.offsetX;
+        this.mouse_prev_y = ev.offsetY;
+        this.draw();
+      }
 
-      this.change_offset(
-        (ev.offsetX - this.mouse_prev_x) / this.zoom,
-        (ev.offsetY - this.mouse_prev_y) / this.zoom
-      );
-      this.mouse_prev_x = ev.offsetX;
-      this.mouse_prev_y = ev.offsetY;
-      this.draw();
+      const canvas_x = -this.offset_x + ev.offsetX / this.zoom;
+      const canvas_y = -this.offset_y + ev.offsetY / this.zoom;
+
+      for (let trash_bin of this.floor.trash_bins) {
+        const left = trash_bin.x - trash_bin.size / 2;
+        const right = trash_bin.x + trash_bin.size / 2;
+        const top = trash_bin.y - trash_bin.size / 2;
+        const bottom = trash_bin.y + trash_bin.size / 2;
+
+        if (
+          canvas_x > left &&
+          canvas_x < right &&
+          canvas_y > top &&
+          canvas_y < bottom
+        ) {
+          if (this.current_mouseover_trash_bin == trash_bin.id) {
+            return;
+          }
+
+          if (this.current_mouseover_trash_bin >= 0) {
+            this.$emit("trash_bin_event", { type: "mouseout" });
+          }
+          this.$emit("trash_bin_event", { type: "mouseover", trash_bin });
+          this.current_mouseover_trash_bin = trash_bin.id;
+          this.draw();
+          return;
+        }
+      }
+      if (this.current_mouseover_trash_bin >= 0) {
+        this.$emit("trash_bin_event", { type: "mouseout" });
+        this.current_mouseover_trash_bin = -1;
+        this.draw();
+      }
     },
     wheel(ev) {
       const prev_zoom = this.zoom;

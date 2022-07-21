@@ -55,6 +55,7 @@
             :floor="floor"
             :width="map_width"
             :height="map_height"
+            @trash_bin_event="trash_bin_event"
           />
         </div>
       </div>
@@ -64,6 +65,7 @@
             :floor="floors[current_floor]"
             :width="map_width"
             :height="map_height"
+            @trash_bin_event="trash_bin_event"
           />
         </div>
       </div>
@@ -110,6 +112,8 @@ export default {
     return {
       window_width: window.innerWidth,
       map_toggle_checked: false,
+      selected_trash_bin: { floor_id: -1, trash_bin_id: -1 },
+      hovered_trash_bin: { floor_id: -1, trash_bin_id: -1 },
       current_campus: 0,
       current_building: 0,
       current_floor: 0,
@@ -130,25 +134,34 @@ export default {
           height: 310,
           trash_bins: [
             {
+              id: 0,
               name: "name1",
               color: "#AA0000",
               x: 200,
               y: 200,
               size: 20,
+              hovered: false,
+              selected: false,
             },
             {
+              id: 1,
               name: "name2",
               color: "#00AA00",
               x: 222,
               y: 200,
               size: 20,
+              hovered: false,
+              selected: false,
             },
             {
+              id: 2,
               name: "name3",
               color: "#0000AA",
               x: 244,
               y: 200,
               size: 20,
+              hovered: false,
+              selected: false,
             },
           ],
         },
@@ -160,25 +173,34 @@ export default {
           height: 310,
           trash_bins: [
             {
+              id: 3,
               name: "name1",
               color: "#AAAA00",
               x: 200,
               y: 200,
               size: 20,
+              hovered: false,
+              selected: false,
             },
             {
+              id: 4,
               name: "name2",
               color: "#00AAAA",
               x: 222,
               y: 200,
               size: 20,
+              hovered: false,
+              selected: false,
             },
             {
+              id: 5,
               name: "name3",
               color: "#AA00AA",
               x: 244,
               y: 200,
               size: 20,
+              hovered: false,
+              selected: false,
             },
           ],
         },
@@ -190,25 +212,34 @@ export default {
           height: 310,
           trash_bins: [
             {
+              id: 6,
               name: "name1",
               color: "#0000AA",
               x: 200,
               y: 200,
               size: 20,
+              hovered: false,
+              selected: false,
             },
             {
+              id: 7,
               name: "name2",
               color: "#AA0000",
               x: 222,
               y: 200,
               size: 20,
+              hovered: false,
+              selected: false,
             },
             {
+              id: 8,
               name: "name3",
               color: "#00AA00",
               x: 244,
               y: 200,
               size: 20,
+              hovered: false,
+              selected: false,
             },
           ],
         },
@@ -220,25 +251,34 @@ export default {
           height: 310,
           trash_bins: [
             {
+              id: 9,
               name: "name1",
               color: "#AA00AA",
               x: 200,
               y: 200,
               size: 20,
+              hovered: false,
+              selected: false,
             },
             {
+              id: 10,
               name: "name2",
               color: "#AAAA00",
               x: 222,
               y: 200,
               size: 20,
+              hovered: false,
+              selected: false,
             },
             {
+              id: 11,
               name: "name3",
               color: "#00AAAA",
               x: 244,
               y: 200,
               size: 20,
+              hovered: false,
+              selected: false,
             },
           ],
         },
@@ -248,6 +288,24 @@ export default {
   methods: {
     change_floor(floor) {
       this.current_floor = floor.id;
+    },
+    trash_bin_event(ev) {
+      if (ev.type === "select") {
+        this.selected_trash_bin = ev.trash_bin;
+        this.selected_trash_bin.selected = true;
+      }
+      if (ev.type === "unselect") {
+        this.selected_trash_bin.selected = false;
+        this.selected_trash_bin = {};
+      }
+      if (ev.type === "mouseover") {
+        this.hovered_trash_bin = ev.trash_bin;
+        this.hovered_trash_bin.hovered = true;
+      }
+      if (ev.type === "mouseout") {
+        this.hovered_trash_bin.hovered = false;
+        this.hovered_trash_bin = {};
+      }
     },
   },
   mounted() {
