@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
+from accounts.models import Campus
 # Create your models here.
 # 관리자가 User 대체
 class User(AbstractUser):
@@ -11,3 +11,7 @@ class User(AbstractUser):
   rfid_num = models.CharField(max_length=20)
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
+  campus = models.ForeignKey(Campus, on_delete=models.CASCADE)
+
+  def __str__(self):
+    return self.username
