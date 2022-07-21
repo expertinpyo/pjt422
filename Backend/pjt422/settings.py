@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     # customized apps
     'accounts',
     'campus',
+    'stats',
 
     # 여러 앱 사용 가능해짐 / 대표적으로 shell_plus -> shell에 접근 가능
     'django_extensions', 
