@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from campus.models import Campus
+from django.utils.translation import gettext_lazy as _
 # Create your models here.
 # 관리자가 User 대체
 class User(AbstractUser):
