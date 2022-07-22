@@ -5,3 +5,5 @@ from .models import *
 admin.site.register(Student)
 admin.site.register(Campus)
 admin.site.register(Building)
+admin.site.register(Floor)
+admin.site.register(Trashbin)
