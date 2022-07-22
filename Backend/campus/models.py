@@ -19,7 +19,7 @@ class Building(models.Model):
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    campus = models.ForeignKey(Campus, on_delete=models.CASCADE)
+    campus = models.ForeignKey(Campus, on_delete=models.CASCADE, related_name='building')
 
     def __str__(self):
         return self.name
@@ -32,7 +32,7 @@ class Floor(models.Model):
     height = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    building = models.ForeignKey(Building, on_delete=models.CASCADE)
+    building = models.ForeignKey(Building, on_delete=models.CASCADE, related_name='floor')
 
     def __str__(self):
         return self.name
@@ -69,6 +69,7 @@ class Trashbin(models.Model):
     )
     location_x = models.FloatField()
     location_y = models.FloatField()
+    floor = models.ForeignKey(Floor, on_delete=models.CASCADE, related_name='trashbin')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     discard_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='discard_trashbin')
@@ -81,7 +82,7 @@ class Student(models.Model):
     rfid_num = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    campus = models.ForeignKey(Campus, on_delete=models.CASCADE)
+    campus = models.ForeignKey(Campus, on_delete=models.CASCADE, related_name='student')
 
     def __str__(self):
         return self.name
