@@ -5,15 +5,15 @@ import SettingsView from "../views/SettingsView.vue";
 import LoginView from "../views/LoginView.vue";
 import store from "../store";
 
-const require_auth = () => (to, from, next) => {
-  if (store.getters.is_authed) {
+const requireAuth = () => (to, from, next) => {
+  if (store.getters.isAuthed) {
     return next();
   }
   next("/login");
 };
 
 const logout = () => async (to, from, next) => {
-  if (store.getters.is_authed) {
+  if (store.getters.isAuthed) {
     try {
       await store.dispatch("logout");
     } catch {
@@ -34,13 +34,13 @@ const routes = [
     path: "/stats",
     name: "stats",
     component: StatsView,
-    beforeEnter: require_auth(),
+    beforeEnter: requireAuth(),
   },
   {
     path: "/settings",
     name: "settings",
     component: SettingsView,
-    beforeEnter: require_auth(),
+    beforeEnter: requireAuth(),
   },
   {
     path: "/login",

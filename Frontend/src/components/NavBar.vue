@@ -26,22 +26,22 @@
               메인
             </RouterLink>
           </li>
-          <li v-if="is_authed" class="nav-item">
+          <li v-if="isAuthed" class="nav-item">
             <RouterLink class="nav-link" active-class="active" to="/stats">
               통계
             </RouterLink>
           </li>
-          <li v-if="is_authed" class="nav-item">
+          <li v-if="isAuthed" class="nav-item">
             <RouterLink class="nav-link" active-class="active" to="/settings">
               설정
             </RouterLink>
           </li>
-          <li v-if="is_authed" class="nav-item">
+          <li v-if="isAuthed" class="nav-item">
             <RouterLink class="nav-link" active-class="active" to="/logout">
               로그아웃
             </RouterLink>
           </li>
-          <li v-if="!is_authed" class="nav-item">
+          <li v-if="!isAuthed" class="nav-item">
             <RouterLink class="nav-link" active-class="active" to="/login">
               로그인
             </RouterLink>
@@ -56,8 +56,8 @@
 export default {
   name: "NavBar",
   computed: {
-    is_authed() {
-      return this.$store.getters.is_authed;
+    isAuthed() {
+      return this.$store.getters.isAuthed;
     },
   },
 };

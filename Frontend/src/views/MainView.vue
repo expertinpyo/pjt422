@@ -2,8 +2,8 @@
   <div class="main-container">
     <div class="trash-map-selector-container">
       <div class="trash-map-campus-dropdown">
-        <label for="campus_select">캠퍼스</label>
-        <select id="campus_select" class="form-select" v-model="current_campus">
+        <label for="campus-select">캠퍼스</label>
+        <select id="campus-select" class="form-select" v-model="currentCampus">
           <option
             v-for="campus in campuses"
             :key="campus.id"
@@ -14,11 +14,11 @@
         </select>
       </div>
       <div class="trash-map-building-dropdown">
-        <label for="building_select">건물</label>
+        <label for="building-select">건물</label>
         <select
-          id="building_select"
+          id="building-select"
           class="form-select"
-          v-model="current_building"
+          v-model="currentBuilding"
         >
           <option
             v-for="building in buildings"
@@ -31,8 +31,8 @@
       </div>
       <TrashMapFloorSelector
         :floors="floors"
-        :current_floor="current_floor"
-        @floor_changed="change_floor"
+        :current-floor="currentFloor"
+        @floor-changed="changeFloor"
       />
     </div>
     <div class="trash-map-container">
@@ -40,32 +40,32 @@
         <input
           class="form-check-input"
           type="checkbox"
-          id="map_toggle"
-          v-model="map_toggle_checked"
+          id="map-toggle"
+          v-model="mapToggleChecked"
         />
-        <label class="form-check-label" for="map_toggle">전체 층 보기</label>
+        <label class="form-check-label" for="map-toggle">전체 층 보기</label>
       </div>
-      <div v-if="map_toggle_checked" class="trash-map-group">
+      <div v-if="mapToggleChecked" class="trash-map-group">
         <div v-for="floor in floors" :key="floor.id" class="trash-map">
           <div>
-            <label :for="'trash_map_' + floor.id">{{ floor.name }}F</label>
+            <label :for="'trash-map-' + floor.id">{{ floor.name }}F</label>
           </div>
           <TrashMap
-            :id="'trash_map_' + floor.id"
+            :id="'trash-map-' + floor.id"
             :floor="floor"
-            :width="map_width"
-            :height="map_height"
-            @trash_bin_event="trash_bin_event"
+            :width="mapWidth"
+            :height="mapHeight"
+            @trashbin-event="trashbinEvent"
           />
         </div>
       </div>
-      <div v-if="!map_toggle_checked" class="trash-map-group">
+      <div v-if="!mapToggleChecked" class="trash-map-group">
         <div class="trash-map">
           <TrashMap
-            :floor="floors[current_floor]"
-            :width="map_width"
-            :height="map_height"
-            @trash_bin_event="trash_bin_event"
+            :floor="floors[currentFloor]"
+            :width="mapWidth"
+            :height="mapHeight"
+            @trashbin-event="trashbinEvent"
           />
         </div>
       </div>
@@ -84,39 +84,39 @@ export default {
     TrashMap,
   },
   watch: {
-    map_toggle_checked() {
-      this.current_floor = -(1 + this.current_floor);
+    mapToggleChecked() {
+      this.currentFloor = -(1 + this.currentFloor);
     },
-    current_floor() {
-      if (this.map_toggle_checked && this.current_floor >= 0) {
-        this.map_toggle_checked = false;
-        this.current_floor = -(1 + this.current_floor);
+    currentFloor() {
+      if (this.mapToggleChecked && this.currentFloor >= 0) {
+        this.mapToggleChecked = false;
+        this.currentFloor = -(1 + this.currentFloor);
       }
     },
   },
   computed: {
-    map_width() {
-      const width = this.window_width - 150;
-      const columns = this.map_toggle_checked
+    mapWidth() {
+      const width = this.windowWidth - 150;
+      const columns = this.mapToggleChecked
         ? Math.max(1, Math.floor(width / 312))
         : 1;
-      const column_width = width / columns - 12;
+      const columnWidth = width / columns - 12;
 
-      return Math.max(300, column_width);
+      return Math.max(300, columnWidth);
     },
-    map_height() {
-      return Math.min(this.map_width, window.innerHeight - 120);
+    mapHeight() {
+      return Math.min(this.mapWidth, window.innerHeight - 120);
     },
   },
   data() {
     return {
-      window_width: window.innerWidth,
-      map_toggle_checked: false,
-      selected_trash_bin: { floor_id: -1, trash_bin_id: -1 },
-      hovered_trash_bin: { floor_id: -1, trash_bin_id: -1 },
-      current_campus: 0,
-      current_building: 0,
-      current_floor: 0,
+      windowWidth: window.innerWidth,
+      mapToggleChecked: false,
+      selectedTrashbin: null,
+      hoveredTrashbin: null,
+      currentCampus: 0,
+      currentBuilding: 0,
+      currentFloor: 0,
       campuses: [
         { id: 0, name: "서울" },
         { id: 1, name: "부산" },
@@ -132,7 +132,7 @@ export default {
           src: require("@/assets/test_map_b1.png"),
           width: 860,
           height: 310,
-          trash_bins: [
+          trashbins: [
             {
               id: 0,
               name: "name1",
@@ -171,7 +171,7 @@ export default {
           src: require("@/assets/test_map_1.png"),
           width: 860,
           height: 310,
-          trash_bins: [
+          trashbins: [
             {
               id: 3,
               name: "name1",
@@ -210,7 +210,7 @@ export default {
           src: require("@/assets/test_map_2.png"),
           width: 860,
           height: 310,
-          trash_bins: [
+          trashbins: [
             {
               id: 6,
               name: "name1",
@@ -249,7 +249,7 @@ export default {
           src: require("@/assets/test_map_3.png"),
           width: 860,
           height: 310,
-          trash_bins: [
+          trashbins: [
             {
               id: 9,
               name: "name1",
@@ -286,31 +286,31 @@ export default {
     };
   },
   methods: {
-    change_floor(floor) {
-      this.current_floor = floor.id;
+    changeFloor(floor) {
+      this.currentFloor = floor.id;
     },
-    trash_bin_event(ev) {
+    trashbinEvent(ev) {
       if (ev.type === "select") {
-        this.selected_trash_bin = ev.trash_bin;
-        this.selected_trash_bin.selected = true;
+        this.selectedTrashbin = ev.trashbin;
+        this.selectedTrashbin.selected = true;
       }
       if (ev.type === "unselect") {
-        this.selected_trash_bin.selected = false;
-        this.selected_trash_bin = {};
+        this.selectedTrashbin.selected = false;
+        this.selectedTrashbin = null;
       }
       if (ev.type === "mouseover") {
-        this.hovered_trash_bin = ev.trash_bin;
-        this.hovered_trash_bin.hovered = true;
+        this.hoveredTrashbin = ev.trashbin;
+        this.hoveredTrashbin.hovered = true;
       }
       if (ev.type === "mouseout") {
-        this.hovered_trash_bin.hovered = false;
-        this.hovered_trash_bin = {};
+        this.hoveredTrashbin.hovered = false;
+        this.hoveredTrashbin = null;
       }
     },
   },
   mounted() {
     window.addEventListener("resize", () => {
-      this.window_width = window.innerWidth;
+      this.windowWidth = window.innerWidth;
     });
   },
 };
