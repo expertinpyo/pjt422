@@ -10,4 +10,3 @@ class ManagerListSerializer(serializers.ModelSerializer):
         model = User
         fields = ('pk', 'username', 'name', 'belong', 'phone', 'rfid_num', 'campus', 'position')
     
-    
