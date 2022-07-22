@@ -21,7 +21,7 @@
       />
       <label for="floatingPassword">Password</label>
     </div>
-    <div class="login-fail-text" v-if="login_fail">
+    <div class="login-fail-text" v-if="loginFail">
       ID 혹은 패스워드가 잘못 입력되었습니다.
     </div>
     <button
@@ -42,7 +42,7 @@ export default {
     return {
       userid: "",
       passwd: "",
-      login_fail: false,
+      loginFail: false,
     };
   },
   methods: {
@@ -56,12 +56,12 @@ export default {
       } catch {
         this.userid = "";
         this.passwd = "";
-        this.login_fail = true;
+        this.loginFail = true;
       }
     },
   },
   mounted() {
-    if (this.$store.getters.is_authed) {
+    if (this.$store.getters.isAuthed) {
       this.$router.push("/");
       return;
     }

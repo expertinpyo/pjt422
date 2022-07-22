@@ -14,26 +14,23 @@ export default {
   data() {
     return {
       zoom: 1,
-      offset_x: 0,
-      offset_y: 0,
-      mouse_prev_x: 0,
-      mouse_prev_y: 0,
-      current_mouseover_trash_bin: -1,
-      current_trash_bin: -1,
+      offsetX: 0,
+      offsetY: 0,
+      mousePrevX: 0,
+      mousePrevY: 0,
+      currentMouseoverTrashbin: -1,
+      currentTrashbin: -1,
     };
   },
   watch: {
     floor() {
-      this.calc_and_apply_base_values();
-      this.load_map_and_draw();
+      this.calcAndApplyBaseValues();
+      this.loadMapAndDraw();
     },
     width() {
       this.canvas.width = this.width;
       this.canvas.height = this.height;
-      this.calc_and_apply_base_values();
-      this.draw();
-    },
-    highlighted_trash_bins() {
+      this.calcAndApplyBaseValues();
       this.draw();
     },
   },
@@ -42,170 +39,170 @@ export default {
       this.ctx.resetTransform();
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
       this.ctx.scale(this.zoom, this.zoom);
-      this.ctx.translate(this.offset_x, this.offset_y);
+      this.ctx.translate(this.offsetX, this.offsetY);
 
       this.ctx.drawImage(this.img, 0, 0);
 
-      for (let trash_bin of this.floor.trash_bins) {
+      for (let trashbin of this.floor.trashbins) {
         this.ctx.save();
-        this.ctx.fillStyle = trash_bin.color;
+        this.ctx.fillStyle = trashbin.color;
         this.ctx.fillRect(
-          trash_bin.x - trash_bin.size / 2,
-          trash_bin.y - trash_bin.size / 2,
-          trash_bin.size,
-          trash_bin.size
+          trashbin.x - trashbin.size / 2,
+          trashbin.y - trashbin.size / 2,
+          trashbin.size,
+          trashbin.size
         );
 
         this.ctx.lineWidth = 1;
         this.ctx.strokeStyle = "#000000";
-        if (trash_bin.hovered) {
+        if (trashbin.hovered) {
           this.ctx.lineWidth = 2;
           this.ctx.strokeStyle = "#88FF88";
         }
-        if (trash_bin.selected) {
+        if (trashbin.selected) {
           this.ctx.lineWidth = 2;
           this.ctx.strokeStyle = "#FF8888";
         }
         this.ctx.strokeRect(
-          trash_bin.x - trash_bin.size / 2,
-          trash_bin.y - trash_bin.size / 2,
-          trash_bin.size,
-          trash_bin.size
+          trashbin.x - trashbin.size / 2,
+          trashbin.y - trashbin.size / 2,
+          trashbin.size,
+          trashbin.size
         );
         this.ctx.restore();
       }
     },
-    load_map_and_draw() {
+    loadMapAndDraw() {
       this.img = new Image();
       this.img.onload = () => {
         this.draw();
       };
       this.img.src = this.floor.src;
     },
-    calc_and_apply_base_values() {
-      this.base_zoom = Math.min(
+    calcAndApplyBaseValues() {
+      this.baseZoom = Math.min(
         1,
         this.canvas.width / this.floor.width,
         this.canvas.height / this.floor.height
       );
-      this.base_offset_x = Math.max(
+      this.baseOffsetX = Math.max(
         0,
-        (this.canvas.width / this.base_zoom - this.floor.width) / 2
+        (this.canvas.width / this.baseZoom - this.floor.width) / 2
       );
-      this.base_offset_y = Math.max(
+      this.baseOffsetY = Math.max(
         0,
-        (this.canvas.height / this.base_zoom - this.floor.height) / 2
+        (this.canvas.height / this.baseZoom - this.floor.height) / 2
       );
 
-      this.zoom = this.base_zoom;
-      this.offset_x = this.base_offset_x;
-      this.offset_y = this.base_offset_y;
+      this.zoom = this.baseZoom;
+      this.offsetX = this.baseOffsetX;
+      this.offsetY = this.baseOffsetY;
     },
-    change_zoom(zoom_ratio) {
-      if (this.zoom * zoom_ratio < this.base_zoom * 0.75) {
-        this.zoom = this.base_zoom * 0.75;
-      } else if (this.zoom * zoom_ratio > this.base_zoom * 4) {
-        this.zoom = this.base_zoom * 4;
+    changeZoom(zoomRatio) {
+      if (this.zoom * zoomRatio < this.baseZoom * 0.75) {
+        this.zoom = this.baseZoom * 0.75;
+      } else if (this.zoom * zoomRatio > this.baseZoom * 4) {
+        this.zoom = this.baseZoom * 4;
       } else {
-        this.zoom *= zoom_ratio;
+        this.zoom *= zoomRatio;
       }
     },
-    change_offset(offset_x_delta, offset_y_delta) {
-      this.offset_x += offset_x_delta;
-      this.offset_y += offset_y_delta;
+    changeOffset(offsetXDelta, offsetYDelta) {
+      this.offsetX += offsetXDelta;
+      this.offsetY += offsetYDelta;
     },
     mousedown(ev) {
       if ((ev.buttons & 1) === 0) return;
       ev.stopPropagation();
 
-      this.mouse_prev_x = ev.offsetX;
-      this.mouse_prev_y = ev.offsetY;
+      this.mousePrevX = ev.offsetX;
+      this.mousePrevY = ev.offsetY;
 
-      const canvas_x = -this.offset_x + ev.offsetX / this.zoom;
-      const canvas_y = -this.offset_y + ev.offsetY / this.zoom;
+      const canvasX = -this.offsetX + ev.offsetX / this.zoom;
+      const canvasY = -this.offsetY + ev.offsetY / this.zoom;
 
-      for (let trash_bin of this.floor.trash_bins) {
-        const left = trash_bin.x - trash_bin.size / 2;
-        const right = trash_bin.x + trash_bin.size / 2;
-        const top = trash_bin.y - trash_bin.size / 2;
-        const bottom = trash_bin.y + trash_bin.size / 2;
+      for (let trashbin of this.floor.trashbins) {
+        const left = trashbin.x - trashbin.size / 2;
+        const right = trashbin.x + trashbin.size / 2;
+        const top = trashbin.y - trashbin.size / 2;
+        const bottom = trashbin.y + trashbin.size / 2;
 
         if (
-          canvas_x > left &&
-          canvas_x < right &&
-          canvas_y > top &&
-          canvas_y < bottom
+          canvasX > left &&
+          canvasX < right &&
+          canvasY > top &&
+          canvasY < bottom
         ) {
-          if (this.current_trash_bin == trash_bin.id) {
+          if (this.currentTrashbin == trashbin.id) {
             return;
           }
-          if (this.current_trash_bin >= 0) {
-            this.$emit("trash_bin_event", { type: "unselect" });
+          if (this.currentTrashbin >= 0) {
+            this.$emit("trashbinEvent", { type: "unselect" });
           }
-          this.$emit("trash_bin_event", { type: "select", trash_bin });
-          this.current_trash_bin = trash_bin.id;
+          this.$emit("trashbinEvent", { type: "select", trashbin });
+          this.currentTrashbin = trashbin.id;
           this.draw();
           return;
         }
       }
-      if (this.current_trash_bin >= 0) {
-        this.$emit("trash_bin_event", { type: "unselect" });
-        this.current_trash_bin = -1;
+      if (this.currentTrashbin >= 0) {
+        this.$emit("trashbinEvent", { type: "unselect" });
+        this.currentTrashbin = -1;
         this.draw();
       }
     },
     mousemove(ev) {
       if ((ev.buttons & 1) === 1) {
-        this.change_offset(
-          (ev.offsetX - this.mouse_prev_x) / this.zoom,
-          (ev.offsetY - this.mouse_prev_y) / this.zoom
+        this.changeOffset(
+          (ev.offsetX - this.mousePrevX) / this.zoom,
+          (ev.offsetY - this.mousePrevY) / this.zoom
         );
-        this.mouse_prev_x = ev.offsetX;
-        this.mouse_prev_y = ev.offsetY;
+        this.mousePrevX = ev.offsetX;
+        this.mousePrevY = ev.offsetY;
         this.draw();
       }
 
-      const canvas_x = -this.offset_x + ev.offsetX / this.zoom;
-      const canvas_y = -this.offset_y + ev.offsetY / this.zoom;
+      const canvasX = -this.offsetX + ev.offsetX / this.zoom;
+      const canvasY = -this.offsetY + ev.offsetY / this.zoom;
 
-      for (let trash_bin of this.floor.trash_bins) {
-        const left = trash_bin.x - trash_bin.size / 2;
-        const right = trash_bin.x + trash_bin.size / 2;
-        const top = trash_bin.y - trash_bin.size / 2;
-        const bottom = trash_bin.y + trash_bin.size / 2;
+      for (let trashbin of this.floor.trashbins) {
+        const left = trashbin.x - trashbin.size / 2;
+        const right = trashbin.x + trashbin.size / 2;
+        const top = trashbin.y - trashbin.size / 2;
+        const bottom = trashbin.y + trashbin.size / 2;
 
         if (
-          canvas_x > left &&
-          canvas_x < right &&
-          canvas_y > top &&
-          canvas_y < bottom
+          canvasX > left &&
+          canvasX < right &&
+          canvasY > top &&
+          canvasY < bottom
         ) {
-          if (this.current_mouseover_trash_bin == trash_bin.id) {
+          if (this.currentMouseoverTrashbin == trashbin.id) {
             return;
           }
 
-          if (this.current_mouseover_trash_bin >= 0) {
-            this.$emit("trash_bin_event", { type: "mouseout" });
+          if (this.currentMouseoverTrashbin >= 0) {
+            this.$emit("trashbinEvent", { type: "mouseout" });
           }
-          this.$emit("trash_bin_event", { type: "mouseover", trash_bin });
-          this.current_mouseover_trash_bin = trash_bin.id;
+          this.$emit("trashbinEvent", { type: "mouseover", trashbin });
+          this.currentMouseoverTrashbin = trashbin.id;
           this.draw();
           return;
         }
       }
-      if (this.current_mouseover_trash_bin >= 0) {
-        this.$emit("trash_bin_event", { type: "mouseout" });
-        this.current_mouseover_trash_bin = -1;
+      if (this.currentMouseoverTrashbin >= 0) {
+        this.$emit("trashbinEvent", { type: "mouseout" });
+        this.currentMouseoverTrashbin = -1;
         this.draw();
       }
     },
     wheel(ev) {
-      const prev_zoom = this.zoom;
-      if (ev.deltaY < 0) this.change_zoom(1.1);
-      else if (ev.deltaY > 0) this.change_zoom(1 / 1.1);
-      this.change_offset(
-        ev.offsetX / this.zoom - ev.offsetX / prev_zoom,
-        ev.offsetY / this.zoom - ev.offsetY / prev_zoom
+      const prevZoom = this.zoom;
+      if (ev.deltaY < 0) this.changeZoom(1.1);
+      else if (ev.deltaY > 0) this.changeZoom(1 / 1.1);
+      this.changeOffset(
+        ev.offsetX / this.zoom - ev.offsetX / prevZoom,
+        ev.offsetY / this.zoom - ev.offsetY / prevZoom
       );
       this.draw();
     },
@@ -215,8 +212,8 @@ export default {
     this.canvas.width = this.width;
     this.canvas.height = this.height;
     this.ctx = this.canvas.getContext("2d");
-    this.calc_and_apply_base_values();
-    this.load_map_and_draw();
+    this.calcAndApplyBaseValues();
+    this.loadMapAndDraw();
   },
 };
 </script>
