@@ -2,11 +2,11 @@ import { createStore } from "vuex";
 
 export default createStore({
   state: {
-    access_token: null,
+    accessToken: null,
   },
   getters: {
-    is_authed(state) {
-      if (state.access_token !== null) {
+    isAuthed(state) {
+      if (state.accessToken !== null) {
         return true;
       }
       // TODO: localStorage 확인하는 코드 필요
@@ -14,22 +14,22 @@ export default createStore({
     },
   },
   mutations: {
-    SET_ACCESS_TOKEN(state, access_token) {
-      state.access_token = access_token;
+    SET_ACCESS_TOKEN(state, accessToken) {
+      state.accessToken = accessToken;
     },
   },
   actions: {
     async login({ commit, state }, { userid, passwd }) {
       return new Promise((resolve, reject) => {
-        if (state.access_token !== null) {
+        if (state.accessToken !== null) {
           reject();
           return;
         }
 
         // TODO: login process
-        const access_token = userid + passwd;
-        if (access_token !== null) {
-          commit("SET_ACCESS_TOKEN", access_token);
+        const accessToken = userid + passwd;
+        if (accessToken !== null) {
+          commit("SET_ACCESS_TOKEN", accessToken);
           resolve();
           return;
         }
@@ -39,14 +39,14 @@ export default createStore({
     },
     async logout({ commit, state }) {
       return new Promise((resolve, reject) => {
-        if (state.access_token === null) {
+        if (state.accessToken === null) {
           reject();
           return;
         }
 
         // TODO: logout process
-        const logout_success = true;
-        if (logout_success) {
+        const logoutSuccess = true;
+        if (logoutSuccess) {
           commit("SET_ACCESS_TOKEN", null);
           resolve();
           return;

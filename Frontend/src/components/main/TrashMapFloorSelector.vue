@@ -3,11 +3,11 @@
     <button
       v-for="floor in floors"
       :key="floor.id"
-      @click="button_clicked(floor)"
+      @click="buttonClicked(floor)"
       class="floor-button btn"
       :class="{
-        'btn-primary': current_floor == floor.id,
-        'btn-secondary': current_floor != floor.id,
+        'btn-primary': currentFloor == floor.id,
+        'btn-secondary': currentFloor != floor.id,
       }"
       type="button"
     >
@@ -19,11 +19,11 @@
 <script>
 export default {
   name: "TrashMapFloorSelector",
-  props: ["floors", "current_floor"],
+  props: ["floors", "currentFloor"],
   methods: {
-    button_clicked(floor) {
-      if (floor.id == this.current_floor) return;
-      this.$emit("floor_changed", floor);
+    buttonClicked(floor) {
+      if (floor.id == this.currentFloor) return;
+      this.$emit("floorChanged", floor);
     },
   },
 };
