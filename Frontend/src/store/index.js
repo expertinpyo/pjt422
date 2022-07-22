@@ -3,6 +3,8 @@ import { createStore } from "vuex";
 export default createStore({
   state: {
     accessToken: null,
+    selectedTrashbin: null,
+    hoveredTrashbin: null,
   },
   getters: {
     isAuthed(state) {
@@ -16,6 +18,12 @@ export default createStore({
   mutations: {
     SET_ACCESS_TOKEN(state, accessToken) {
       state.accessToken = accessToken;
+    },
+    SET_SELECTED_TRASHBIN(state, trashbin) {
+      state.selectedTrashbin = trashbin;
+    },
+    SET_HOVERED_TRASHBIN(state, trashbin) {
+      state.hoveredTrashbin = trashbin;
     },
   },
   actions: {
@@ -54,6 +62,12 @@ export default createStore({
 
         reject();
       });
+    },
+    setHoveredTrashbin({ commit }, trashbin) {
+      commit("SET_HOVERED_TRASHBIN", trashbin);
+    },
+    setSelectedTrashbin({ commit }, trashbin) {
+      commit("SET_SELECTED_TRASHBIN", trashbin);
     },
   },
   modules: {},
