@@ -14,4 +14,4 @@ def managers(request):
     return Response(serializer.data)
 
 def campus_managers(request, campus_id):
-    managers = User.objects.filter()
+    pass
