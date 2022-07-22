@@ -18,8 +18,6 @@ export default {
       offsetY: 0,
       mousePrevX: 0,
       mousePrevY: 0,
-      currentMouseoverTrashbin: -1,
-      currentTrashbin: -1,
     };
   },
   watch: {
@@ -31,6 +29,12 @@ export default {
       this.canvas.width = this.width;
       this.canvas.height = this.height;
       this.calcAndApplyBaseValues();
+      this.draw();
+    },
+    "$store.state.hoveredTrashbin"() {
+      this.draw();
+    },
+    "$store.state.selectedTrashbin"() {
       this.draw();
     },
   },
@@ -55,11 +59,11 @@ export default {
 
         this.ctx.lineWidth = 1;
         this.ctx.strokeStyle = "#000000";
-        if (trashbin.hovered) {
+        if (this.$store.state.hoveredTrashbin === trashbin) {
           this.ctx.lineWidth = 2;
           this.ctx.strokeStyle = "#88FF88";
         }
-        if (trashbin.selected) {
+        if (this.$store.state.selectedTrashbin === trashbin) {
           this.ctx.lineWidth = 2;
           this.ctx.strokeStyle = "#FF8888";
         }
@@ -133,23 +137,11 @@ export default {
           canvasY > top &&
           canvasY < bottom
         ) {
-          if (this.currentTrashbin == trashbin.id) {
-            return;
-          }
-          if (this.currentTrashbin >= 0) {
-            this.$emit("trashbinEvent", { type: "unselect" });
-          }
-          this.$emit("trashbinEvent", { type: "select", trashbin });
-          this.currentTrashbin = trashbin.id;
-          this.draw();
+          this.$store.dispatch("setSelectedTrashbin", trashbin);
           return;
         }
       }
-      if (this.currentTrashbin >= 0) {
-        this.$emit("trashbinEvent", { type: "unselect" });
-        this.currentTrashbin = -1;
-        this.draw();
-      }
+      this.$store.dispatch("setSelectedTrashbin", null);
     },
     mousemove(ev) {
       if ((ev.buttons & 1) === 1) {
@@ -177,24 +169,11 @@ export default {
           canvasY > top &&
           canvasY < bottom
         ) {
-          if (this.currentMouseoverTrashbin == trashbin.id) {
-            return;
-          }
-
-          if (this.currentMouseoverTrashbin >= 0) {
-            this.$emit("trashbinEvent", { type: "mouseout" });
-          }
-          this.$emit("trashbinEvent", { type: "mouseover", trashbin });
-          this.currentMouseoverTrashbin = trashbin.id;
-          this.draw();
+          this.$store.dispatch("setHoveredTrashbin", trashbin);
           return;
         }
       }
-      if (this.currentMouseoverTrashbin >= 0) {
-        this.$emit("trashbinEvent", { type: "mouseout" });
-        this.currentMouseoverTrashbin = -1;
-        this.draw();
-      }
+      this.$store.dispatch("setHoveredTrashbin", null);
     },
     wheel(ev) {
       const prevZoom = this.zoom;

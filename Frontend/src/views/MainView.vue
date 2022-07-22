@@ -55,7 +55,6 @@
             :floor="floor"
             :width="mapWidth"
             :height="mapHeight"
-            @trashbin-event="trashbinEvent"
           />
         </div>
       </div>
@@ -65,7 +64,6 @@
             :floor="floors[currentFloor]"
             :width="mapWidth"
             :height="mapHeight"
-            @trashbin-event="trashbinEvent"
           />
         </div>
       </div>
@@ -93,6 +91,12 @@ export default {
         this.currentFloor = -(1 + this.currentFloor);
       }
     },
+    "$store.state.hoveredTrashbin"() {
+      // hover event
+    },
+    "$store.state.selectedTrashbin"() {
+      // select event
+    },
   },
   computed: {
     mapWidth() {
@@ -112,8 +116,6 @@ export default {
     return {
       windowWidth: window.innerWidth,
       mapToggleChecked: false,
-      selectedTrashbin: null,
-      hoveredTrashbin: null,
       currentCampus: 0,
       currentBuilding: 0,
       currentFloor: 0,
@@ -140,8 +142,6 @@ export default {
               x: 200,
               y: 200,
               size: 20,
-              hovered: false,
-              selected: false,
             },
             {
               id: 1,
@@ -150,8 +150,6 @@ export default {
               x: 222,
               y: 200,
               size: 20,
-              hovered: false,
-              selected: false,
             },
             {
               id: 2,
@@ -160,8 +158,6 @@ export default {
               x: 244,
               y: 200,
               size: 20,
-              hovered: false,
-              selected: false,
             },
           ],
         },
@@ -179,8 +175,6 @@ export default {
               x: 200,
               y: 200,
               size: 20,
-              hovered: false,
-              selected: false,
             },
             {
               id: 4,
@@ -189,8 +183,6 @@ export default {
               x: 222,
               y: 200,
               size: 20,
-              hovered: false,
-              selected: false,
             },
             {
               id: 5,
@@ -199,8 +191,6 @@ export default {
               x: 244,
               y: 200,
               size: 20,
-              hovered: false,
-              selected: false,
             },
           ],
         },
@@ -218,8 +208,6 @@ export default {
               x: 200,
               y: 200,
               size: 20,
-              hovered: false,
-              selected: false,
             },
             {
               id: 7,
@@ -228,8 +216,6 @@ export default {
               x: 222,
               y: 200,
               size: 20,
-              hovered: false,
-              selected: false,
             },
             {
               id: 8,
@@ -238,8 +224,6 @@ export default {
               x: 244,
               y: 200,
               size: 20,
-              hovered: false,
-              selected: false,
             },
           ],
         },
@@ -257,8 +241,6 @@ export default {
               x: 200,
               y: 200,
               size: 20,
-              hovered: false,
-              selected: false,
             },
             {
               id: 10,
@@ -267,8 +249,6 @@ export default {
               x: 222,
               y: 200,
               size: 20,
-              hovered: false,
-              selected: false,
             },
             {
               id: 11,
@@ -277,8 +257,6 @@ export default {
               x: 244,
               y: 200,
               size: 20,
-              hovered: false,
-              selected: false,
             },
           ],
         },
@@ -288,24 +266,6 @@ export default {
   methods: {
     changeFloor(floor) {
       this.currentFloor = floor.id;
-    },
-    trashbinEvent(ev) {
-      if (ev.type === "select") {
-        this.selectedTrashbin = ev.trashbin;
-        this.selectedTrashbin.selected = true;
-      }
-      if (ev.type === "unselect") {
-        this.selectedTrashbin.selected = false;
-        this.selectedTrashbin = null;
-      }
-      if (ev.type === "mouseover") {
-        this.hoveredTrashbin = ev.trashbin;
-        this.hoveredTrashbin.hovered = true;
-      }
-      if (ev.type === "mouseout") {
-        this.hoveredTrashbin.hovered = false;
-        this.hoveredTrashbin = null;
-      }
     },
   },
   mounted() {
