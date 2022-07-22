@@ -10,6 +10,6 @@ urlpatterns = [
     path('<int:campus_pk>/student/<int:student_pk>/', views.student_detail), # 학생 수정, 삭제
     path('<int:campus_pk>/<int:building_pk>/floor/', views.floor_create),  # 층 추가
     path('<int:campus_pk>/<int:building_pk>/floor/<int:floor_pk>/', views.floor_UD), # 층 수정, 삭제
-    path('<int:campus_pk>/<int:floor_pk>/trashbins/', views.floor_trashbins) # 층 내 모든 쓰레기통 조회, 추가
+    path('<int:campus_pk>/<int:floor_pk>/trashbins/', views.floor_trashbins), # 층 내 모든 쓰레기통 조회, 추가
     path('building/<int:building_pk>', views.building),  # 해당 빌딩 + 전체 층 목록 조회
 ]

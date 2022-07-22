@@ -3,13 +3,13 @@ from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework.response import Response
 from .serializers.campus import CampusListSerializer, CampusSerializer, CampusManagerSerializer, CampusStudentSerializer
-<<<<<<< Backend/campus/views.py
+
 from .models import Campus, Student, Building, Floor
 from .serializers.floor import FloorSerializer
 from .serializers.student import StudentListSerializer
 from .serializers.building import BuildingFloorSerializer, BuildingTrashBinSerializer
 from .models import Campus, Building
->>>>>>> Backend/campus/views.py
+
 # Create your views here.
 
 # 전체 캠퍼스 조회
