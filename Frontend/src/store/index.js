@@ -11,7 +11,11 @@ export default createStore({
       if (state.accessToken !== null) {
         return true;
       }
-      // TODO: localStorage 확인하는 코드 필요
+      const accessToken = window.localStorage.getItem("access-token");
+      if (accessToken) {
+        state.accessToken = accessToken;
+        return true;
+      }
       return false;
     },
   },
@@ -30,6 +34,7 @@ export default createStore({
     async login({ commit, state }, { userid, passwd }) {
       return new Promise((resolve, reject) => {
         if (state.accessToken !== null) {
+          // TODO: expired check
           reject();
           return;
         }
@@ -38,6 +43,7 @@ export default createStore({
         const accessToken = userid + passwd;
         if (accessToken !== null) {
           commit("SET_ACCESS_TOKEN", accessToken);
+          window.localStorage.setItem("access-token", accessToken);
           resolve();
           return;
         }
@@ -56,6 +62,7 @@ export default createStore({
         const logoutSuccess = true;
         if (logoutSuccess) {
           commit("SET_ACCESS_TOKEN", null);
+          window.localStorage.removeItem("access-token");
           resolve();
           return;
         }
