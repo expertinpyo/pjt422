@@ -240,7 +240,6 @@ def building(request, building_pk):
     return Response(serializer.data)
     
 
-=======
 @api_view(['GET'])
 def floor_trashbins(request):
     pass
