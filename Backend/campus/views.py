@@ -202,7 +202,7 @@ def floor_UD(request, campus_pk, building_pk, floor_pk):
         return Response(data, status=status.HTTP_204_NO_CONTENT)
 
 
-<<<<<<< HEAD
+
 @api_view(['GET'])
 def floor_trashbins(request):
     pass
@@ -218,7 +218,7 @@ def building(request, building_pk):
 @api_view(['GET'])
 def floor_trashbins(request):
     pass
-=======
+
 @api_view(['GET', 'POST'])
 def floor_trashbins(request, floor_pk):  
     floor = get_object_or_404(Floor, pk=floor_pk)
@@ -251,4 +251,4 @@ def trashbin_detail(request, floor_pk, trashbin_pk):
         trashbins = floor.trashbin.all()
         serializer = TrashbinListSerializer(trashbins, many=True)
         return Response(serializer.data)
->>>>>>> 9f2cf043e37a9ac67f32ba5eb94056af9c9d826c
+
