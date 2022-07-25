@@ -5,8 +5,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from .serializers.campus import CampusListSerializer, CampusSerializer, CampusManagerSerializer, CampusStudentSerializer
 
-from .models import Campus, Student, Building, Floor
-from .serializers.floor import FloorSerializer
+from .models import Campus, Student, Building, Floor, Trashbin
+from .serializers.floor import FloorSerializer, FloorTrashbinSerializer
 from .serializers.student import StudentListSerializer
 from .serializers.building import BuildingFloorSerializer, BuildingTrashBinSerializer
 
@@ -183,7 +183,7 @@ def floor_create(request, campus_pk, building_pk):
 
 # 층 삭제, 수정 (수정의 경우 지도가 바뀔 수도 있으므로)
 @api_view(['GET', 'DELETE', 'PUT'])
-def floor_UD(request, campus_pk, building_pk, floor_pk):
+def floor_detail(request, campus_pk, building_pk, floor_pk):
     floor = get_object_or_404(Floor, pk=floor_pk)
     if request.method == 'GET':
         serializer = FloorSerializer(floor)
@@ -203,9 +203,6 @@ def floor_UD(request, campus_pk, building_pk, floor_pk):
 
 
 
-@api_view(['GET'])
-def floor_trashbins(request):
-    pass
 
 # 특정 건물의 전체 층 조회
 @api_view(['GET'])
@@ -215,9 +212,7 @@ def building(request, building_pk):
     return Response(serializer.data)
 
 
-@api_view(['GET'])
-def floor_trashbins(request):
-    pass
+
 
 @api_view(['GET', 'POST'])
 def floor_trashbins(request, floor_pk):  
