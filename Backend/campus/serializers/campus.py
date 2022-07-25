@@ -49,3 +49,5 @@ class CampusStudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Campus
         fields = ('pk', 'name', 'description', 'student')
+
+
