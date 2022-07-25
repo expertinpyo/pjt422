@@ -47,7 +47,6 @@
 * 김지인 : FE, HW, UCC
 * 박정미 : FE, HW, UCC
 * 장세진 : BE, Infra
-* 최동범 : FE, HW, UCC
 * 홍인표 : BE, Infra
 
 

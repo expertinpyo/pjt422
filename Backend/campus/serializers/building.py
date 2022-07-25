@@ -9,6 +9,7 @@ class BuildingListSerializer(serializers.ModelSerializer):
         model = Building
         fields = ('pk', 'name', 'description', 'campus')
 
+
 class BuildingFloorSerializer(serializers.ModelSerializer):
     
     class FloorSerializer(serializers.ModelSerializer):
