@@ -230,16 +230,3 @@ def trashbin_detail(request, floor_pk, trashbin_pk):
         trashbins = floor.trashbin.all()
         serializer = TrashbinListSerializer(trashbins, many=True)
         return Response(serializer.data)
-
-
-# 특정 건물의 전체 층 조회
-@api_view(['GET'])
-def building(request, building_pk):
-    building = get_object_or_404(Building, pk=building_pk)
-    serializer = BuildingFloorSerializer(building)
-    return Response(serializer.data)
-    
-
-@api_view(['GET'])
-def floor_trashbins(request):
-    pass
