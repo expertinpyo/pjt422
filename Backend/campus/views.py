@@ -202,6 +202,7 @@ def floor_UD(request, campus_pk, building_pk, floor_pk):
         return Response(data, status=status.HTTP_204_NO_CONTENT)
 
 
+<<<<<<< HEAD
 @api_view(['GET'])
 def floor_trashbins(request):
     pass
@@ -217,3 +218,37 @@ def building(request, building_pk):
 @api_view(['GET'])
 def floor_trashbins(request):
     pass
+=======
+@api_view(['GET', 'POST'])
+def floor_trashbins(request, floor_pk):  
+    floor = get_object_or_404(Floor, pk=floor_pk)
+    if request.method == 'GET':
+        serializer = FloorTrashbinSerializer(floor)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = TrashbinCreateSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(floor=floor)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+@api_view(['GET', 'PUT', "DELETE"])
+def trashbin_detail(request, floor_pk, trashbin_pk):  
+    trashbin = get_object_or_404(Trashbin, pk=trashbin_pk)
+    floor = get_object_or_404(Floor, pk=floor_pk)
+    # 쓰레기통 상세 조회
+    if request.method == 'GET':
+        serializer = TrashbinSerializer(trashbin)
+        return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = TrashbinSerializer(instance=trashbin, data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
+    elif request.method == 'DELETE':
+        trashbin.delete()
+        # 삭제 후 전체 쓰레기통 조회
+        trashbins = floor.trashbin.all()
+        serializer = TrashbinListSerializer(trashbins, many=True)
+        return Response(serializer.data)
+>>>>>>> 9f2cf043e37a9ac67f32ba5eb94056af9c9d826c
