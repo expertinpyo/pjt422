@@ -10,3 +10,7 @@ class ManagerListSerializer(serializers.ModelSerializer):
         model = User
         fields = ('pk', 'username', 'name', 'belong', 'phone', 'rfid_num', 'campus', 'position')
     
+class ManagerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('pk', 'username', 'password', 'name', 'belong', 'phone', 'rfid_num', 'campus', 'position')
