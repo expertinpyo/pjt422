@@ -18,10 +18,12 @@ class BuildingFloorSerializer(serializers.ModelSerializer):
             fields = ('pk', 'name', 'map_path', 'width', 'height')
     
     floor = FloorSerializer(many=True, read_only=True)
-
+    floors_count = serializers.IntegerField(source='floor.count', read_only=True)
+    
     class Meta:
         model = Building
-        fields = ('pk', 'name', 'description', 'floor')
+        fields = ('pk', 'name', 'description', 'floor', 'floors_count',)
+
 
 class BuildingTrashBinSerializer(serializers.ModelSerializer):
     
