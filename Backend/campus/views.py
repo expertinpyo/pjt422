@@ -5,16 +5,19 @@ from rest_framework import status
 from rest_framework.response import Response
 from .serializers.campus import CampusListSerializer, CampusSerializer, CampusManagerSerializer, CampusStudentSerializer
 
-from .models import Campus, Student, Building, Floor, Trashbin
-from .serializers.floor import FloorSerializer, FloorTrashbinSerializer
-from .serializers.student import StudentCreateSerializer, StudentListSerializer
+from .models import Campus, Student, Building, Floor
+from .serializers.floor import FloorSerializer
+from .serializers.student import StudentListSerializer
 from .serializers.building import BuildingFloorSerializer, BuildingTrashBinSerializer
+
+
 from .serializers.trashbin import TrashbinCreateSerializer, TrashbinListSerializer, TrashbinSerializer
 
 from .models import Campus, Student, Building, Floor
 from .serializers.floor import FloorSerializer
 from .serializers.student import StudentListSerializer
 from .serializers.building import BuildingFloorSerializer, BuildingListSerializer, BuildingTrashBinSerializer
+
 
 from .models import Campus, Building
 
@@ -139,16 +142,14 @@ def campus_student(request, campus_pk):
 
 
 
-
 # 학생 추가
 @api_view(['POST'])
 def students(request, campus_pk):
     campus = get_object_or_404(Campus, pk=campus_pk)
-    if request.method == 'POST':       
-        serializer = StudentCreateSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save(campus=campus)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+    serializer = StudentListSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(campus=campus)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 # 학생 정보 수정 및 삭제
@@ -157,17 +158,17 @@ def student_detail(request, campus_pk, student_pk):
     student = get_object_or_404(Student, pk=student_pk)
     campus = get_object_or_404(Campus, pk=campus_pk)
     if request.method == 'PUT':
-        serializer = StudentCreateSerializer(instance=student, data=request.data)
+        serializer = StudentListSerializer(instance=student, data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
 
     elif request.method == 'DELETE':
         student.delete()
-        # 삭제 후 해당 캠퍼스의 전체 학생 정보 조회
-        students = campus.student.all()
-        serializer = StudentListSerializer(students, many=True)
-        return Response(serializer.data)
+        data = {
+            'delete': f'{student_pk}번 학생이 삭제되었습니다.'
+        }
+        return Response(data, status=status.HTTP_204_NO_CONTENT)
 
 
 # 층 추가
@@ -181,15 +182,18 @@ def floor_create(request, campus_pk, building_pk):
     
 
 # 층 삭제, 수정 (수정의 경우 지도가 바뀔 수도 있으므로)
-@api_view(['DELETE', 'PUT'])
-def floor_detail(request, campus_pk, building_pk, floor_pk):
+@api_view(['GET', 'DELETE', 'PUT'])
+def floor_UD(request, campus_pk, building_pk, floor_pk):
     floor = get_object_or_404(Floor, pk=floor_pk)
-    if request.method == 'PUT':
+    if request.method == 'GET':
+        serializer = FloorSerializer(floor)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
         serializer = FloorSerializer(instance=floor, data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)
-
     elif request.method == 'DELETE':
         floor.delete()
         data = {
@@ -197,6 +201,23 @@ def floor_detail(request, campus_pk, building_pk, floor_pk):
         }
         return Response(data, status=status.HTTP_204_NO_CONTENT)
 
+
+
+@api_view(['GET'])
+def floor_trashbins(request):
+    pass
+
+# 특정 건물의 전체 층 조회
+@api_view(['GET'])
+def building(request, building_pk):
+    building = get_object_or_404(Building, pk=building_pk)
+    serializer = BuildingFloorSerializer(building)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def floor_trashbins(request):
+    pass
 
 @api_view(['GET', 'POST'])
 def floor_trashbins(request, floor_pk):  
@@ -230,3 +251,4 @@ def trashbin_detail(request, floor_pk, trashbin_pk):
         trashbins = floor.trashbin.all()
         serializer = TrashbinListSerializer(trashbins, many=True)
         return Response(serializer.data)
+
