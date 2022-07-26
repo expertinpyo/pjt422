@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from os import getenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-pqn*31a8c3ssvbm9#zj(z_=h(0z7ytj9=p&yd$=%2uf5l=j^(a'
+SECRET_KEY = getenv('BACKEND_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = getenv('BACKEND_ALLOWED_HOSTS', '').split(' ')
 
 
 # Application definition
@@ -37,7 +38,7 @@ INSTALLED_APPS = [
     'stats',
 
     # 여러 앱 사용 가능해짐 / 대표적으로 shell_plus -> shell에 접근 가능
-    'django_extensions', 
+    'django_extensions',
     # 데이터 직렬화를 위한 도구
     'rest_framework',
     # 다른 서버의 자원을 요청하는 메커니즘 => Vue와 통신을 위한 방법
@@ -50,7 +51,7 @@ INSTALLED_APPS = [
     'dj_rest_auth',
     'dj_rest_auth.registration',
 
-    # django allauth 
+    # django allauth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -118,11 +119,11 @@ DATABASES = {
     # MariaDB 사용
     'default': {
         'ENGINE': 'django.db.backends.mysql', # mysqlclient librarly 설치 => pip install mysqlclient
-        'NAME': 'pjt422db', # db 이름
-        'USER': 'root', 
-        'PASSWORD': 'root', # mariaDB 설치 시 입력한 root 비밀번호 입력
-        'HOST': 'localhost',
-        'PORT': ''  # default 3306 / Mariadb 설치 시 해당 포트 변경했다면 변경해줘야함
+        'NAME': getenv('MYSQL_DATABASE'), # db 이름
+        'USER': getenv('MYSQL_USER'),
+        'PASSWORD': getenv('MYSQL_ROOT_PASSWORD'), # mariaDB 설치 시 입력한 root 비밀번호 입력
+        'HOST': getenv('MYSQL_HOST'),
+        'PORT': getenv('MYSQL_PORT'),  # default 3306 / Mariadb 설치 시 해당 포트 변경했다면 변경해줘야함
     }
 }
 
@@ -177,7 +178,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ],
-    
+
     # 기본 권한 설정
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',  # 기본적으로 모두에게 허용
@@ -188,3 +189,5 @@ REST_FRAMEWORK = {
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.User'
+
+CORS_ORIGIN_ALLOW_ALL = True
