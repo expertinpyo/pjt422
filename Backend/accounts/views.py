@@ -3,7 +3,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework import status
 from rest_framework.response import Response
-from .serializers.managers import ManagerListSerializer, ManagerSerializer
+from .serializers.managers import ManagerListSerializer, ManagerSerializer, ManagerUpdateSerializer
 from django.contrib.auth import get_user_model
 
 # Create your views here.
@@ -34,18 +34,30 @@ def campus_managers(request, campus_id):
 # 기본 로직
 # 1. 해당 캠퍼스의 마스터 매니저가 해당 캠퍼스의 매니저 수정 삭제 가능
 # 2. 일반 / 선임 매니저는 본인 계정의 비밀번호만 변경 가능
-@api_view(['PUT', 'DELETE'])
-def manager_detail(request, manager_id):
+# @api_view(['PUT', 'DELETE'])
+# def manager_detail(request, manager_id):
     
-    def update_manager():
-        # serializer = ManagerSerializer(instance=)
-        pass
-    def delete_manager():
-        pass
+#     def update_manager():
+#         # serializer = ManagerSerializer(instance=)
+#         pass
+#     def delete_manager():
+#         pass
 
-    if request.method == "PUT":
-        return update_manager()
-    elif request.method == 'DELETE':
-        return delete_manager()
+#     if request.method == "PUT":
+#         return update_manager()
+#     elif request.method == 'DELETE':
+#         return delete_manager()
 
-        
+
+# 관리자 본인이 자신의 회원 정보를 수정
+@api_view(['PUT'])
+def manager_detail(request, user_pk):
+    user = get_object_or_404(User, pk=user_pk)
+    if request.user == user:
+        serializer = ManagerUpdateSerializer(instance=user, data=request.data, partial=True)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+

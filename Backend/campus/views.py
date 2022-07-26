@@ -165,10 +165,10 @@ def student_detail(request, campus_pk, student_pk):
 
     elif request.method == 'DELETE':
         student.delete()
-        data = {
-            'delete': f'{student_pk}번 학생이 삭제되었습니다.'
-        }
-        return Response(data, status=status.HTTP_204_NO_CONTENT)
+        students = campus.student.all()
+        serializer = StudentListSerializer(students, many=True)
+        return Response(serializer.data)
+
 
 
 # 층 추가
