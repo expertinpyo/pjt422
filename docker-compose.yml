@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  frontend:
+    build: ./Frontend
+    image: 422_frontend:${BUILD_TAG}
+    container_name: 422_frontend
+    ports:
+      - "80:80"
+    command: nginx -g "daemon off;"
+  backend:
+    build: ./Backend
+    image: 422_backend:${BUILD_TAG}
+    container_name: 422_backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    command:
+      - bash
+      - -c
+      - |
+        python manage.py migrate
+        python manage.py runserver 0.0.0.0:8000
+    env_file:
+      - ./.env
+    restart: always
+    entrypoint: ./wait-for-it.sh db:3306 --
+  db:
+    image: mariadb:latest
+    container_name: 422_db
+    expose:
+      - 3306
+    env_file:
+      - ./.env
+    volumes:
+      - /var/422/db:/var/lib/mysql
+
+networks:
+  default:
+    name: 422-net
