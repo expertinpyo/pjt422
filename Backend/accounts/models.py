@@ -11,7 +11,7 @@ class User(AbstractUser):
         SENIOR = 'SR', _('Senior')
         MASTER = 'MR', _('Master')
     
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20,)
     belong = models.CharField(max_length=10)
     phone = models.CharField(max_length=13)
     rfid_num = models.CharField(max_length=20)
