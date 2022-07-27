@@ -9,6 +9,11 @@ class BuildingListSerializer(serializers.ModelSerializer):
         model = Building
         fields = ('pk', 'name', 'description', 'campus')
 
+class BuildingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Building
+        fields = ('pk', 'name', 'description')
+
 
 class BuildingFloorSerializer(serializers.ModelSerializer):
     
@@ -21,14 +26,14 @@ class BuildingFloorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Building
-        fields = ('pk', 'name', 'description', 'floor')
+        fields = ('pk', 'name', 'description', 'floor', 'campus')
 
 class BuildingTrashBinSerializer(serializers.ModelSerializer):
     
     class TrashBinSerializer(serializers.ModelSerializer):
         class Meta:
             model = Trashbin
-            exclude = ('created_at', 'updated_at', 'discarded_users')
+            exclude = ('created_at', 'updated_at', 'discard_users')
     
     trashbin = TrashBinSerializer(many=True, read_only=True)
 

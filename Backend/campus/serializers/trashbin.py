@@ -17,14 +17,8 @@ class TrashbinSerializer(serializers.ModelSerializer):
         class Meta:
             model = get_user_model()
             excludes = ('created_at', 'updated_at',)
-    
-    class FloorSerializer(serializers.ModelSerializer):
-        class Meta:
-            model = Floor
-            fields = ('name',)
 
     discard_users = UserSerializer(many=True, read_only=True)
-    floor = FloorSerializer(read_only=True)
     
     class Meta:
         model = Trashbin

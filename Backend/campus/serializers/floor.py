@@ -17,9 +17,10 @@ class FloorTrashbinSerializer(serializers.ModelSerializer):
             model = Trashbin
             exclude = ('floor', 'discard_users', )
 
+
     trashbin = TrashbinListSerializer(many=True, read_only=True)
     
     class Meta:
         model = Floor
-        fields = '__all__'
+        fields = ('pk', 'name', 'map_path', 'width', 'height', 'trashbin', 'building',)
         
