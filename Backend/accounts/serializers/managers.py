@@ -23,3 +23,10 @@ class ManagerUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'password', 'name', 'phone',)
+
+
+class ManagerAllUpdateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('name', 'belong', 'phone', 'rfid_num', 'position', 'username', 'password', 'is_superuser', )  # password..?

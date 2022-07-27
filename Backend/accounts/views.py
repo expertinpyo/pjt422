@@ -1,9 +1,10 @@
+from doctest import master
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework import status
 from rest_framework.response import Response
-from .serializers.managers import ManagerListSerializer, ManagerSerializer, ManagerUpdateSerializer
+from .serializers.managers import ManagerAllUpdateSerializer, ManagerListSerializer, ManagerSerializer, ManagerUpdateSerializer
 from django.contrib.auth import get_user_model
 
 # Create your views here.
@@ -59,5 +60,20 @@ def manager_detail(request, user_pk):
             serializer.save()
             return Response(serializer.data)
     return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+# master manager가 관리자들의 회원 정보를 수정
+@api_view(['PUT'])
+def edit_managers(request, user_pk):
+    user = get_object_or_404(User, pk=user_pk)
+    print(user.position)
+    if user.position == 'MR':
+        serializer = ManagerAllUpdateSerializer(instance=user, data=request.data, partial=True)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)       
+    return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
 
 
