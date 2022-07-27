@@ -166,10 +166,7 @@ def student_detail(request, campus_pk, student_pk):
 
     def delete_student():  
         student.delete()
-        data = {
-            'delete': f'{student_pk}번 학생이 삭제되었습니다.'
-        }
-        return Response(data, status=status.HTTP_204_NO_CONTENT)
+
     
     if request.method == 'PUT':
         return update_student()
