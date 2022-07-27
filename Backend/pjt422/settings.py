@@ -11,23 +11,27 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-from os import getenv
+# from os import environ, getenv
+import os
+import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# env
+env = environ.Env(DEBUG=(bool, True))
+environ.Env.read_env(
+    env_file=os.path.join(BASE_DIR, '.env')
+)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = getenv('BACKEND_SECRET_KEY')
+SECRET_KEY = env('BACKEND_SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = getenv('DEBUG', 'False') == 'True'
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = getenv('BACKEND_ALLOWED_HOSTS', '').split(' ')
-
+ALLOWED_HOSTS = env('BACKEND_ALLOWED_HOSTS', '').split(' ')
 
 # Application definition
 
@@ -119,11 +123,11 @@ DATABASES = {
     # MariaDB 사용
     'default': {
         'ENGINE': 'django.db.backends.mysql', # mysqlclient librarly 설치 => pip install mysqlclient
-        'NAME': getenv('MYSQL_DATABASE'), # db 이름
-        'USER': getenv('MYSQL_USER'),
-        'PASSWORD': getenv('MYSQL_ROOT_PASSWORD'), # mariaDB 설치 시 입력한 root 비밀번호 입력
-        'HOST': getenv('MYSQL_HOST'),
-        'PORT': getenv('MYSQL_PORT'),  # default 3306 / Mariadb 설치 시 해당 포트 변경했다면 변경해줘야함
+        'NAME': env('MYSQL_DATABASE'), # db 이름
+        'USER': env('MYSQL_USER'),
+        'PASSWORD': env('MYSQL_ROOT_PASSWORD'), # mariaDB 설치 시 입력한 root 비밀번호 입력
+        'HOST': env('MYSQL_HOST'),
+        'PORT': env('MYSQL_PORT'),  # default 3306 / Mariadb 설치 시 해당 포트 변경했다면 변경해줘야함
     }
 }
 
