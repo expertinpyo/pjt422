@@ -31,7 +31,7 @@ SECRET_KEY = env('BACKEND_SECRET_KEY')
 
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = env('BACKEND_ALLOWED_HOSTS', '').split(' ')
+ALLOWED_HOSTS = env('BACKEND_ALLOWED_HOSTS').split(' ')
 
 # Application definition
 
