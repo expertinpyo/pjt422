@@ -7,12 +7,12 @@ from campus.models import Trashbin
 # 하루 단위로 레코드 생성
 # 하루에 총 24개의 데이터
 class Stats(models.Model):
-  date = models.DateTimeField()
-  time = models.CharField(max_length=15)
-  empty_num = models.IntegerField()
-  use_num = models.IntegerField()
-  amount = models.FloatField()
-  trashbin = models.ForeignKey(Trashbin, on_delete=models.CASCADE)
-  
-  def __str__(self):
-    return self.date
+    date = models.DateTimeField()
+    time = models.CharField(max_length=15)
+    empty_num = models.IntegerField()
+    use_num = models.IntegerField()
+    amount = models.FloatField()
+    trashbin = models.ForeignKey(Trashbin, on_delete=models.CASCADE)
+    
+    def __str__(self):
+      return self.date
