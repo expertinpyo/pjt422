@@ -27,22 +27,11 @@ environ.Env.read_env(
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-
-# 도커
-# SECRET_KEY = getenv('BACKEND_SECRET_KEY')
-
-# 로컬
 SECRET_KEY = env('BACKEND_SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-# 도커
-# DEBUG = getenv('DEBUG', 'False') == 'True'
-
-# 로컬
 DEBUG = env('DEBUG')
 
-# ALLOWED_HOSTS = getenv('BACKEND_ALLOWED_HOSTS', '').split(' ')
+ALLOWED_HOSTS = env('BACKEND_ALLOWED_HOSTS', '').split(' ')
 
 # Application definition
 
