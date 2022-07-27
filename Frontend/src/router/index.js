@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import MainView from "../views/MainView.vue";
+import NotificationView from "../views/NotificationView.vue";
 import StatsView from "../views/StatsView.vue";
 import SettingsView from "../views/SettingsView.vue";
 import LoginView from "../views/LoginView.vue";
@@ -32,6 +33,12 @@ const routes = [
     path: "/",
     name: "main",
     component: MainView,
+  },
+  {
+    path: "/noti",
+    name: "notification",
+    component: NotificationView,
+    beforeEnter: requireAuth(),
   },
   {
     path: "/stats",
