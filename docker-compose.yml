@@ -2,7 +2,10 @@ version: "3.9"
 
 services:
   frontend:
-    build: ./Frontend
+    build:
+      context: ./Frontend
+      args:
+        VUE_APP_BACKEND_HOST: ${VUE_APP_BACKEND_HOST}
     image: 422_frontend:${BUILD_TAG}
     container_name: 422_frontend
     ports:
