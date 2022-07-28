@@ -1,8 +1,8 @@
 <template>
   <h1>StatsView</h1>
-  <h3>TableHere</h3>
+  <p>쓰레기통 비움 목록</p>
   <StatsTable />
-  <h3>ChartHere</h3>
+  <p>재활용 쓰레기 종류별 배출량</p>
   <StatsChart />
 </template>
 

@@ -1,6 +1,19 @@
 <template>
   <div>
-    <vue-good-table :columns="columns" :rows="rows" />
+    <vue-good-table
+      :columns="columns"
+      :rows="rows"
+      :search-options="{ enabled: true, placeholder: '검색어를 입력하세요.' }"
+      :pagination-options="{ enabled: true, mode: 'records' }"
+      theme="polar-bear"
+      styleClass="vgt-table
+    condensed"
+      max-height="500px"
+      :fixed-header="true"
+      compactMode
+    >
+      <template #emptystate>This will show up when there are no rows</template>
+    </vue-good-table>
   </div>
 </template>
 
@@ -22,23 +35,23 @@ export default {
           type: "number",
         },
         {
-          label: "TrashcanID",
+          label: "쓰레기통 ID",
           field: "trashcanId",
           type: "number",
         },
         {
-          label: "Latest collection time",
+          label: "최종 수거 시간",
           field: "latestCollectionTime",
           type: "date",
           dateInputFormat: "yyyy-MM-dd HH:mm:ss",
           dateOutputFormat: "yyyy-MM-dd HH:mm:ss",
         },
         {
-          label: "Location",
+          label: "위치",
           field: "location",
         },
         {
-          label: "Trash Type",
+          label: "쓰레기 종류",
           field: "trashType",
         },
       ],
