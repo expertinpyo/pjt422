@@ -11,6 +11,9 @@ export default {
   components: {
     NavBar,
   },
+  created() {
+    this.$store.state.axios = this.$axios;
+  },
 };
 </script>
 
