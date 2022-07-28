@@ -35,7 +35,7 @@
         @floor-changed="changeFloor"
       />
     </div>
-    <div class="trash-map-container">
+    <div class="trash-map-container" v-if="Object.keys(floors).length">
       <div class="form-check form-switch trash-map-toggle">
         <input
           class="form-check-input"
@@ -74,6 +74,7 @@
 <script>
 import TrashMapFloorSelector from "@/components/main/TrashMapFloorSelector.vue";
 import TrashMap from "@/components/main/TrashMap.vue";
+import axios from "axios";
 
 export default {
   name: "MainView",
@@ -84,6 +85,14 @@ export default {
   watch: {
     mapToggleChecked() {
       this.currentFloor = -(1 + this.currentFloor);
+    },
+    currentCampus() {
+      this.mapToggleChecked = false;
+      this.fetchBuildings();
+    },
+    currentBuilding() {
+      this.mapToggleChecked = false;
+      this.fetchFloors();
     },
     currentFloor() {
       if (this.mapToggleChecked && this.currentFloor >= 0) {
@@ -100,7 +109,7 @@ export default {
   },
   computed: {
     mapWidth() {
-      const width = this.windowWidth - 150;
+      const width = this.windowWidth - 180;
       const columns = this.mapToggleChecked
         ? Math.max(1, Math.floor(width / 312))
         : 1;
@@ -119,159 +128,106 @@ export default {
       currentCampus: 0,
       currentBuilding: 0,
       currentFloor: 0,
-      campuses: [
-        { id: 0, name: "서울" },
-        { id: 1, name: "부산" },
-      ],
-      buildings: [
-        { id: 0, name: "공학관" },
-        { id: 1, name: "도서관" },
-      ],
-      floors: [
-        {
-          id: 0,
-          name: "B1",
-          src: require("@/assets/test_map_b1.png"),
-          width: 860,
-          height: 310,
-          trashbins: [
-            {
-              id: 0,
-              name: "name1",
-              color: "#AA0000",
-              x: 200,
-              y: 200,
-              size: 20,
-            },
-            {
-              id: 1,
-              name: "name2",
-              color: "#00AA00",
-              x: 222,
-              y: 200,
-              size: 20,
-            },
-            {
-              id: 2,
-              name: "name3",
-              color: "#0000AA",
-              x: 244,
-              y: 200,
-              size: 20,
-            },
-          ],
-        },
-        {
-          id: 1,
-          name: "1",
-          src: require("@/assets/test_map_1.png"),
-          width: 860,
-          height: 310,
-          trashbins: [
-            {
-              id: 3,
-              name: "name1",
-              color: "#AAAA00",
-              x: 200,
-              y: 200,
-              size: 20,
-            },
-            {
-              id: 4,
-              name: "name2",
-              color: "#00AAAA",
-              x: 222,
-              y: 200,
-              size: 20,
-            },
-            {
-              id: 5,
-              name: "name3",
-              color: "#AA00AA",
-              x: 244,
-              y: 200,
-              size: 20,
-            },
-          ],
-        },
-        {
-          id: 2,
-          name: "2",
-          src: require("@/assets/test_map_2.png"),
-          width: 860,
-          height: 310,
-          trashbins: [
-            {
-              id: 6,
-              name: "name1",
-              color: "#0000AA",
-              x: 200,
-              y: 200,
-              size: 20,
-            },
-            {
-              id: 7,
-              name: "name2",
-              color: "#AA0000",
-              x: 222,
-              y: 200,
-              size: 20,
-            },
-            {
-              id: 8,
-              name: "name3",
-              color: "#00AA00",
-              x: 244,
-              y: 200,
-              size: 20,
-            },
-          ],
-        },
-        {
-          id: 3,
-          name: "3",
-          src: require("@/assets/test_map_3.png"),
-          width: 860,
-          height: 310,
-          trashbins: [
-            {
-              id: 9,
-              name: "name1",
-              color: "#AA00AA",
-              x: 200,
-              y: 200,
-              size: 20,
-            },
-            {
-              id: 10,
-              name: "name2",
-              color: "#AAAA00",
-              x: 222,
-              y: 200,
-              size: 20,
-            },
-            {
-              id: 11,
-              name: "name3",
-              color: "#00AAAA",
-              x: 244,
-              y: 200,
-              size: 20,
-            },
-          ],
-        },
-      ],
+      campuses: {},
+      buildings: {},
+      floors: {},
     };
   },
   methods: {
     changeFloor(floor) {
       this.currentFloor = floor.id;
     },
+    async fetchCampuses() {
+      const apiUrl = process.env.VUE_APP_BACKEND_HOST + "/api/v1";
+      const resCampuses = await axios.get(apiUrl + "/campus");
+      this.campuses = resCampuses.data.reduce((prev, cur) => {
+        prev[cur.pk] = {
+          id: cur.pk,
+          name: cur.name,
+        };
+        return prev;
+      }, {});
+
+      if (Object.keys(this.campuses).length) {
+        this.currentCampus = this.campuses[Object.keys(this.campuses)[0]].id;
+        await this.fetchBuildings();
+      }
+    },
+    async fetchBuildings() {
+      const apiUrl = process.env.VUE_APP_BACKEND_HOST + "/api/v1";
+      const resBuildings = await axios.get(
+        apiUrl + "/campus/" + this.currentCampus
+      );
+      this.buildings = resBuildings.data.building.reduce((prev, cur) => {
+        prev[cur.pk] = {
+          id: cur.pk,
+          name: cur.name,
+        };
+        return prev;
+      }, {});
+
+      if (Object.keys(this.buildings).length) {
+        this.currentBuilding =
+          this.buildings[Object.keys(this.buildings)[0]].id;
+        await this.fetchFloors();
+      }
+    },
+    async fetchFloors() {
+      const apiUrl = process.env.VUE_APP_BACKEND_HOST + "/api/v1";
+      const resFloors = await axios.get(
+        apiUrl + "/campus/building/" + this.currentBuilding
+      );
+      this.floors = resFloors.data.floor.reduce((prev, cur) => {
+        prev[cur.pk] = {
+          id: cur.pk,
+          name: cur.name,
+          width: cur.width,
+          height: cur.height,
+          src: cur.map_path,
+          trashbinSize: cur.trashbin_size || 20,
+          trashbins: [],
+        };
+        return prev;
+      }, {});
+
+      const trashbin_colormap = {
+        SAF: "#00AA00",
+        CAU: "#AAAA00",
+        WAR: "#AA0000",
+      };
+
+      Object.keys(this.floors).forEach(async (floor_id) => {
+        const resTrashbins = await axios.get(
+          apiUrl + "/campus/floor/" + floor_id
+        );
+        this.floors[floor_id].trashbins = resTrashbins.data.trashbin.map(
+          (el) => {
+            return {
+              id: el.id,
+              name: el.trash_type,
+              x: el.location_x,
+              y: el.location_y,
+              color: trashbin_colormap[el.status],
+            };
+          }
+        );
+      });
+
+      if (Object.keys(this.floors).length) {
+        this.currentFloor = this.floors[Object.keys(this.floors)[0]].id;
+      }
+    },
   },
-  mounted() {
+  async mounted() {
     window.addEventListener("resize", () => {
       this.windowWidth = window.innerWidth;
     });
+
+    try {
+      await this.fetchCampuses();
+    } catch (err) {
+      // console.log(err);
+    }
   },
 };
 </script>
@@ -282,7 +238,7 @@ export default {
   margin-top: 10px;
 }
 .trash-map-selector-container {
-  width: 131px;
+  width: 161px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -290,11 +246,11 @@ export default {
   border-right: 1px solid black;
 }
 .trash-map-campus-dropdown {
-  width: 120px;
+  width: 150px;
   margin-bottom: 10px;
 }
 .trash-map-building-dropdown {
-  width: 120px;
+  width: 150px;
   margin-bottom: 30px;
 }
 .trash-map-container {

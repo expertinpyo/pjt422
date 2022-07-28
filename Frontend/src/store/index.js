@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+import axios from "axios";
 
 export default createStore({
   state: {
@@ -11,7 +12,13 @@ export default createStore({
       if (state.accessToken !== null) {
         return true;
       }
-      // TODO: localStorage 확인하는 코드 필요
+      const accessToken = window.localStorage.getItem("access-token");
+      if (accessToken) {
+        state.accessToken = accessToken;
+        axios.defaults.headers.common["Authorization"] =
+          "token " + state.accessToken;
+        return true;
+      }
       return false;
     },
   },
@@ -30,19 +37,35 @@ export default createStore({
     async login({ commit, state }, { userid, passwd }) {
       return new Promise((resolve, reject) => {
         if (state.accessToken !== null) {
+          // TODO: expired check
           reject();
           return;
         }
 
-        // TODO: login process
-        const accessToken = userid + passwd;
-        if (accessToken !== null) {
-          commit("SET_ACCESS_TOKEN", accessToken);
-          resolve();
-          return;
-        }
+        const login_url =
+          process.env.VUE_APP_BACKEND_HOST + "/api/v1/accounts/login/";
+        const login_payload = {
+          username: userid,
+          password: passwd,
+        };
 
-        reject();
+        axios
+          .post(login_url, login_payload)
+          .then((res) => {
+            const accessToken = res?.data?.key;
+            if (accessToken !== null) {
+              commit("SET_ACCESS_TOKEN", accessToken);
+              window.localStorage.setItem("access-token", accessToken);
+              axios.defaults.headers.common["Authorization"] =
+                "token " + state.accessToken;
+              resolve();
+              return;
+            }
+            reject();
+          })
+          .catch((err) => {
+            reject(err);
+          });
       });
     },
     async logout({ commit, state }) {
@@ -52,15 +75,26 @@ export default createStore({
           return;
         }
 
-        // TODO: logout process
-        const logoutSuccess = true;
-        if (logoutSuccess) {
-          commit("SET_ACCESS_TOKEN", null);
-          resolve();
-          return;
-        }
+        const logout_url =
+          process.env.VUE_APP_BACKEND_HOST + "/api/v1/accounts/logout/";
+        const logout_payload = {
+          key: state.accessToken,
+        };
 
-        reject();
+        axios
+          .post(logout_url, logout_payload)
+          .then(() => {
+            commit("SET_ACCESS_TOKEN", null);
+            window.localStorage.removeItem("access-token");
+            delete axios.defaults.headers.common["Authorization"];
+            resolve();
+          })
+          .catch((err) => {
+            commit("SET_ACCESS_TOKEN", null);
+            window.localStorage.removeItem("access-token");
+            delete axios.defaults.headers.common["Authorization"];
+            reject(err);
+          });
       });
     },
     setHoveredTrashbin({ commit }, trashbin) {
