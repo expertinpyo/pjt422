@@ -27,6 +27,11 @@
             </RouterLink>
           </li>
           <li v-if="isAuthed" class="nav-item">
+            <RouterLink class="nav-link" active-class="active" to="/noti">
+              알림
+            </RouterLink>
+          </li>
+          <li v-if="isAuthed" class="nav-item">
             <RouterLink class="nav-link" active-class="active" to="/stats">
               통계
             </RouterLink>
