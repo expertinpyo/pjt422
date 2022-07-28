@@ -1,8 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
 import MainView from "../views/MainView.vue";
+import NotificationView from "../views/NotificationView.vue";
 import StatsView from "../views/StatsView.vue";
 import SettingsView from "../views/SettingsView.vue";
 import LoginView from "../views/LoginView.vue";
+import SettingsBuilding from "../components/settings/SettingsBuilding.vue";
+import SettingsManager from "../components/settings/SettingsManager.vue";
+import SettingsUser from "../components/settings/SettingsUser.vue";
 import store from "../store";
 
 const requireAuth = () => (to, from, next) => {
@@ -31,6 +35,12 @@ const routes = [
     component: MainView,
   },
   {
+    path: "/noti",
+    name: "notification",
+    component: NotificationView,
+    beforeEnter: requireAuth(),
+  },
+  {
     path: "/stats",
     name: "stats",
     component: StatsView,
@@ -40,6 +50,20 @@ const routes = [
     path: "/settings",
     name: "settings",
     component: SettingsView,
+    children: [
+      {
+        path: "building",
+        component: SettingsBuilding,
+      },
+      {
+        path: "user",
+        component: SettingsUser,
+      },
+      {
+        path: "manager",
+        component: SettingsManager,
+      },
+    ],
     beforeEnter: requireAuth(),
   },
   {

@@ -21,9 +21,12 @@ export default {
     };
   },
   watch: {
-    floor() {
-      this.calcAndApplyBaseValues();
-      this.loadMapAndDraw();
+    floor: {
+      handler() {
+        this.calcAndApplyBaseValues();
+        this.loadMapAndDraw();
+      },
+      deep: true,
     },
     width() {
       this.canvas.width = this.width;
@@ -51,10 +54,10 @@ export default {
         this.ctx.save();
         this.ctx.fillStyle = trashbin.color;
         this.ctx.fillRect(
-          trashbin.x - trashbin.size / 2,
-          trashbin.y - trashbin.size / 2,
-          trashbin.size,
-          trashbin.size
+          trashbin.x - this.floor.trashbinSize / 2,
+          trashbin.y - this.floor.trashbinSize / 2,
+          this.floor.trashbinSize,
+          this.floor.trashbinSize
         );
 
         this.ctx.lineWidth = 1;
@@ -68,10 +71,10 @@ export default {
           this.ctx.strokeStyle = "#FF8888";
         }
         this.ctx.strokeRect(
-          trashbin.x - trashbin.size / 2,
-          trashbin.y - trashbin.size / 2,
-          trashbin.size,
-          trashbin.size
+          trashbin.x - this.floor.trashbinSize / 2,
+          trashbin.y - this.floor.trashbinSize / 2,
+          this.floor.trashbinSize,
+          this.floor.trashbinSize
         );
         this.ctx.restore();
       }
@@ -126,10 +129,10 @@ export default {
       const canvasY = -this.offsetY + ev.offsetY / this.zoom;
 
       for (let trashbin of this.floor.trashbins) {
-        const left = trashbin.x - trashbin.size / 2;
-        const right = trashbin.x + trashbin.size / 2;
-        const top = trashbin.y - trashbin.size / 2;
-        const bottom = trashbin.y + trashbin.size / 2;
+        const left = trashbin.x - this.floor.trashbinSize / 2;
+        const right = trashbin.x + this.floor.trashbinSize / 2;
+        const top = trashbin.y - this.floor.trashbinSize / 2;
+        const bottom = trashbin.y + this.floor.trashbinSize / 2;
 
         if (
           canvasX > left &&
@@ -158,10 +161,10 @@ export default {
       const canvasY = -this.offsetY + ev.offsetY / this.zoom;
 
       for (let trashbin of this.floor.trashbins) {
-        const left = trashbin.x - trashbin.size / 2;
-        const right = trashbin.x + trashbin.size / 2;
-        const top = trashbin.y - trashbin.size / 2;
-        const bottom = trashbin.y + trashbin.size / 2;
+        const left = trashbin.x - this.floor.trashbinSize / 2;
+        const right = trashbin.x + this.floor.trashbinSize / 2;
+        const top = trashbin.y - this.floor.trashbinSize / 2;
+        const bottom = trashbin.y + this.floor.trashbinSize / 2;
 
         if (
           canvasX > left &&
