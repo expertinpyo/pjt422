@@ -9,7 +9,6 @@
       styleClass="vgt-table
     condensed"
       max-height="500px"
-      :fixed-header="true"
       compactMode
     >
       <template #emptystate>This will show up when there are no rows</template>
