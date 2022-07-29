@@ -13,7 +13,7 @@ floor_url = "https://www.cnuh.co.kr/images/pcrc/sub01/sub01_0603_img01.jpg"
 belong = ["공학", "간호학", "자연과학", "경영학", "경제학", "어문학", "체육학"]
 camp_name = ["서울대학교", "연세대학교"]
 building = ["공학관", "어학관", "경영대학관", "체육관", "중앙도서관"]
-floor = ["B1","B2", "F1", "F2", "F3", "F4"]
+floor = ["B1","B2", "1", "2", "3", "4"]
 trash_type = ['GER', 'PET', 'CAN', 'GLA', 'PPR']
 # 캠퍼스
 created_at = datetime.datetime.now()
