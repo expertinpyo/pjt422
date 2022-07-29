@@ -2,13 +2,13 @@
   <div class="settings-container">
     <div class="page-selector">
       <RouterLink to="/settings/building" active-class="active">
-        건물 관리
+        <button class="btn btn-outline-primary">건물 관리</button>
       </RouterLink>
       <RouterLink to="/settings/user" active-class="active">
-        사용자 목록
+        <button class="btn btn-outline-primary">사용자 목록</button>
       </RouterLink>
       <RouterLink to="/settings/manager" active-class="active">
-        관리자 목록
+        <button class="btn btn-outline-primary">관리자 목록</button>
       </RouterLink>
     </div>
     <div class="settings-page">
@@ -31,17 +31,17 @@ export default {
 .page-selector {
   display: flex;
   flex-direction: column;
-  width: 150px;
   border-right: 1px solid black;
+  padding: 10px;
   margin-right: 0;
 }
 .page-selector > a {
-  text-decoration: none;
+  margin: 20px 0;
+}
+.page-selector button {
+  width: 120px;
 }
 .settings-page {
   width: 100%;
-}
-div {
-  border: 1px solid red;
 }
 </style>
