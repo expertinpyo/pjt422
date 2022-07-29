@@ -37,19 +37,18 @@ export default createStore({
     async login({ commit, state }, { userid, passwd }) {
       return new Promise((resolve, reject) => {
         if (state.accessToken !== null) {
-          // TODO: expired check
           reject();
           return;
         }
 
-        const login_url = "/api/v1/accounts/login/";
-        const login_payload = {
+        const loginUrl = "/api/v1/accounts/login/";
+        const loginPayload = {
           username: userid,
           password: passwd,
         };
 
         state.axios
-          .post(login_url, login_payload)
+          .post(loginUrl, loginPayload)
           .then((res) => {
             const accessToken = res?.data?.key;
             if (accessToken !== null) {
@@ -74,26 +73,28 @@ export default createStore({
           return;
         }
 
-        const logout_url = "/api/v1/accounts/logout/";
-        const logout_payload = {
+        const logoutUrl = "/api/v1/accounts/logout/";
+        const logoutPayload = {
           key: state.accessToken,
         };
 
+        const afterPost = () => {
+          commit("SET_ACCESS_TOKEN", null);
+          window.localStorage.removeItem("access-token");
+          delete state.axios.defaults.headers.common["Authorization"];
+          resolve();
+        };
+
         state.axios
-          .post(logout_url, logout_payload)
-          .then(() => {
-            commit("SET_ACCESS_TOKEN", null);
-            window.localStorage.removeItem("access-token");
-            delete state.axios.defaults.headers.common["Authorization"];
-            resolve();
-          })
-          .catch((err) => {
-            commit("SET_ACCESS_TOKEN", null);
-            window.localStorage.removeItem("access-token");
-            delete state.axios.defaults.headers.common["Authorization"];
-            reject(err);
-          });
+          .post(logoutUrl, logoutPayload)
+          .then(afterPost)
+          .catch(afterPost);
       });
+    },
+    unauthorized({ commit, state }) {
+      commit("SET_ACCESS_TOKEN", null);
+      window.localStorage.removeItem("access-token");
+      delete state.axios.defaults.headers.common["Authorization"];
     },
     setHoveredTrashbin({ commit }, trashbin) {
       commit("SET_HOVERED_TRASHBIN", trashbin);
