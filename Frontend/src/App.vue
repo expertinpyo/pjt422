@@ -12,6 +12,18 @@ export default {
     NavBar,
   },
   created() {
+    this.$axios.interceptors.response.use(
+      (res) => {
+        return res;
+      },
+      (err) => {
+        if (err.response.status === 401) {
+          this.$store.dispatch("unauthorized");
+          this.$router.push("/login");
+        }
+        return Promise.reject(err);
+      }
+    );
     this.$store.state.axios = this.$axios;
   },
 };
