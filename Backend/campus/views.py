@@ -190,7 +190,7 @@ def trashbin(request, trashbin_pk):
 
 
 # 특정 캠퍼스의 전체 관리자 조회 및 추가
-@api_view(['GET' 'POST'])
+@api_view(['GET', 'POST'])
 def managers(request, campus_pk):
     campus = get_object_or_404(Campus, pk=campus_pk)
     

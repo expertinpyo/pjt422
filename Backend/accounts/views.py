@@ -6,6 +6,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from .serializers.managers import ManagerAllUpdateSerializer, ManagerListSerializer, ManagerSerializer, ManagerUpdateSerializer
 from django.contrib.auth import get_user_model
+from campus.models import Campus
 
 # Create your views here.
 User = get_user_model()
@@ -22,10 +23,11 @@ def managers(request):
 @api_view(['POST'])
 @permission_classes([IsAdminUser])
 def campus_managers(request, campus_id):
+    campus = get_object_or_404(Campus, pk=campus_id)
     def manager_create():
         serializer = ManagerSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            serializer.save()
+            serializer.save(campus=campus)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
     
     if request.method == 'POST':
