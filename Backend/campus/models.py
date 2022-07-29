@@ -30,9 +30,11 @@ class Floor(models.Model):
     map_path = models.TextField()
     width = models.FloatField()
     height = models.FloatField()
+    trashbin_size = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     building = models.ForeignKey(Building, on_delete=models.CASCADE, related_name='floor')
+    
 
     def __str__(self):
         return self.name
@@ -59,7 +61,7 @@ class Trashbin(models.Model):
         choices=TypeOfTrash.choices,
         default=TypeOfTrash.GENERAL
     )
-    current_amount = models.FloatField()
+    current_amount = models.FloatField(default=0)
     total_amount = models.FloatField()
     # status
     status = models.CharField(
