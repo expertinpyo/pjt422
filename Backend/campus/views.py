@@ -21,6 +21,8 @@ from .serializers.trashbin import TrashbinCreateSerializer, TrashbinListSerializ
 # accounts
 from accounts.views import campus_managers
 
+from django.db.models import Q
+
 
 # 캠퍼스 / 빌딩 / 층  / 쓰레가통 열람 권한 : 모든 이용자
 # 관리자 / 학생 정보 열람 권한 : authenticated 유저 (JR + SR + MR 관리자))
@@ -276,6 +278,13 @@ def student_detail(request, campus_pk, student_pk):
         return delete_student()
         
 
+@api_view(['GET'])
+def trashbin_status(request):
+    trashbins = Trashbin.objects.filter(Q(status='CAU') | Q(status='WAR'))
+    serializer = TrashbinSerializer(trashbins, many=True)
+
+    
+    return Response(serializer.data)
 
 
 # # 층 삭제, 수정 (수정의 경우 지도가 바뀔 수도 있으므로)
