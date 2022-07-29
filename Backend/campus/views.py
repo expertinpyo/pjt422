@@ -1,3 +1,4 @@
+from django.http import QueryDict
 from django.shortcuts import get_object_or_404, get_list_or_404
 
 # rest framework 
@@ -5,6 +6,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework import status, exceptions
 from rest_framework.response import Response
+
 
 # models
 from .models import Campus, Student, Building, Floor, Trashbin
@@ -204,6 +206,12 @@ def trashbin(request, trashbin_pk):
         raise exceptions.AuthenticationFailed('No Authorization to perform this task')
 
 
+@api_view(['GET',])
+@permission_classes([IsAuthenticated])
+def trashbin_check(request):
+    trashbins = Trashbin.objects.exclude(status__iexact='SAF').filter(floor__building__campus__pk=request.user.pk)
+    serializer = TrashbinListSerializer(trashbins, many=True)
+    return Response(serializer.data)
 
 
 # 특정 캠퍼스의 전체 관리자 조회 및 추가
