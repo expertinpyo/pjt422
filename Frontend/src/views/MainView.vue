@@ -73,8 +73,7 @@
 
 <script>
 import TrashMapFloorSelector from "@/components/main/TrashMapFloorSelector.vue";
-import TrashMap from "@/components/main/TrashMap.vue";
-import axios from "axios";
+import TrashMap from "@/components/trashmap/TrashMap.vue";
 
 export default {
   name: "MainView",
@@ -138,8 +137,7 @@ export default {
       this.currentFloor = floor.id;
     },
     async fetchCampuses() {
-      const apiUrl = process.env.VUE_APP_BACKEND_HOST + "/api/v1";
-      const resCampuses = await axios.get(apiUrl + "/campus");
+      const resCampuses = await this.$axios.get("/api/v1/campus");
       this.campuses = resCampuses.data.reduce((prev, cur) => {
         prev[cur.pk] = {
           id: cur.pk,
@@ -154,9 +152,8 @@ export default {
       }
     },
     async fetchBuildings() {
-      const apiUrl = process.env.VUE_APP_BACKEND_HOST + "/api/v1";
-      const resBuildings = await axios.get(
-        apiUrl + "/campus/" + this.currentCampus
+      const resBuildings = await this.$axios.get(
+        "/api/v1/campus/" + this.currentCampus
       );
       this.buildings = resBuildings.data.building.reduce((prev, cur) => {
         prev[cur.pk] = {
@@ -173,9 +170,8 @@ export default {
       }
     },
     async fetchFloors() {
-      const apiUrl = process.env.VUE_APP_BACKEND_HOST + "/api/v1";
-      const resFloors = await axios.get(
-        apiUrl + "/campus/building/" + this.currentBuilding
+      const resFloors = await this.$axios.get(
+        "/api/v1/campus/building/" + this.currentBuilding
       );
       this.floors = resFloors.data.floor.reduce((prev, cur) => {
         prev[cur.pk] = {
@@ -184,7 +180,7 @@ export default {
           width: cur.width,
           height: cur.height,
           src: cur.map_path,
-          trashbinSize: cur.trashbin_size || 20,
+          trashbinSize: cur.trashbin_size,
           trashbins: [],
         };
         return prev;
@@ -197,8 +193,8 @@ export default {
       };
 
       Object.keys(this.floors).forEach(async (floor_id) => {
-        const resTrashbins = await axios.get(
-          apiUrl + "/campus/floor/" + floor_id
+        const resTrashbins = await this.$axios.get(
+          "/api/v1/campus/floor/" + floor_id
         );
         this.floors[floor_id].trashbins = resTrashbins.data.trashbin.map(
           (el) => {
@@ -218,7 +214,7 @@ export default {
       }
     },
   },
-  async mounted() {
+  async created() {
     window.addEventListener("resize", () => {
       this.windowWidth = window.innerWidth;
     });
