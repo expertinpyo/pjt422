@@ -274,8 +274,6 @@ def student_detail(request, campus_pk, student_pk):
 def trashbin_status(request):
     trashbins = Trashbin.objects.filter(Q(status='CAU') | Q(status='WAR'))
     serializer = TrashbinSerializer(trashbins, many=True)
-
-    
     return Response(serializer.data)
 
 
