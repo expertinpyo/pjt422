@@ -73,7 +73,7 @@
 
 <script>
 import TrashMapFloorSelector from "@/components/main/TrashMapFloorSelector.vue";
-import TrashMap from "@/components/main/TrashMap.vue";
+import TrashMap from "@/components/trashmap/TrashMap.vue";
 
 export default {
   name: "MainView",
@@ -180,7 +180,7 @@ export default {
           width: cur.width,
           height: cur.height,
           src: cur.map_path,
-          trashbinSize: cur.trashbin_size || 20,
+          trashbinSize: cur.trashbin_size,
           trashbins: [],
         };
         return prev;
@@ -214,7 +214,7 @@ export default {
       }
     },
   },
-  async mounted() {
+  async created() {
     window.addEventListener("resize", () => {
       this.windowWidth = window.innerWidth;
     });
