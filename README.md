@@ -44,7 +44,7 @@
 ## 팀 소개
 
 * 안다영 : 팀장, FE, HW, UCC
-* 김지인 : FE, HW, UCC
+* 김지인 : FE, HW, Be, Infra
 * 박정미 : FE, HW, UCC
 * 장세진 : BE, Infra
 * 홍인표 : BE, Infra

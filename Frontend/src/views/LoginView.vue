@@ -8,6 +8,7 @@
         id="floatingInput"
         placeholder="ID"
         v-model="userid"
+        @keypress="keypress"
       />
       <label for="floatingInput">ID</label>
     </div>
@@ -18,6 +19,7 @@
         id="floatingPassword"
         placeholder="Password"
         v-model="passwd"
+        @keypress="keypress"
       />
       <label for="floatingPassword">Password</label>
     </div>
@@ -27,7 +29,7 @@
     <button
       class="btn btn-lg btn-primary button-login"
       type="button"
-      @click="login()"
+      @click="click"
       :disabled="userid === '' || passwd === ''"
     >
       LOGIN
@@ -57,6 +59,16 @@ export default {
         this.userid = "";
         this.passwd = "";
         this.loginFail = true;
+      }
+    },
+    click(ev) {
+      if (ev.button === 0) {
+        this.login();
+      }
+    },
+    keypress(ev) {
+      if (ev.keyCode === 0x0d) {
+        this.login();
       }
     },
   },

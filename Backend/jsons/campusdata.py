@@ -55,6 +55,7 @@ for i in range(1, 3):
                 'map_path' : floor_url,
                 'width' : 650,
                 'height': 450,
+                'trashbin_size': 20,
                 'building' : cnt_building,
                 'created_at': created_at,
                 'updated_at': updated_at
@@ -70,14 +71,21 @@ for i in range(1, 3):
             for a in range(1, len(trash_type)+1):
                 fields4 = {
                     'token': str(i)+str(j)+floor[k-1]+trash_type[a-1],
-                    'current_amount': 0,
+                    'current_amount': random.randrange(0, 10),
                     'total_amount': 10,
-                    'location_x': a,
-                    'location_y': 0,
+                    'location_x': random.randrange(0, 650),
+                    'location_y': random.randrange(0, 450),
                     'floor': cnt_floor,
                     'created_at': created_at,
                     'updated_at': updated_at
                 }
+                if fields4['current_amount'] > 7:
+                    fields4['status'] = 'WAR'
+                elif fields4['current_amount'] > 4:
+                    fields4['status'] = 'CAU'
+                else:
+                    fields4['status'] = 'SAF' 
+
                 data4 = {
                     'pk' : cnt_trashbin,
                     'model': 'campus.trashbin',
