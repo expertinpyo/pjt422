@@ -1,8 +1,9 @@
 from django.shortcuts import get_object_or_404, get_list_or_404
 
 # rest framework 
-from rest_framework.decorators import api_view
-from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework import status, exceptions
 from rest_framework.response import Response
 
 # models
@@ -29,11 +30,12 @@ from accounts.views import campus_managers
 # 전체 캠퍼스 조회 및 추가
 @api_view(['GET', 'POST'])
 def campuses(request):
-    
+
     def get_campus():
         campuses = Campus.objects.all()
         serializer = CampusListSerializer(campuses, many=True)
         return Response(serializer.data)
+    
     
     def create_campus():
         serializer = CampusListSerializer(data=request.data)
@@ -44,8 +46,9 @@ def campuses(request):
     if request.method == 'GET':
         return get_campus()
     elif request.method == 'POST':
-        return create_campus()
-
+        if request.user.is_superuser:
+            return create_campus()
+        raise exceptions.AuthenticationFailed('No Authorization to perform this task')
 
 # 특정 캠퍼스의 전체 건물 조회 및 추가 / 해당 캠퍼스 수정 및 삭제
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
@@ -76,12 +79,15 @@ def campus(request, campus_pk):
 
     if request.method == 'GET':
         return get_buildings()
-    elif request.method == 'POST':
-        return create_building()
-    elif request.method == 'PUT':
-        return update_campus()
-    elif request.method == 'DELETE':
-        return delete_campus()
+    else:
+        if request.user.is_superuser:
+            if request.method == 'POST':
+                return create_building()
+            elif request.method == 'PUT':
+                return update_campus()
+            elif request.method == 'DELETE':
+                return delete_campus()
+        raise exceptions.AuthenticationFailed('No Authorization to perform this task')
 
 
 # 특정 건물의 전체 층 조회 및 층 추가 / 해당 건물 수정 및 삭제
@@ -113,12 +119,16 @@ def building(request, building_pk):
 
     if request.method == 'GET':
         return get_floors()
-    elif request.method == 'POST':
-        return create_floor()
-    elif request.method == 'PUT':
-        return update_building()
-    elif request.method == 'DELETE':
-        return delete_building()
+    else:
+        if request.user.is_superuser:
+            if request.method == 'POST':
+                return create_floor()
+            elif request.method == 'PUT':
+                return update_building()
+            elif request.method == 'DELETE':
+                return delete_building()
+        raise exceptions.AuthenticationFailed('No Authorization to perform this task')
+    
     
 
 
@@ -151,12 +161,15 @@ def floor(request, floor_pk):
 
     if request.method == 'GET':
         return get_trashbins()
-    elif request.method == 'POST':
-        return create_trashbin()
-    elif request.method == 'PUT':
-        return update_floor()
-    elif request.method == 'DELETE':
-        return delete_floor()
+    else:
+        if request.user.is_superuser:
+            if request.method == 'POST':
+                return create_trashbin()
+            elif request.method == 'PUT':
+                return update_floor()
+            elif request.method == 'DELETE':
+                return delete_floor()
+        raise exceptions.AuthenticationFailed('No Authorization to perform this task')
 
 # 해당 쓰레기통 조회 / 수정 / 삭제
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -182,15 +195,20 @@ def trashbin(request, trashbin_pk):
 
     if request.method == 'GET':
         return get_trashbin()
-    elif request.method == 'PUT':
-        return update_trashbin()
-    elif request.method == 'DELETE':
-        return delete_trashbin()
+    else:
+        if request.user.is_superuser:
+            if request.method == 'PUT':
+                return update_trashbin()
+            elif request.method == 'DELETE':
+                return delete_trashbin()
+        raise exceptions.AuthenticationFailed('No Authorization to perform this task')
+
 
 
 
 # 특정 캠퍼스의 전체 관리자 조회 및 추가
 @api_view(['GET', 'POST'])
+@permission_classes([IsAdminUser])
 def managers(request, campus_pk):
     campus = get_object_or_404(Campus, pk=campus_pk)
     
@@ -206,6 +224,7 @@ def managers(request, campus_pk):
 
 # 특정 캠퍼스의 전체 학생 조회 및 추가
 @api_view(['GET', 'POST'])
+@permission_classes([IsAdminUser])
 def students(request, campus_pk):
     campus = get_object_or_404(Campus, pk=campus_pk)
     
@@ -227,6 +246,7 @@ def students(request, campus_pk):
 
 # 학생 정보 수정 및 삭제
 @api_view(['PUT', 'DELETE'])
+@permission_classes([IsAdminUser])
 def student_detail(request, campus_pk, student_pk):
     student = get_object_or_404(Student, pk=student_pk)
     campus = get_object_or_404(Campus, pk=campus_pk)

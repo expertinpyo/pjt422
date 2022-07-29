@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/accounts/', include('accounts.urls')),
     path('api/v1/accounts/', include('dj_rest_auth.urls')), # django accounts template 이용
+    path('api/v1/accounts/signup/', include('dj_rest_auth.registration.urls')), # sigh up 사용
     path('api/v1/campus/', include('campus.urls')),
     path('api/v1/stats/', include('stats.urls')),
     path('swagger/', schema_view.with_ui('swagger')),
