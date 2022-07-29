@@ -13,6 +13,7 @@ urlpatterns = [
     # path('<int:campus_pk>/manager/<int:manager_pk>', views.manager_detail),  # 매니저 수정, 삭제
     path('<int:campus_pk>/student/', views.students),  # 해당 캠퍼스 + 학생 목록 조회, 추가
     path('<int:campus_pk>/student/<int:student_pk>/', views.student_detail),  # 학생 수정, 삭제
+    path('trashbins/status/', views.trashbin_status),
     
 
     # path('<int:campus_pk>/building', views.campus),  # 특정 캠퍼스 내 빌딩 추가
