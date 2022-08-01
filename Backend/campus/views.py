@@ -12,11 +12,11 @@ from rest_framework.response import Response
 from .models import Campus, Student, Building, Floor, Trashbin
 
 # serializers
-from .serializers.campus import CampusListSerializer, CampusSerializer, CampusManagerSerializer, CampusStudentSerializer
+from .serializers.campus import CampusListSerializer, CampusSerializer, CampusManagerSerializer, CampusStudentSerializer, CampusNotification
 from .serializers.building import BuildingFloorSerializer, BuildingSerializer
 from .serializers.floor import FloorSerializer, FloorTrashbinSerializer
 from .serializers.student import StudentListSerializer
-from .serializers.trashbin import TrashbinCreateSerializer, TrashbinListSerializer, TrashbinSerializer
+from .serializers.trashbin import TrashbinCreateSerializer, TrashbinListSerializer, TrashbinSerializer, TrashbinNotificationSerializer
 
 # accounts
 from accounts.views import campus_managers
@@ -283,6 +283,15 @@ def trashbin_status(request):
     trashbins = Trashbin.objects.filter(Q(status='CAU') | Q(status='WAR'))
     serializer = TrashbinSerializer(trashbins, many=True)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def notification(request, campus_pk):
+    trashbins = Trashbin.objects.exclude(status__iexact='SAF').filter(floor__building__campus__pk=campus_pk)
+    serializer = TrashbinNotificationSerializer(trashbins, many=True)
+    return Response(serializer.data)
+
 
 
 # # 층 삭제, 수정 (수정의 경우 지도가 바뀔 수도 있으므로)
