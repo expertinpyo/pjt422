@@ -14,6 +14,13 @@ from pathlib import Path
 # from os import environ, getenv
 import os
 import environ
+from datetime import date
+
+year = str(date.today().year)
+month = str(date.today().month) if len(str(date.today().month)) == 2 else '0' + str(date.today().month)
+day = str(date.today().day) if len(str(date.today().day)) == 2 else '0' + str(date.today().day)
+
+tday = year + month + day
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -229,19 +236,87 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'ERROR',   # handler level 
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs') + '/log',   # 로그 저장 위치
+    'disable_existing_loggers': False,   # Django 기본 로그 미사용 여부
+    'formatters':{
+        'format1': {
+            'format': '[%(asctime)s] %(message)s',
+            'datefmt': '%Y/%m/%d %H:%M:%S'
         },
     },
+    'handlers': {
+        'daily':{
+            'level': 'ERROR',   # handler level 
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs') + f'/{tday}',   # 로그 저장 위치
+            'formatter': 'format1',
+            'encoding': 'utf-8', # 한글 로그 가능
+        },
+        'console': {
+            'level' : 'INFO',
+            'class': 'logging.StreamHandler',
+        },
+        
+    },
     'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'ERROR',   # logger level
-            'propagate': False,
+        'trash_event': {
+            'handlers': ['daily', 'console'],
+            'level': 'INFO',   # logger level
+            'propagate': True,
         },
     },
 }
+
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'filters': {
+#         'require_debug_false': {
+#             '()': 'django.utils.log.RequireDebugFalse',
+#         },
+#         'require_debug_true': {
+#             '()': 'django.utils.log.RequireDebugTrue',
+#         },
+#     },
+#     'formatters': {
+#         'django.server': {
+#             '()': 'django.utils.log.ServerFormatter',
+#             'format': '[{server_time}] {message}',
+#             'style': '{',
+#         },
+#         'format1': {
+#             'format': '[%(asctime)s] %(message)s',
+#             'datefmt': '%Y/%m/%d %H:%M:%S'
+#         },
+#     },
+#     'handlers': {
+#         'console': {
+#             'level': 'INFO',
+#             'filters': ['require_debug_true'],
+#             'class': 'logging.StreamHandler',
+#         },
+#         'daily':{
+#             'level': 'ERROR',   # handler level 
+#             'class': 'logging.FileHandler',
+#             'filename': os.path.join(BASE_DIR, 'logs') + f'/{tday}',   # 로그 저장 위치
+#             'formatter': 'format1',
+#             'encoding': 'utf-8', # 한글 로그 가능
+#         },
+#         'django.server': {
+#             'level': 'INFO',
+#             'class': 'logging.StreamHandler',
+#             'formatter': 'django.server',
+#         },
+        
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['console', 'daily',],
+#             'level': 'INFO',
+#         },
+#         'django.server': {
+#             'handlers': ['django.server', ],
+#             'level': 'INFO',
+#             'propagate': False,
+#         },
+#     }
+# }
