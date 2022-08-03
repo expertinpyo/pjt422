@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from .serializers.managers import ManagerAllUpdateSerializer, ManagerListSerializer, ManagerCreateSerializer, ManagerUpdateSerializer, ManagerMasterUpdateSerializer, ManagerNormalUpdateSerializer
 from django.contrib.auth import get_user_model
 from campus.models import Campus
+import re
 
 # Create your views here.
 User = get_user_model()
@@ -29,6 +30,11 @@ def managers(request):
 def campus_managers(request, campus_id):
     def manager_create():
         campus = get_object_or_404(Campus, pk=campus_id)
+        password = request.data.get('password')
+        if len(password) < 8:
+            return Response({'password': '비밀번호는 8자 이상 입력하세요'})
+        elif not re.findall('[0-9]+', password) or not re.findall('[a-zA-z]',password):
+            return Response({'password': '숫자와 영어의 조합으로 비밀번호를 만들어주세요'})
         serializer = ManagerCreateSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save(campus=campus)
