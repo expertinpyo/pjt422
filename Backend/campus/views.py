@@ -41,7 +41,7 @@ def test(request, rfid, trashbin_pk):
     logger.error(f'{campus.name} {building.name} {floor.name} {trashbin.token} {trashbin.trash_type} {rfid} {trashbin.current_amount}')
     
 
-    return Response(status=status.HTTP_202_ACCEPTED)
+    return Response(status=status.HTTP_200_OK)
 
 # 전체 캠퍼스 조회 및 추가
 @api_view(['GET', 'POST'])
