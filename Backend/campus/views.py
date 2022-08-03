@@ -16,13 +16,15 @@ from .serializers.campus import CampusListSerializer, CampusSerializer, CampusMa
 from .serializers.building import BuildingFloorSerializer, BuildingSerializer
 from .serializers.floor import FloorSerializer, FloorTrashbinSerializer
 from .serializers.student import StudentListSerializer
-from .serializers.trashbin import TrashbinCreateSerializer, TrashbinListSerializer, TrashbinSerializer
+from .serializers.trashbin import TrashbinCreateSerializer, TrashbinListSerializer, TrashbinSerializer, TrashbinNotificationSerializer
 
 # accounts
 from accounts.views import campus_managers
 
-from django.db.models import Q
+# logging
+import logging
 
+logger = logging.getLogger('django')
 
 # 캠퍼스 / 빌딩 / 층  / 쓰레가통 열람 권한 : 모든 이용자
 # 관리자 / 학생 정보 열람 권한 : authenticated 유저 (JR + SR + MR 관리자))
@@ -30,6 +32,12 @@ from django.db.models import Q
 # 캠퍼스 / 빌딩 / 층 / 관리자 / 학생 추가, 삭제, 수정 권한 : admin (MR 관리자)
 # 쓰레기통 추가, 삭제, 수정 권한 : authenticated (SR + MR 관리자)
 
+@api_view(['GET', 'POST'])
+def test(request):
+    logger.error("this is error123")
+    campus = Campus.objects.all()
+    serializer = CampusListSerializer(campus, many=True)
+    return Response(serializer.data)
 
 # 전체 캠퍼스 조회 및 추가
 @api_view(['GET', 'POST'])
@@ -283,6 +291,15 @@ def trashbin_status(request):
     trashbins = Trashbin.objects.filter(Q(status='CAU') | Q(status='WAR'))
     serializer = TrashbinSerializer(trashbins, many=True)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def notification(request, campus_pk):
+    trashbins = Trashbin.objects.exclude(status__iexact='SAF').filter(floor__building__campus__pk=campus_pk)
+    serializer = TrashbinNotificationSerializer(trashbins, many=True)
+    return Response(serializer.data)
+
 
 
 # # 층 삭제, 수정 (수정의 경우 지도가 바뀔 수도 있으므로)
