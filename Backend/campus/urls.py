@@ -3,8 +3,8 @@ from . import views
 
 urlpatterns = [
     path('', views.campuses),  # 전체 캠퍼스 목록 조회 및 캠퍼스 추가
+    path('notification/', views.notification), # 쓰레기통 알림
     path('<int:campus_pk>/', views.campus), # 특정 캠퍼스 세부사항 + 해당 캠퍼스 내 건물 목록 조회, 캠퍼스 수정 및 삭제
-    path('<int:campus_pk>/notification/', views.notification), # 쓰레기통 알림
 
     path('building/<int:building_pk>/', views.building), # 특정 빌딩 세부사항 + 해당 빌딩 내 모든 층 목록 조회, 빌딩 수정 및 삭제
     path('floor/<int:floor_pk>/', views.floor), # 특정 층 세부사항 + 모든 쓰레게통 조회, 층 수정 및 삭제 
