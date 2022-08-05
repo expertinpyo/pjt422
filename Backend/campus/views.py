@@ -1,5 +1,6 @@
 from django.http import QueryDict
 from django.shortcuts import get_object_or_404, get_list_or_404
+from django.contrib.auth import get_user_model
 
 # rest framework 
 from rest_framework.decorators import api_view, permission_classes
@@ -308,8 +309,29 @@ def notification(request):
     return Response(serializer.data)
 
 
-
-
+#test
+@api_view(['GET'])
+def check_all(requests, rfid):
+    User = get_user_model()
+    try:
+        user = Student.objects.get(rfid_num = rfid)
+        data = {
+            'who': '등록된 사용자입니다.'
+        }
+    except Student.DoesNotExist:
+    
+        user = User.objects.filter(rfid_num=rfid)
+        if len(user) >= 1:
+            data = {
+                'who': '관리자입니다.'
+            }
+        else:
+            data = {
+                'who': '미등록된 사용자입니다.'
+            }
+    finally:
+        return Response(data)
+     
 
 # # 층 삭제, 수정 (수정의 경우 지도가 바뀔 수도 있으므로)
 # @api_view(['GET', 'DELETE', 'PUT'])
