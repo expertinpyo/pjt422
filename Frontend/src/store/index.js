@@ -6,6 +6,7 @@ export default createStore({
     selectedTrashbin: null,
     hoveredTrashbin: null,
     axios: null,
+    notifications: [],
   },
   getters: {
     isAuthed(state) {
@@ -31,6 +32,9 @@ export default createStore({
     },
     SET_HOVERED_TRASHBIN(state, trashbin) {
       state.hoveredTrashbin = trashbin;
+    },
+    SET_NOTIFICATIONS(state, notifications) {
+      state.notifications = notifications;
     },
   },
   actions: {
@@ -101,6 +105,26 @@ export default createStore({
     },
     setSelectedTrashbin({ commit }, trashbin) {
       commit("SET_SELECTED_TRASHBIN", trashbin);
+    },
+    async getNotifications({ commit, state, getters }) {
+      return new Promise((resolve, reject) => {
+        if (!getters.isAuthed) {
+          commit("SET_NOTIFICATIONS", []);
+          resolve();
+          return;
+        }
+
+        const notiUrl = "/api/v1/campus/trashbin/check/";
+        state.axios
+          .get(notiUrl)
+          .then((res) => {
+            commit("SET_NOTIFICATIONS", res.data);
+            resolve();
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
     },
   },
   modules: {},

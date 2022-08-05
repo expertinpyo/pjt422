@@ -78,6 +78,33 @@ export default {
         );
         this.ctx.restore();
       }
+
+      for (let trashbin of this.floor.trashbins) {
+        this.ctx.save();
+        if (trashbin?.hasNotification) {
+          this.ctx.fillStyle = "#FF0000";
+          this.ctx.beginPath();
+          this.ctx.arc(
+            trashbin.x,
+            trashbin.y - this.floor.trashbinSize,
+            8,
+            0,
+            2 * Math.PI
+          );
+          this.ctx.fill();
+
+          this.ctx.fillStyle = "#000000";
+          this.ctx.font = "bold 14px sans-serif";
+          this.ctx.textAlign = "center";
+          this.ctx.textBaseline = "middle";
+          this.ctx.fillText(
+            "!",
+            trashbin.x,
+            trashbin.y - this.floor.trashbinSize
+          );
+          this.ctx.restore();
+        }
+      }
     },
     loadMapAndDraw() {
       this.img = new Image();
@@ -128,7 +155,7 @@ export default {
       const canvasX = -this.offsetX + ev.offsetX / this.zoom;
       const canvasY = -this.offsetY + ev.offsetY / this.zoom;
 
-      for (let trashbin of this.floor.trashbins) {
+      for (let trashbin of this.floor.trashbins.slice().reverse()) {
         const left = trashbin.x - this.floor.trashbinSize / 2;
         const right = trashbin.x + this.floor.trashbinSize / 2;
         const top = trashbin.y - this.floor.trashbinSize / 2;
@@ -160,7 +187,7 @@ export default {
       const canvasX = -this.offsetX + ev.offsetX / this.zoom;
       const canvasY = -this.offsetY + ev.offsetY / this.zoom;
 
-      for (let trashbin of this.floor.trashbins) {
+      for (let trashbin of this.floor.trashbins.slice().reverse()) {
         const left = trashbin.x - this.floor.trashbinSize / 2;
         const right = trashbin.x + this.floor.trashbinSize / 2;
         const top = trashbin.y - this.floor.trashbinSize / 2;
