@@ -16,12 +16,13 @@ from .serializers.campus import CampusListSerializer, CampusSerializer, CampusMa
 from .serializers.building import BuildingFloorSerializer, BuildingSerializer
 from .serializers.floor import FloorSerializer, FloorTrashbinSerializer
 from .serializers.student import StudentListSerializer
-from .serializers.trashbin import TrashbinCreateSerializer, TrashbinListSerializer, TrashbinSerializer
+from .serializers.trashbin import TrashbinCreateSerializer, TrashbinListSerializer, TrashbinSerializer, TrashbinNotificationSerializer
 
-# accounts
-from accounts.views import campus_managers
 
-from django.db.models import Q
+import requests
+import logging
+
+logger = logging.getLogger('trash_event')
 
 
 # 캠퍼스 / 빌딩 / 층  / 쓰레가통 열람 권한 : 모든 이용자
@@ -30,6 +31,17 @@ from django.db.models import Q
 # 캠퍼스 / 빌딩 / 층 / 관리자 / 학생 추가, 삭제, 수정 권한 : admin (MR 관리자)
 # 쓰레기통 추가, 삭제, 수정 권한 : authenticated (SR + MR 관리자)
 
+@api_view(['GET', 'POST'])
+def test(request, rfid, trashbin_pk):
+    trashbin = get_object_or_404(Trashbin, pk=trashbin_pk)
+    floor = trashbin.floor
+    building = floor.building
+    campus = building.campus
+
+    logger.error(f'{campus.name} {building.name} {floor.name} {trashbin.token} {trashbin.trash_type} {rfid} {trashbin.current_amount}')
+    
+
+    return Response(status=status.HTTP_200_OK)
 
 # 전체 캠퍼스 조회 및 추가
 @api_view(['GET', 'POST'])
@@ -217,19 +229,18 @@ def trashbin_check(request):
 
 
 # 특정 캠퍼스의 전체 관리자 조회 및 추가
-@api_view(['GET', 'POST'])
+@api_view(['GET',])
 @permission_classes([IsAdminUser])
 def managers(request, campus_pk):
     campus = get_object_or_404(Campus, pk=campus_pk)
-    
+
     def get_managers():
         serializer = CampusManagerSerializer(campus)
         return Response(serializer.data)
 
-    if request.method == 'GET':
+    if request.method == 'GET' and request.user.campus.pk == campus_pk:
         return get_managers()
-    elif request.method == 'POST':
-        return campus_managers(request, campus_pk)
+    raise exceptions.AuthenticationFailed('No Authorization to perform this task')
 
 
 # 특정 캠퍼스의 전체 학생 조회 및 추가
@@ -247,12 +258,13 @@ def students(request, campus_pk):
         if serializer.is_valid(raise_exception=True):
             serializer.save(campus=campus)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-    if request.method == 'GET':
-        return get_students()
-    elif request.method == 'POST':
-        return create_student()
-
+    
+    if request.user.campus.pk == campus_pk:
+        if request.method == 'GET':
+            return get_students()
+        elif request.method == 'POST':
+            return create_student()
+    raise exceptions.AuthenticationFailed('No Authorization to perform this task')
 
 # 학생 정보 수정 및 삭제
 @api_view(['PUT', 'DELETE'])
@@ -272,17 +284,30 @@ def student_detail(request, campus_pk, student_pk):
         serializer = CampusStudentSerializer(campus)
         return Response(serializer.data)
     
-    if request.method == 'PUT':
-        return update_student()
-    elif request.method == 'DELETE':
-        return delete_student()
+    if request.user.campus.pk == campus_pk:
+        if request.method == 'PUT':
+            return update_student()
+        elif request.method == 'DELETE':
+            return delete_student()
+    raise exceptions.AuthenticationFailed('No Authorization to perform this task')
         
 
+# @api_view(['GET'])
+# def trashbin_status(request):
+#     trashbins = Trashbin.objects.filter(Q(status='CAU') | Q(status='WAR'))
+#     serializer = TrashbinSerializer(trashbins, many=True)
+#     return Response(serializer.data)
+
+
 @api_view(['GET'])
-def trashbin_status(request):
-    trashbins = Trashbin.objects.filter(Q(status='CAU') | Q(status='WAR'))
-    serializer = TrashbinSerializer(trashbins, many=True)
+@permission_classes([IsAuthenticated])
+def notification(request, campus_pk):
+    trashbins = Trashbin.objects.exclude(status__iexact='SAF').filter(floor__building__campus__pk=campus_pk)
+    serializer = TrashbinNotificationSerializer(trashbins, many=True)
     return Response(serializer.data)
+
+
+
 
 
 # # 층 삭제, 수정 (수정의 경우 지도가 바뀔 수도 있으므로)
