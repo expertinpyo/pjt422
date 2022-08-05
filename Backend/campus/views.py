@@ -301,8 +301,9 @@ def student_detail(request, campus_pk, student_pk):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def notification(request, campus_pk):
-    trashbins = Trashbin.objects.exclude(status__iexact='SAF').filter(floor__building__campus__pk=campus_pk)
+def notification(request):
+    campus = request.user.campus
+    trashbins = Trashbin.objects.filter(floor__building__campus__pk=campus.pk, amount__gte=0.4)
     serializer = TrashbinNotificationSerializer(trashbins, many=True)
     return Response(serializer.data)
 

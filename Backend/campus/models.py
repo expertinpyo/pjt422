@@ -61,8 +61,7 @@ class Trashbin(models.Model):
         choices=TypeOfTrash.choices,
         default=TypeOfTrash.GENERAL
     )
-    current_amount = models.FloatField(default=0)
-    total_amount = models.FloatField()
+    amount = models.FloatField()
     # status
     status = models.CharField(
         max_length=3,
