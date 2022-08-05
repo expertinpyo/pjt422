@@ -85,15 +85,23 @@ export default {
     mapToggleChecked() {
       this.currentFloor = -(1 + this.currentFloor);
     },
-    currentCampus() {
+    async currentCampus() {
       this.mapToggleChecked = false;
-      this.fetchBuildings();
+      try {
+        await this.fetchBuildings();
+      } catch (err) {
+        // console.log(err);
+      }
     },
-    currentBuilding() {
+    async currentBuilding() {
       this.mapToggleChecked = false;
-      this.fetchFloors();
+      try {
+        await this.fetchFloors();
+      } catch (err) {
+        // console.log(err);
+      }
     },
-    currentFloor() {
+    async currentFloor() {
       if (this.mapToggleChecked && this.currentFloor >= 0) {
         this.mapToggleChecked = false;
         this.currentFloor = -(1 + this.currentFloor);
@@ -118,6 +126,9 @@ export default {
     },
     mapHeight() {
       return Math.min(this.mapWidth, window.innerHeight - 120);
+    },
+    notifications() {
+      return this.$store.state.notifications;
     },
   },
   data() {
@@ -182,6 +193,7 @@ export default {
           src: cur.map_path,
           trashbinSize: cur.trashbin_size,
           trashbins: [],
+          notificationCount: 0,
         };
         return prev;
       }, {});
@@ -192,21 +204,33 @@ export default {
         WAR: "#AA0000",
       };
 
+      const notificationIds = this.notifications.map((el) => el.id);
+
       Object.keys(this.floors).forEach(async (floor_id) => {
         const resTrashbins = await this.$axios.get(
           "/api/v1/campus/floor/" + floor_id
         );
+
+        let notificationCount = 0;
         this.floors[floor_id].trashbins = resTrashbins.data.trashbin.map(
           (el) => {
+            let hasNotification = false;
+            if (notificationIds.includes(el.id)) {
+              hasNotification = true;
+              notificationCount++;
+            }
             return {
               id: el.id,
               name: el.trash_type,
               x: el.location_x,
               y: el.location_y,
               color: trashbin_colormap[el.status],
+              hasNotification,
             };
           }
         );
+
+        this.floors[floor_id].notificationCount = notificationCount;
       });
 
       if (Object.keys(this.floors).length) {
@@ -220,6 +244,7 @@ export default {
     });
 
     try {
+      await this.$store.dispatch("getNotifications");
       await this.fetchCampuses();
     } catch (err) {
       // console.log(err);
