@@ -19,7 +19,7 @@ from .serializers.student import StudentListSerializer
 from .serializers.trashbin import TrashbinCreateSerializer, TrashbinListSerializer, TrashbinSerializer, TrashbinNotificationSerializer
 
 
-
+import requests
 import logging
 
 logger = logging.getLogger('trash_event')
@@ -305,6 +305,8 @@ def notification(request, campus_pk):
     trashbins = Trashbin.objects.exclude(status__iexact='SAF').filter(floor__building__campus__pk=campus_pk)
     serializer = TrashbinNotificationSerializer(trashbins, many=True)
     return Response(serializer.data)
+
+
 
 
 

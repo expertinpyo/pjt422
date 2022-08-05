@@ -74,7 +74,7 @@ class Trashbin(models.Model):
     floor = models.ForeignKey(Floor, on_delete=models.CASCADE, related_name='trashbin')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    discard_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='discard_trashbin')
+    discard_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='discard_trashbin')  # 쓰레기통을 비운 관리잔
 
 
 class Student(models.Model):
