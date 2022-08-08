@@ -40,7 +40,7 @@ def test(request, rfid, trashbin_pk):
     building = floor.building
     campus = building.campus
 
-    logger.error(f'{campus.name} {building.name} {floor.name} {trashbin.token} {trashbin.trash_type} {rfid} {trashbin.current_amount}')
+    logger.error(f'{campus.name} {building.name} {floor.name} {trashbin.token} {trashbin.trash_type} {rfid} {trashbin.amount}')
     
 
     return Response(status=status.HTTP_200_OK)
