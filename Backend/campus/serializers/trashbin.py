@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import Building, Campus, Floor, Student, Trashbin
+from ..models import Building, Floor, Student, Trashbin
 from django.contrib.auth import get_user_model
 
 # 해당 층에 쓰레기통 추가
@@ -38,23 +38,17 @@ class TrashbinNotificationSerializer(serializers.ModelSerializer):
     class FloorSerializer(serializers.ModelSerializer):
         
         class BuildingSerializer(serializers.ModelSerializer):
-            
-            class CampusSerializer(serializers.ModelSerializer):
-                class Meta:
-                    model = Campus
-                    fields = ('pk', 'name')
-                
-            campus = CampusSerializer(read_only=True)
 
             class Meta:
                 model = Building
-                fields = ('pk', 'name', 'campus')
+                fields = ('pk', 'name',)
             
         building = BuildingSerializer(read_only=True)
 
         class Meta:
             model = Floor
             fields = ('pk', 'name', 'building')
+    
     floor = FloorSerializer(read_only=True)
 
     class Meta:
