@@ -17,8 +17,9 @@ urlpatterns = [
     path('<int:campus_pk>/student/<int:student_pk>/', views.student_detail),  # 학생 수정, 삭제
     
     path('test/<rfid>/<int:trashbin_pk>/', views.test),
-    path('all/<str:rfid>/', views.check_all),  # 신원 조회
-
+    #path('all/<str:rfid>/', views.check_all),  # 신원 조회
+    #path('state/<str:token>/', views.trashbin_type),  # 쓰레기통 종류 조회
+    
     # path('trashbin/check/', views.trashbin_check),
     # path('trashbins/status/', views.trashbin_status),
     

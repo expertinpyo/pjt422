@@ -32,6 +32,7 @@ class TrashbinListSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('floor',)
 
+
 class TrashbinNotificationSerializer(serializers.ModelSerializer):
     
     class FloorSerializer(serializers.ModelSerializer):
@@ -59,3 +60,10 @@ class TrashbinNotificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trashbin
         fields = '__all__'
+
+
+class TrashbinTypeSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Trashbin
+        fields = ('token', 'trash_type', 'status', 'amount', )

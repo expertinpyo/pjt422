@@ -1,3 +1,4 @@
+from lzma import CHECK_CRC32, CHECK_CRC64, CHECK_SHA256
 from django.http import QueryDict
 from django.shortcuts import get_object_or_404, get_list_or_404
 from django.contrib.auth import get_user_model
@@ -17,7 +18,7 @@ from .serializers.campus import CampusListSerializer, CampusSerializer, CampusMa
 from .serializers.building import BuildingFloorSerializer, BuildingSerializer
 from .serializers.floor import FloorSerializer, FloorTrashbinSerializer
 from .serializers.student import StudentListSerializer
-from .serializers.trashbin import TrashbinCreateSerializer, TrashbinListSerializer, TrashbinSerializer, TrashbinNotificationSerializer
+from .serializers.trashbin import TrashbinCreateSerializer, TrashbinListSerializer, TrashbinSerializer, TrashbinNotificationSerializer, TrashbinTypeSerializer
 
 
 import requests
@@ -44,6 +45,7 @@ def test(request, rfid, trashbin_pk):
 
     return Response(status=status.HTTP_200_OK)
 
+
 # 전체 캠퍼스 조회 및 추가
 @api_view(['GET', 'POST'])
 def campuses(request):
@@ -66,6 +68,7 @@ def campuses(request):
         if request.user.is_superuser:
             return create_campus()
         raise exceptions.AuthenticationFailed('No Authorization to perform this task')
+
 
 # 특정 캠퍼스의 전체 건물 조회 및 추가 / 해당 캠퍼스 수정 및 삭제
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
@@ -147,8 +150,6 @@ def building(request, building_pk):
         raise exceptions.AuthenticationFailed('No Authorization to perform this task')
     
     
-
-
 # 해당 계단 정보 + 모든 쓰레기통 조회, 쓰레기통 추가 / 해당 층 수정 및 삭제
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def floor(request, floor_pk):
@@ -187,6 +188,7 @@ def floor(request, floor_pk):
             elif request.method == 'DELETE':
                 return delete_floor()
         raise exceptions.AuthenticationFailed('No Authorization to perform this task')
+
 
 # 해당 쓰레기통 조회 / 수정 / 삭제
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -267,6 +269,7 @@ def students(request, campus_pk):
             return create_student()
     raise exceptions.AuthenticationFailed('No Authorization to perform this task')
 
+
 # 학생 정보 수정 및 삭제
 @api_view(['PUT', 'DELETE'])
 @permission_classes([IsAdminUser])
@@ -309,29 +312,45 @@ def notification(request):
     return Response(serializer.data)
 
 
-#test
-@api_view(['GET'])
-def check_all(requests, rfid):
-    User = get_user_model()
-    try:
-        user = Student.objects.get(rfid_num = rfid)
-        data = {
-            'who': '등록된 사용자입니다.'
-        }
-    except Student.DoesNotExist:
+# @api_view(['GET'])
+# def check_all(request, rfid):
+#     User = get_user_model()
+#     try:
+#         user = Student.objects.get(rfid_num = rfid)
+#         data = {
+#             'who': '등록된 사용자입니다.'
+#         }
+#     except Student.DoesNotExist: 
+#         user = User.objects.filter(rfid_num=rfid)
+#         if len(user) >= 1:
+#             data = {
+#                 'who': '관리자입니다.'
+#             }
+#         else:
+#             data = {
+#                 'who': '미등록된 사용자입니다.'
+#             }
+#     finally:
+#         return Response(data)
+
+
+# @api_view(['GET'])
+# def trashbin_type(request, token):
+#     trashbin = get_object_or_404(Trashbin, token=token)
+#     serializer = TrashbinTypeSerializer(trashbin)
+#     return Response(serializer.data)
+
+
+
+
+
+
     
-        user = User.objects.filter(rfid_num=rfid)
-        if len(user) >= 1:
-            data = {
-                'who': '관리자입니다.'
-            }
-        else:
-            data = {
-                'who': '미등록된 사용자입니다.'
-            }
-    finally:
-        return Response(data)
-     
+
+
+
+
+
 
 # # 층 삭제, 수정 (수정의 경우 지도가 바뀔 수도 있으므로)
 # @api_view(['GET', 'DELETE', 'PUT'])
