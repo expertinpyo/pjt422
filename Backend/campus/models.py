@@ -54,7 +54,7 @@ class Trashbin(models.Model):
         WARNING = 'WAR', ('Warning')
         
 
-    token = models.CharField(max_length=200)
+    token = models.CharField(max_length=200, unique=True, null=False)
     # 쓰레기 종류 코드 => 공통코드
     trash_type = models.CharField(
         max_length=3,

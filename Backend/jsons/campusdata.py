@@ -70,7 +70,7 @@ for i in range(1, 3):
 
             for a in range(1, len(trash_type)+1):
                 fields4 = {
-                    'token': str(i)+str(j)+floor[k-1]+trash_type[a-1],
+                    'token': str(i)+str(j)+floor[k-1]+trash_type[a-1]+str(cnt_trashbin),
                     'amount': random.random(),
                     'location_x': random.randrange(0, 650),
                     'location_y': random.randrange(0, 450),
