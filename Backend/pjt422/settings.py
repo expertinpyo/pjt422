@@ -239,13 +239,13 @@ LOGGING = {
     'disable_existing_loggers': False,   # Django 기본 로그 미사용 여부
     'formatters':{
         'format1': {
-            'format': '[%(asctime)s] %(message)s',
+            'format': '%(asctime)s %(message)s',
             'datefmt': '%Y/%m/%d %H:%M:%S'
         },
     },
     'handlers': {
         'daily':{
-            'level': 'ERROR',   # handler level 
+            'level': 'INFO',   # handler level 
             'class': 'logging.FileHandler',
             'filename': os.path.join(BASE_DIR, 'logs') + f'/{tday}',   # 로그 저장 위치
             'formatter': 'format1',
@@ -265,6 +265,8 @@ LOGGING = {
         },
     },
 }
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # LOGGING = {
 #     'version': 1,
