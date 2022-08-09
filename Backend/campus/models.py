@@ -22,7 +22,7 @@ class Floor(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     building = models.ForeignKey(Building, on_delete=models.CASCADE, related_name='floor')
-    
+    order = models.IntegerField()
 
     def __str__(self):
         return self.name
