@@ -1,18 +1,6 @@
 <template>
   <div class="main-container">
     <div class="trash-map-selector-container">
-      <div class="trash-map-campus-dropdown">
-        <label for="campus-select">캠퍼스</label>
-        <select id="campus-select" class="form-select" v-model="currentCampus">
-          <option
-            v-for="campus in campuses"
-            :key="campus.id"
-            :value="campus.id"
-          >
-            {{ campus.name }}
-          </option>
-        </select>
-      </div>
       <div class="trash-map-building-dropdown">
         <label for="building-select">건물</label>
         <select
@@ -85,14 +73,6 @@ export default {
     mapToggleChecked() {
       this.currentFloor = -(1 + this.currentFloor);
     },
-    async currentCampus() {
-      this.mapToggleChecked = false;
-      try {
-        await this.fetchBuildings();
-      } catch (err) {
-        // console.log(err);
-      }
-    },
     async currentBuilding() {
       this.mapToggleChecked = false;
       try {
@@ -135,10 +115,8 @@ export default {
     return {
       windowWidth: window.innerWidth,
       mapToggleChecked: false,
-      currentCampus: 0,
       currentBuilding: 0,
       currentFloor: 0,
-      campuses: {},
       buildings: {},
       floors: {},
     };
@@ -147,26 +125,10 @@ export default {
     changeFloor(floor) {
       this.currentFloor = floor.id;
     },
-    async fetchCampuses() {
-      const resCampuses = await this.$axios.get("/api/v1/campus");
-      this.campuses = resCampuses.data.reduce((prev, cur) => {
-        prev[cur.pk] = {
-          id: cur.pk,
-          name: cur.name,
-        };
-        return prev;
-      }, {});
-
-      if (Object.keys(this.campuses).length) {
-        this.currentCampus = this.campuses[Object.keys(this.campuses)[0]].id;
-        await this.fetchBuildings();
-      }
-    },
     async fetchBuildings() {
-      const resBuildings = await this.$axios.get(
-        "/api/v1/campus/" + this.currentCampus
-      );
-      this.buildings = resBuildings.data.building.reduce((prev, cur) => {
+      const resBuildings = await this.$axios.get("/api/v1/building");
+      console.log(resBuildings.data);
+      this.buildings = resBuildings.data.reduce((prev, cur) => {
         prev[cur.pk] = {
           id: cur.pk,
           name: cur.name,
@@ -182,7 +144,7 @@ export default {
     },
     async fetchFloors() {
       const resFloors = await this.$axios.get(
-        "/api/v1/campus/building/" + this.currentBuilding
+        "/api/v1/building/" + this.currentBuilding
       );
       this.floors = resFloors.data.floor.reduce((prev, cur) => {
         prev[cur.pk] = {
@@ -207,9 +169,7 @@ export default {
       const notificationIds = this.notifications.map((el) => el.id);
 
       Object.keys(this.floors).forEach(async (floor_id) => {
-        const resTrashbins = await this.$axios.get(
-          "/api/v1/campus/floor/" + floor_id
-        );
+        const resTrashbins = await this.$axios.get("/api/v1/floor/" + floor_id);
 
         let notificationCount = 0;
         this.floors[floor_id].trashbins = resTrashbins.data.trashbin.map(
@@ -245,7 +205,7 @@ export default {
 
     try {
       await this.$store.dispatch("getNotifications");
-      await this.fetchCampuses();
+      await this.fetchBuildings();
     } catch (err) {
       // console.log(err);
     }
