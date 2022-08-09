@@ -114,7 +114,7 @@ export default createStore({
           return;
         }
 
-        const notiUrl = "/api/v1/campus/trashbin/check/";
+        const notiUrl = "/api/v1/notification/";
         state.axios
           .get(notiUrl)
           .then((res) => {
