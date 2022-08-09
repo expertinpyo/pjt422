@@ -32,7 +32,7 @@ logger = logging.getLogger('trash_event')
 # 쓰레기통 추가, 삭제, 수정 권한 : authenticated (SR + MR 관리자)
 
 
-# 모든 빌딩 조회
+# 모든 빌딩 관리
 class BuildingAllView(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     
@@ -47,9 +47,10 @@ class BuildingAllView(APIView):
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        raise exceptions.AuthenticationFailed('You do not have permission to perform this action.')
 
-# 특정 빌딩 조회
+
+# 특정 빌딩 관리
 class BuildingView(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
@@ -61,24 +62,31 @@ class BuildingView(APIView):
     def post(self, request, building_pk):
         building = get_object_or_404(Building, pk=building_pk)
         serializer = FloorSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save(building=building)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        if request.user.is_superuser:
+            if serializer.is_valid(raise_exception=True):
+                serializer.save(building=building)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        raise exceptions.AuthenticationFailed('You do not have permission to perform this action.')
 
     def put(self, request, building_pk):
         building = get_object_or_404(Building, pk=building_pk)
         serializer = BuildingSerializer(instance=building, data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+        if request.user.is_superuser:
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(serializer.data)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        raise exceptions.AuthenticationFailed('You do not have permission to perform this action.')
 
     def delete(self, request, building_pk):
-        building = get_object_or_404(Building, pk=building_pk)
-        building.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        if request.user.is_superuser:
+            building = get_object_or_404(Building, pk=building_pk)
+            building.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        raise exceptions.AuthenticationFailed('You do not have permission to perform this action.')
 
 
+# 특정 층 관리
 class FloorView(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
@@ -90,24 +98,31 @@ class FloorView(APIView):
     def post(self, request, floor_pk):
         floor = get_object_or_404(Floor, pk=floor_pk)
         serializer = TrashbinCreateSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save(floor=floor)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        if request.user.is_superuser:
+            if serializer.is_valid(raise_exception=True):
+                serializer.save(floor=floor)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        raise exceptions.AuthenticationFailed('You do not have permission to perform this action.')
 
     def put(self, request, floor_pk):
-        floor = get_object_or_404(floor, pk=floor_pk)
+        floor = get_object_or_404(Floor, pk=floor_pk)
         serializer = FloorTrashbinSerializer(instance=floor, data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+        if request.user.is_superuser:
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+        raise exceptions.AuthenticationFailed('You do not have permission to perform this action.')
 
     def delete(self, request, floor_pk):
-        floor = get_object_or_404(floor, pk=floor_pk)
-        floor.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-    
+        if request.user.is_superuser:
+            floor = get_object_or_404(floor, pk=floor_pk)
+            floor.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        raise exceptions.AuthenticationFailed('You do not have permission to perform this action.')
 
+
+# 특정 쓰레기통 관리
 class TrashbinView(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
 
@@ -119,15 +134,19 @@ class TrashbinView(APIView):
     def put(self, request, trashbin_pk):
         trashbin = get_object_or_404(Trashbin, pk=trashbin_pk)
         serializer = TrashbinSerializer(instance=trashbin, data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+        if request.user.position != "JR":
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+        raise exceptions.AuthenticationFailed('You do not have permission to perform this action.')
 
     def delete(self, request, trashbin_pk):
-        trashbin = get_object_or_404(trashbin, pk=trashbin_pk)
-        trashbin.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        if request.user.position != "JR":
+            trashbin = get_object_or_404(trashbin, pk=trashbin_pk)
+            trashbin.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        raise exceptions.AuthenticationFailed('You do not have permission to perform this action.')
 
 
 # 전체 학생 조회 및 추가
@@ -146,6 +165,8 @@ class StudentAllView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
 
+
+# 학생 정보 수정 및 삭제 
 class StudentView(APIView):
     permission_classes = [IsAdminUser]
 
@@ -163,6 +184,7 @@ class StudentView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+# 알림 요청
 class NotificationView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -172,9 +194,10 @@ class NotificationView(APIView):
         return Response(serializer.data)
 
 
+# 로그 데이터 실험용
 class LogView(APIView):
 
-    def get(request, rfid, trashbin_pk):
+    def get(self, request, rfid, trashbin_pk):
         trashbin = get_object_or_404(Trashbin, pk=trashbin_pk)
         floor = trashbin.floor
         building = floor.building
