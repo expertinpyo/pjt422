@@ -6,7 +6,7 @@ class FloorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Floor
-        fields = ('name', 'map_path', 'width', 'height', 'trashbin_size')
+        fields = ('name', 'map_path', 'width', 'height', 'trashbin_size', 'order')
         
 
 
@@ -22,5 +22,5 @@ class FloorTrashbinSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Floor
-        fields = ('pk', 'name', 'map_path', 'width', 'height', 'trashbin_size','trashbin', 'building',)
+        fields = ('pk', 'name', 'map_path', 'width', 'height', 'trashbin_size','trashbin', 'building', 'order')
         

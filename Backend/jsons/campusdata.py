@@ -11,7 +11,7 @@ students = []
 floor_url = "https://www.cnuh.co.kr/images/pcrc/sub01/sub01_0603_img01.jpg"
 belong = ["공학", "간호학", "자연과학", "경영학", "경제학", "어문학", "체육학"]
 building = ["공학관", "어학관", "경영대학관", "체육관", "중앙도서관"]
-floor = ["B1","B2", "1", "2", "3", "4"]
+floor = ["B2","B1", "1", "2", "3", "4"]
 trash_type = ['GER', 'PET', 'CAN', 'GLA', 'PPR']
 
 created_at = datetime.datetime.now()
@@ -31,7 +31,7 @@ for j in range(1, len(building)+1):
         'fields': fields2
     }
     buildings.append(data2)
-
+    orders = -1
     for k in range(1, len(floor)+1):
         fields3 = {
             'name' : floor[k-1],
@@ -39,6 +39,7 @@ for j in range(1, len(building)+1):
             'width' : 650,
             'height': 450,
             'trashbin_size': 20,
+            'order': orders,
             'building' : cnt_building,
             'created_at': created_at,
             'updated_at': updated_at
@@ -50,32 +51,42 @@ for j in range(1, len(building)+1):
             'fields': fields3
         }
         floors.append(data3)
+        orders += 1
 
-        for a in range(1, len(trash_type)+1):
-            fields4 = {
-                'token': str(j)+floor[k-1]+trash_type[a-1]+str(cnt_trashbin),
-                'trash_type' : trash_type[random.randint(0, 4)],
-                'amount': random.random(),
-                'location_x': random.randrange(0, 650),
-                'location_y': random.randrange(0, 450),
-                'floor': cnt_floor,
-                'created_at': created_at,
-                'updated_at': updated_at
-            }
-            if fields4['amount'] >= 0.7:
-                fields4['status'] = 'WAR'
-            elif fields4['amount'] >= 0.4:
-                fields4['status'] = 'CAU'
-            else:
-                fields4['status'] = 'SAF' 
+        num_trashbin = random.randint(2, 6)
+        for a in range(1, num_trashbin):
+            location_x = random.randrange(30, 600)
+            location_y = random.randrange(30, 400)
+            ver_hor = random.random()
+            for asd in range(3):
+                if ver_hor >= 0.5:
+                    location_x += (asd * 20)
+                else:
+                    location_y += (asd * 20)
+                fields4 = {
+                    'token': str(j)+floor[k-1]+trash_type[a-1]+str(cnt_trashbin),
+                    'trash_type' : trash_type[random.randint(0, 4)],
+                    'amount': random.random(),
+                    'location_x': location_x,
+                    'location_y': location_y,
+                    'floor': cnt_floor,
+                    'created_at': created_at,
+                    'updated_at': updated_at
+                }
+                if fields4['amount'] >= 0.7:
+                    fields4['status'] = 'WAR'
+                elif fields4['amount'] >= 0.4:
+                    fields4['status'] = 'CAU'
+                else:
+                    fields4['status'] = 'SAF' 
 
-            data4 = {
-                'pk' : cnt_trashbin,
-                'model': 'campus.trashbin',
-                'fields': fields4
-            }
-            trashbins.append(data4)
-            cnt_trashbin += 1
+                data4 = {
+                    'pk' : cnt_trashbin,
+                    'model': 'campus.trashbin',
+                    'fields': fields4
+                }
+                trashbins.append(data4)
+                cnt_trashbin += 1
         cnt_floor += 1
     cnt_building += 1
 
