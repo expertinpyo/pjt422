@@ -3010,12 +3010,12 @@ for i in range(5, 9):
         nn = 32
     for j in range(1, nn):        
         dd = '0' + str(j) if len(str(j)) == 1 else str(j)
-        day = '2022/0' + str(i) + dd
+        day = '20220' + str(i) + dd
 
 
         cnt = 0
         data = ''
-        while cnt < 1000:
+        while cnt < 10000:
             idx = random.randrange(150)
             target = trash_list[idx]
             
