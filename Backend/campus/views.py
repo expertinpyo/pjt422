@@ -42,6 +42,7 @@ class BuildingAllView(APIView):
 
     def post(self, request):
         if request.user.is_superuser:
+            print(request.data)
             serializer = BuildingSerializer(data=request.data)
             if serializer.is_valid(raise_exception=True):
                 serializer.save()

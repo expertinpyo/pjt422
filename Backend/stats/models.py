@@ -1,4 +1,5 @@
 from datetime import datetime
+from turtle import ondrag
 from django.db import models
 from campus.models import *
 from django.utils.translation import gettext_lazy as _
@@ -8,19 +9,21 @@ from django.utils.translation import gettext_lazy as _
 # 하루 단위로 레코드 생성
 # 하루에 총 24개의 데이터
 
-class Date(models.Model):
-    date = models.CharField(max_length=8, unique=True, null=False)
+class Number(models.Model):
+    num = models.CharField(max_length=4)
 
-class TrashbinStats(models.Model):
-    class TypeOfTrash(models.TextChoices):
-        GENERAL = 'GER', _('General')
-        PLASTIC = 'PET', _('Plastic')
-        CAN = 'CAN', _('Can')
-        GLASS = 'GLA', _('Glass')
-        PAPER = 'PPR', _('Paper')
-    
+    class Meta:
+        abstract = True
 
-    token = models.CharField(max_length=20)
+class Year(Number):    
+    pass
+
+
+class Month(Number):
+    year = models.ForeignKey(Year, related_name='month', on_delete=models.CASCADE)
+
+
+class Date(Number):
     hour_00 = models.IntegerField(default=0)
     hour_01 = models.IntegerField(default=0)
     hour_02 = models.IntegerField(default=0)
@@ -46,11 +49,38 @@ class TrashbinStats(models.Model):
     hour_22 = models.IntegerField(default=0)
     hour_23 = models.IntegerField(default=0)
     total = models.IntegerField(default=0)
-    date = models.ForeignKey(Date, on_delete=models.CASCADE, related_name='trashbin_data')
-    building = models.CharField(max_length=20)
-    floor = models.CharField(max_length=20)
+
+    class Meta:
+        abstract = True
+
+
+class BuildingDate(Date):
+    # name = models.CharField(max_length=20, unique=True)
+    building_month = models.ForeignKey(Month, related_name='building_date', on_delete=models.CASCADE)
+
+
+class FloorDate(Date):
+    # name = models.CharField(max_length=20)
+    building_pk = models.IntegerField()
+    floor_month = models.ForeignKey(Month, related_name='floor_date', on_delete=models.CASCADE)
+
+
+class TrashbinDate(Date):
+    
+    
+    class TypeOfTrash(models.TextChoices):
+        GENERAL = 'GER', _('General')
+        PLASTIC = 'PET', _('Plastic')
+        CAN = 'CAN', _('Can')
+        GLASS = 'GLA', _('Glass')
+        PAPER = 'PPR', _('Paper')
+
+    token = models.CharField(max_length=20)
+    floor_pk = models.IntegerField()
     trash_type = models.CharField(
         max_length=3,
         choices=TypeOfTrash.choices,
         default=TypeOfTrash.GENERAL
     )
+    trashbin_month = models.ForeignKey(Month, related_name='trashbin_date', on_delete=models.CASCADE)
+
