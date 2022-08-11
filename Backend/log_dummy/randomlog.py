@@ -3015,7 +3015,7 @@ for i in range(5, 9):
 
         cnt = 0
         data = ''
-        while cnt < 10000:
+        while cnt < 3000:
             idx = random.randrange(150)
             target = trash_list[idx]
             
@@ -3031,7 +3031,7 @@ for i in range(5, 9):
 
             rand_rfid = str(random.randint(1, 1000))
             rand_zero = '0' * (10-len(rand_rfid))
-            sen = f'{day} {time} {target["floor"]["building"]["name"]} {target["floor"]["name"]} {target["token"]} {target["trash_type"]} {rand_zero+rand_rfid} {target["amount"]}'
+            sen = f'{day} {time} {target["floor"]["building"]["name"]} {target["floor"]["building"]["pk"]} {target["floor"]["name"]} {target["floor"]["pk"]} {target["token"]} {target["trash_type"]} {rand_zero+rand_rfid} {target["amount"]}'
             data += sen
             data += '\n'
             target["amount"] = random.random()
