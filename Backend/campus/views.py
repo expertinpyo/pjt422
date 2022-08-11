@@ -19,7 +19,9 @@ from .serializers.student import StudentCreateSerializer, StudentListSerializer
 from .serializers.trashbin import TrashbinCreateSerializer, TrashbinListSerializer, TrashbinSerializer, TrashbinNotificationSerializer, TrashbinTypeSerializer
 
 
-
+import socketserver
+import pickle
+import struct
 import logging
 
 logger = logging.getLogger('trash_event')
@@ -128,6 +130,7 @@ class TrashbinView(APIView):
 
     def get(self, request, trashbin_pk):
         trashbin = get_object_or_404(Trashbin, pk=trashbin_pk)
+        print(trashbin.trash_type)
         serializer = TrashbinSerializer(trashbin)
         return Response(serializer.data)
     
@@ -206,30 +209,101 @@ class LogView(APIView):
 
 
 
-# @api_view(['GET'])
-# def check_all(request, rfid):
-#     User = get_user_model()
-#     try:
-#         user = Student.objects.get(rfid_num = rfid)
-#         data = {
-#             'who': '등록된 사용자입니다.'
-#         }
-#     except Student.DoesNotExist: 
-#         user = User.objects.filter(rfid_num=rfid)
-#         if len(user) >= 1:
-#             data = {
-#                 'who': '관리자입니다.'
-#             }
-#         else:
-#             data = {
-#                 'who': '미등록된 사용자입니다.'
-#             }
-#     finally:
-#         return Response(data)
+
+# 통신(미완)
+def check_all(rfid, token):
+        User = get_user_model()
+        try:
+            user = Student.objects.get(rfid_num = rfid)
+            info = {
+                'who': '등록된 사용자입니다.'
+            }
+        except Student.DoesNotExist: 
+            user = User.objects.filter(rfid_num=rfid)
+            if len(user) >= 1:
+                info = {
+                    'who': '관리자입니다.'
+                }
+            else:
+                info = {
+                    'who': '미등록된 사용자입니다.'
+                }
+        return info
 
 
-# @api_view(['GET'])
-# def trashbin_type(request, token):
-#     trashbin = get_object_or_404(Trashbin, token=token)
-#     serializer = TrashbinTypeSerializer(trashbin)
-#     return Response(serializer.data)
+def check_status(token):
+    trashbin = Trashbin.objects.get(token=token)
+    # 쓰레기통 상태 정보
+    amount = trashbin.amount
+    trash_type = trashbin.trash_type
+    return amount, trash_type
+
+
+def get_info(rfid, token):
+    who = check_all(rfid)['who']
+    amount, trash_type = check_status(token)
+    info = {'who': who, 'amount': amount, 'trash_type': trash_type}
+    return info
+
+
+def update_status(token):
+    trashbin = Trashbin.objects.get(token=token)
+    if trashbin.amount >= 0.7:
+        #trashbin.update(status='WAR')
+        trashbin.status='WAR'
+        trashbin.save()
+    elif trashbin.amount >= 0.3:
+        trashbin.update(status='CAU')
+    else:
+        trashbin.update(status='SAF')
+
+
+class MyTCPHandler(socketserver.BaseRequestHandler):
+    def send_data(self, data):
+        packet = pickle.dumps(data)
+        length = struct.pack("!I", len(packet))
+        packet = length + packet
+        self.request.sendall(packet)
+
+    def recv_data(self):
+        buf = self.request.recv(4) 
+        if len(buf) == 0:
+            return None
+
+        length = struct.unpack("!I", buf)[0]
+        buf = self.request.recv(length)
+        if len(buf) == 0:
+            return None
+
+        return pickle.loads(buf)
+
+    def handle(self):
+        print("connectrion open")
+        while True:
+            data = self.recv_data()
+            if data is None:
+                break
+
+            print(f"{self.client_address[0]} wrote: {data}")
+            trashbin_token = self.data['detail'].get('token')
+            rfid  = self.data['detail'].get('rfid_num')
+
+            # 받은 데이터 db에 update
+            trashbin = Trashbin.objects.get(token=trashbin_token).update(amount=self.data['detail'].get('amount'))
+            update_status(trashbin_token)
+
+            info = get_info(rfid, trashbin_token)
+            
+            self.send_data(info)
+
+        print("connection closed")
+
+
+if __name__ == "__main__":
+    HOST, PORT = "127.0.0.1", 9999
+
+    with socketserver.TCPServer((HOST, PORT), MyTCPHandler) as server:
+        server.serve_forever()
+
+
+
