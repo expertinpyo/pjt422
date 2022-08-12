@@ -1,11 +1,12 @@
 import { createStore } from "vuex";
-import axios from "axios";
 
 export default createStore({
   state: {
     accessToken: null,
     selectedTrashbin: null,
     hoveredTrashbin: null,
+    axios: null,
+    notifications: [],
   },
   getters: {
     isAuthed(state) {
@@ -15,7 +16,7 @@ export default createStore({
       const accessToken = window.localStorage.getItem("access-token");
       if (accessToken) {
         state.accessToken = accessToken;
-        axios.defaults.headers.common["Authorization"] =
+        state.axios.defaults.headers.common["Authorization"] =
           "token " + state.accessToken;
         return true;
       }
@@ -32,31 +33,32 @@ export default createStore({
     SET_HOVERED_TRASHBIN(state, trashbin) {
       state.hoveredTrashbin = trashbin;
     },
+    SET_NOTIFICATIONS(state, notifications) {
+      state.notifications = notifications;
+    },
   },
   actions: {
     async login({ commit, state }, { userid, passwd }) {
       return new Promise((resolve, reject) => {
         if (state.accessToken !== null) {
-          // TODO: expired check
           reject();
           return;
         }
 
-        const login_url =
-          process.env.VUE_APP_BACKEND_HOST + "/api/v1/accounts/login/";
-        const login_payload = {
+        const loginUrl = "/api/v1/accounts/login/";
+        const loginPayload = {
           username: userid,
           password: passwd,
         };
 
-        axios
-          .post(login_url, login_payload)
+        state.axios
+          .post(loginUrl, loginPayload)
           .then((res) => {
             const accessToken = res?.data?.key;
             if (accessToken !== null) {
               commit("SET_ACCESS_TOKEN", accessToken);
               window.localStorage.setItem("access-token", accessToken);
-              axios.defaults.headers.common["Authorization"] =
+              state.axios.defaults.headers.common["Authorization"] =
                 "token " + state.accessToken;
               resolve();
               return;
@@ -75,33 +77,54 @@ export default createStore({
           return;
         }
 
-        const logout_url =
-          process.env.VUE_APP_BACKEND_HOST + "/api/v1/accounts/logout/";
-        const logout_payload = {
+        const logoutUrl = "/api/v1/accounts/logout/";
+        const logoutPayload = {
           key: state.accessToken,
         };
 
-        axios
-          .post(logout_url, logout_payload)
-          .then(() => {
-            commit("SET_ACCESS_TOKEN", null);
-            window.localStorage.removeItem("access-token");
-            delete axios.defaults.headers.common["Authorization"];
-            resolve();
-          })
-          .catch((err) => {
-            commit("SET_ACCESS_TOKEN", null);
-            window.localStorage.removeItem("access-token");
-            delete axios.defaults.headers.common["Authorization"];
-            reject(err);
-          });
+        const afterPost = () => {
+          commit("SET_ACCESS_TOKEN", null);
+          window.localStorage.removeItem("access-token");
+          delete state.axios.defaults.headers.common["Authorization"];
+          resolve();
+        };
+
+        state.axios
+          .post(logoutUrl, logoutPayload)
+          .then(afterPost)
+          .catch(afterPost);
       });
+    },
+    unauthorized({ commit, state }) {
+      commit("SET_ACCESS_TOKEN", null);
+      window.localStorage.removeItem("access-token");
+      delete state.axios.defaults.headers.common["Authorization"];
     },
     setHoveredTrashbin({ commit }, trashbin) {
       commit("SET_HOVERED_TRASHBIN", trashbin);
     },
     setSelectedTrashbin({ commit }, trashbin) {
       commit("SET_SELECTED_TRASHBIN", trashbin);
+    },
+    async getNotifications({ commit, state, getters }) {
+      return new Promise((resolve, reject) => {
+        if (!getters.isAuthed) {
+          commit("SET_NOTIFICATIONS", []);
+          resolve();
+          return;
+        }
+
+        const notiUrl = "/api/v1/notification/";
+        state.axios
+          .get(notiUrl)
+          .then((res) => {
+            commit("SET_NOTIFICATIONS", res.data);
+            resolve();
+          })
+          .catch((err) => {
+            reject(err);
+          });
+      });
     },
   },
   modules: {},
