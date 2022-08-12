@@ -1,18 +1,6 @@
 <template>
   <div class="main-container">
     <div class="trash-map-selector-container">
-      <div class="trash-map-campus-dropdown">
-        <label for="campus-select">캠퍼스</label>
-        <select id="campus-select" class="form-select" v-model="currentCampus">
-          <option
-            v-for="campus in campuses"
-            :key="campus.id"
-            :value="campus.id"
-          >
-            {{ campus.name }}
-          </option>
-        </select>
-      </div>
       <div class="trash-map-building-dropdown">
         <label for="building-select">건물</label>
         <select
@@ -73,8 +61,7 @@
 
 <script>
 import TrashMapFloorSelector from "@/components/main/TrashMapFloorSelector.vue";
-import TrashMap from "@/components/main/TrashMap.vue";
-import axios from "axios";
+import TrashMap from "@/components/trashmap/TrashMap.vue";
 
 export default {
   name: "MainView",
@@ -86,15 +73,15 @@ export default {
     mapToggleChecked() {
       this.currentFloor = -(1 + this.currentFloor);
     },
-    currentCampus() {
+    async currentBuilding() {
       this.mapToggleChecked = false;
-      this.fetchBuildings();
+      try {
+        await this.fetchFloors();
+      } catch (err) {
+        // console.log(err);
+      }
     },
-    currentBuilding() {
-      this.mapToggleChecked = false;
-      this.fetchFloors();
-    },
-    currentFloor() {
+    async currentFloor() {
       if (this.mapToggleChecked && this.currentFloor >= 0) {
         this.mapToggleChecked = false;
         this.currentFloor = -(1 + this.currentFloor);
@@ -120,15 +107,16 @@ export default {
     mapHeight() {
       return Math.min(this.mapWidth, window.innerHeight - 120);
     },
+    notifications() {
+      return this.$store.state.notifications;
+    },
   },
   data() {
     return {
       windowWidth: window.innerWidth,
       mapToggleChecked: false,
-      currentCampus: 0,
       currentBuilding: 0,
       currentFloor: 0,
-      campuses: {},
       buildings: {},
       floors: {},
     };
@@ -137,28 +125,10 @@ export default {
     changeFloor(floor) {
       this.currentFloor = floor.id;
     },
-    async fetchCampuses() {
-      const apiUrl = process.env.VUE_APP_BACKEND_HOST + "/api/v1";
-      const resCampuses = await axios.get(apiUrl + "/campus");
-      this.campuses = resCampuses.data.reduce((prev, cur) => {
-        prev[cur.pk] = {
-          id: cur.pk,
-          name: cur.name,
-        };
-        return prev;
-      }, {});
-
-      if (Object.keys(this.campuses).length) {
-        this.currentCampus = this.campuses[Object.keys(this.campuses)[0]].id;
-        await this.fetchBuildings();
-      }
-    },
     async fetchBuildings() {
-      const apiUrl = process.env.VUE_APP_BACKEND_HOST + "/api/v1";
-      const resBuildings = await axios.get(
-        apiUrl + "/campus/" + this.currentCampus
-      );
-      this.buildings = resBuildings.data.building.reduce((prev, cur) => {
+      const resBuildings = await this.$axios.get("/api/v1/building");
+      console.log(resBuildings.data);
+      this.buildings = resBuildings.data.reduce((prev, cur) => {
         prev[cur.pk] = {
           id: cur.pk,
           name: cur.name,
@@ -173,9 +143,8 @@ export default {
       }
     },
     async fetchFloors() {
-      const apiUrl = process.env.VUE_APP_BACKEND_HOST + "/api/v1";
-      const resFloors = await axios.get(
-        apiUrl + "/campus/building/" + this.currentBuilding
+      const resFloors = await this.$axios.get(
+        "/api/v1/building/" + this.currentBuilding
       );
       this.floors = resFloors.data.floor.reduce((prev, cur) => {
         prev[cur.pk] = {
@@ -184,8 +153,9 @@ export default {
           width: cur.width,
           height: cur.height,
           src: cur.map_path,
-          trashbinSize: cur.trashbin_size || 20,
+          trashbinSize: cur.trashbin_size,
           trashbins: [],
+          notificationCount: 0,
         };
         return prev;
       }, {});
@@ -196,21 +166,31 @@ export default {
         WAR: "#AA0000",
       };
 
+      const notificationIds = this.notifications.map((el) => el.id);
+
       Object.keys(this.floors).forEach(async (floor_id) => {
-        const resTrashbins = await axios.get(
-          apiUrl + "/campus/floor/" + floor_id
-        );
+        const resTrashbins = await this.$axios.get("/api/v1/floor/" + floor_id);
+
+        let notificationCount = 0;
         this.floors[floor_id].trashbins = resTrashbins.data.trashbin.map(
           (el) => {
+            let hasNotification = false;
+            if (notificationIds.includes(el.id)) {
+              hasNotification = true;
+              notificationCount++;
+            }
             return {
               id: el.id,
               name: el.trash_type,
               x: el.location_x,
               y: el.location_y,
               color: trashbin_colormap[el.status],
+              hasNotification,
             };
           }
         );
+
+        this.floors[floor_id].notificationCount = notificationCount;
       });
 
       if (Object.keys(this.floors).length) {
@@ -218,13 +198,14 @@ export default {
       }
     },
   },
-  async mounted() {
+  async created() {
     window.addEventListener("resize", () => {
       this.windowWidth = window.innerWidth;
     });
 
     try {
-      await this.fetchCampuses();
+      await this.$store.dispatch("getNotifications");
+      await this.fetchBuildings();
     } catch (err) {
       // console.log(err);
     }
