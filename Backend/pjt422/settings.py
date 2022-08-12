@@ -75,6 +75,9 @@ INSTALLED_APPS = [
     # Mariadb관련 앱
     # 'board.apps.BoardConfig',
 
+    # 스케줄러
+    'django_apscheduler',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -204,6 +207,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.User'
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"  # Default
+
+SCHEDULER_DEFAULT = True
 
 # LOGGING = {
 #     'version': 1,
