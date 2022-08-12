@@ -1,32 +1,42 @@
+from email.policy import default
 from django.db import models
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 # Create your models here.
 
-class Building(models.Model):
+# 기본 틀이 되는 클래스, only 상속받기 위한 용도
+class DefaultInfo(models.Model):
     name = models.CharField(max_length=100)
-    description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+
+    class Meta:
+        abstract = True
+
+class Building(DefaultInfo):
+    description = models.TextField()
+
     def __str__(self):
         return self.name
 
 
-class Floor(models.Model):
-    name = models.CharField(max_length=100)
+class Floor(DefaultInfo):
     map_path = models.TextField()
     width = models.FloatField()
     height = models.FloatField()
     trashbin_size = models.FloatField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     building = models.ForeignKey(Building, on_delete=models.CASCADE, related_name='floor')
-    order = models.IntegerField()
-
+    order = models.IntegerField()   # 층 순서
+    
     def __str__(self):
         return self.name
 
+class Group(DefaultInfo):
+    name = models.CharField(max_length=100, unique=True)
+    floor = models.ForeignKey(Floor, on_delete=models.CASCADE, related_name='group')
+    
+    def __str__(self):
+        return self.name
 
 class Trashbin(models.Model):
     class TypeOfTrash(models.TextChoices):
@@ -41,7 +51,6 @@ class Trashbin(models.Model):
         CAUTION = 'CAU', ('Caution')
         WARNING = 'WAR', ('Warning')
         
-
     token = models.CharField(max_length=200, null=False)
     # 쓰레기 종류 코드 => 공통코드
     trash_type = models.CharField(
@@ -58,7 +67,8 @@ class Trashbin(models.Model):
     )
     location_x = models.FloatField()
     location_y = models.FloatField()
-    floor = models.ForeignKey(Floor, on_delete=models.CASCADE, related_name='trashbin')
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='trashbin')
+    
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     discard_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='discard_trashbin')  # 쓰레기통을 비운 관리잔
@@ -66,13 +76,11 @@ class Trashbin(models.Model):
     def __str__(self):
         return self.token
 
-class Student(models.Model):
+
+class Student(DefaultInfo):
     student_num = models.CharField(max_length=100)
-    name = models.CharField(max_length=100)
     belong = models.CharField(max_length=100)
     rfid_num = models.CharField(max_length=200)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name

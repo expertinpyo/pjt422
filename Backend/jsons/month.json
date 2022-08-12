@@ -1,1 +1,0 @@
-[{"pk": 1, "model": "stats.month", "fields": {"num": "05", "year": 1}}, {"pk": 2, "model": "stats.month", "fields": {"num": "06", "year": 1}}, {"pk": 3, "model": "stats.month", "fields": {"num": "07", "year": 1}}, {"pk": 4, "model": "stats.month", "fields": {"num": "08", "year": 1}}]

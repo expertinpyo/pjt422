@@ -9,14 +9,14 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 # models
-from .models import Student, Building, Floor, Trashbin
+from .models import Student, Building, Floor, Trashbin, Group
 
 # serializers
 from .serializers.building import BuildingFloorSerializer, BuildingSerializer
 from .serializers.floor import FloorSerializer, FloorTrashbinSerializer
 from .serializers.student import StudentCreateSerializer, StudentListSerializer
-from .serializers.trashbin import TrashbinCreateSerializer, TrashbinListSerializer, TrashbinSerializer, TrashbinNotificationSerializer, TrashbinTypeSerializer
-
+from .serializers.trashbin import TrashbinCreateSerializer,TrashbinSerializer, TrashbinNotificationSerializer
+from .serializers.group import GroupSerializer
 
 
 import logging
@@ -97,7 +97,7 @@ class FloorView(APIView):
     
     def post(self, request, floor_pk):
         floor = get_object_or_404(Floor, pk=floor_pk)
-        serializer = TrashbinCreateSerializer(data=request.data)
+        serializer = GroupSerializer(data=request.data)
         if request.user.is_superuser:
             if serializer.is_valid(raise_exception=True):
                 serializer.save(floor=floor)
@@ -118,6 +118,42 @@ class FloorView(APIView):
         if request.user.is_superuser:
             floor = get_object_or_404(floor, pk=floor_pk)
             floor.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        raise exceptions.AuthenticationFailed('You do not have permission to perform this action.')
+
+
+# 특정 쓰레기통 그룹 관리
+class GroupView(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get(self, request, group_pk):
+        group = get_object_or_404(Group, pk=group_pk)
+        serializer = GroupSerializer(group)
+        return Response(serializer.data)
+    
+    def post(self, request, group_pk):
+        group = get_object_or_404(Group, pk=group_pk)
+        serializer = TrashbinCreateSerializer(data=request.data)
+        if request.user.is_superuser:
+            if serializer.is_valid(raise_exception=True):
+                serializer.save(group=group)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+        raise exceptions.AuthenticationFailed('You do not have permission to perform this action.')
+
+    def put(self, request, group_pk):
+        group = get_object_or_404(Group, pk=group_pk)
+        serializer = GroupSerializer(instance=group, data=request.data)
+        if request.user.is_superuser:
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+        raise exceptions.AuthenticationFailed('You do not have permission to perform this action.')
+
+    def delete(self, request, group_pk):
+        if request.user.is_superuser:
+            group = get_object_or_404(group, pk=group_pk)
+            group.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
         raise exceptions.AuthenticationFailed('You do not have permission to perform this action.')
 
@@ -199,9 +235,10 @@ class LogView(APIView):
 
     def get(self, request, rfid, trashbin_pk):
         trashbin = get_object_or_404(Trashbin, pk=trashbin_pk)
-        floor = trashbin.floor
+        group = trashbin.group
+        floor = group.floor
         building = floor.building
-        logger.info(f'{building.name} {floor.name} {trashbin.token} {trashbin.trash_type} {rfid} {trashbin.amount}')
+        logger.info(f'{building.name} {floor.name} {group.name} {trashbin.token} {trashbin.trash_type} {rfid} {trashbin.amount}')
         return Response(status=status.HTTP_200_OK)
 
 
