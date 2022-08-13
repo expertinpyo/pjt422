@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     # 데이터 직렬화를 위한 도구
     'rest_framework',
     # hardware와 통신하기 위해 필요
-    'socketio',
+    # 'socketio',
     # 다른 서버의 자원을 요청하는 메커니즘 => Vue와 통신을 위한 방법
     'corsheaders',
 

@@ -18,9 +18,9 @@ from .serializers.student import StudentCreateSerializer, StudentListSerializer
 from .serializers.trashbin import TrashbinCreateSerializer,TrashbinSerializer, TrashbinNotificationSerializer
 from .serializers.group import GroupSerializer
 
-import socketserver
-import pickle
-import struct
+# import socketserver
+# import pickle
+# import struct
 import logging
 
 logger = logging.getLogger('trash_event')
@@ -244,7 +244,12 @@ class LogView(APIView):
         logger.info(f'{building.name} {floor.name} {group.name} {trashbin.token} {trashbin.trash_type} {rfid} {trashbin.amount}')
         return Response(status=status.HTTP_200_OK)
 
-
+class TrashView(APIView):
+    
+    def get(self, request):
+        trashs = get_list_or_404(Trashbin)
+        serializer = TrashbinNotificationSerializer(trashs, many=True)
+        return Response(serializer.data)
 
 
 # # 통신(미완)
