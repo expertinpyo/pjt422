@@ -71,7 +71,7 @@ class Trashbin(models.Model):
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    discard_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='discard_trashbin')  # 쓰레기통을 비운 관리잔
+    discard_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='discard_trashbin', through='CleanRecord')  # 쓰레기통을 비운 관리잔
 
     def __str__(self):
         return self.token
@@ -87,3 +87,7 @@ class Student(DefaultInfo):
 
 
 
+class CleanRecord(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    trashbin = models.ForeignKey(Trashbin, on_delete=models.CASCADE)
+    updated_at = models.DateTimeField(auto_now=True)
