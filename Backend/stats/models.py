@@ -1,4 +1,5 @@
 from datetime import datetime
+from lib2to3.pgen2.token import GREATER
 from turtle import ondrag
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -42,14 +43,28 @@ class Basic(models.Model):
     class Meta:
         abstract = True
 
+class Types(Basic):
+    
+    CAN = models.IntegerField(default=0)
+    GER = models.IntegerField(default=0)
+    GLA = models.IntegerField(default=0)
+    PET = models.IntegerField(default=0)
+    PPR = models.IntegerField(default=0)
 
-class BuildingDate(Basic):
-    pass
+    class Meta:
+        abstract = True
 
-class FloorDate(Basic):
+class BuildingDate(Types):    
+    
+    def __str__(self):
+        return self.building_pk
+
+class FloorDate(Types):
     # name = models.CharField(max_length=20)
     floor_pk = models.IntegerField()
     
+    def __str__(self):
+        return self.floor_pk
 
 class TrashbinDate(Basic):
     
@@ -68,3 +83,6 @@ class TrashbinDate(Basic):
         choices=TypeOfTrash.choices,
         default=TypeOfTrash.GENERAL
     )
+
+    def __str__(self):
+        return self.token
