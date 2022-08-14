@@ -1,7 +1,7 @@
 from django.urls import path
-from . import views
+from .views import *
 
 urlpatterns = [
-    path('', views.managers),  # 전체 매니저
-    path('<int:campus_id>/', views.campus_managers),
+    path('', ManagerAllView.as_view()),
+    path('<int:user_pk>/', ManagerView.as_view()),
 ]

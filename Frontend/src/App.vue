@@ -4,12 +4,27 @@
 </template>
 
 <script>
-import NavBar from "@/components/NavBar.vue";
+import NavBar from "@/components/navbar/NavBar.vue";
 
 export default {
   name: "App",
   components: {
     NavBar,
+  },
+  created() {
+    this.$axios.interceptors.response.use(
+      (res) => {
+        return res;
+      },
+      (err) => {
+        if (err.response.status === 401) {
+          this.$store.dispatch("unauthorized");
+          this.$router.push("/login");
+        }
+        return Promise.reject(err);
+      }
+    );
+    this.$store.state.axios = this.$axios;
   },
 };
 </script>
