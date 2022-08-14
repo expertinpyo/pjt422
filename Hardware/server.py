@@ -99,15 +99,15 @@ def get_amount(conn, token):
     print(result)
     return result['amount']
 
-def main():
-    conn = dbconnect()
-    print('연결완료')
-    get_amount(conn, '1B21')
-    conn.close()
-    print('연결해제')
+# def main():
+#     conn = dbconnect()
+#     print('연결완료')
+#     get_amount(conn, '1B21')
+#     conn.close()
+#     print('연결해제')
 
-if __name__=="__main__":
-    main()
+# if __name__=="__main__":
+#     main()
 
 
 HOST, PORT = "0.0.0.0", 9999
@@ -221,6 +221,7 @@ async def handle(reader, writer):
                 update_data(conn, client_id, data["amount"])
                 if get_amount(conn, client_id) == 0:
                     add_discard_user(conn, client_id, data["user_id"])
+    
 
     except ConnectionResetError:
         pass
