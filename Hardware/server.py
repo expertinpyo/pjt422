@@ -238,7 +238,7 @@ async def handle(reader, writer):
 
 async def schedule_coroutine(client):
     # query... client.id -> trashbin_type
-    conn = dbconnect()
+    global conn
     trashbin_type = get_type(conn, client.id)
     data = {"type": "stat", "trashbin_type": trashbin_type}
     await write_data(client.writer, data)
@@ -255,8 +255,8 @@ async def main():
     server = await asyncio.start_server(handle, HOST, PORT)
     addr = server.sockets[0].getsockname()
     print(f"Serving on {addr}")
-
     await asyncio.gather(server.serve_forever(), schedule())
+    conn.close()
 
 
 if __name__ == "__main__":
