@@ -16,6 +16,7 @@ def dbconnect():
         host = getenv("MYSQL_HOST"), user = getenv("MYSQL_USER"), password= getenv("MYSQL_ROOT_PASSWORD"),
         db=getenv("MYSQL_DATABASE"), port =int(getenv("MYSQL_PORT")),  charset="utf8", cursorclass=pymysql.cursors.DictCursor
     )
+    print(conn)
     return conn
 
 
@@ -118,7 +119,7 @@ HOST, PORT = "0.0.0.0", 9999
 # MYSQL_PORT = getenv("MYSQL_PORT")
 SCHEDULE_INTERVAL = 10
 
-
+conn = dbconnect()
 
 clients = []  # 현재 서버랑 통신중인 모든 쓰레기통
 
@@ -152,7 +153,7 @@ async def read_data(reader):
 
 
 async def handle(reader, writer):
-    conn = dbconnect()
+    global conn 
     data = await read_data(reader)  
     if data is None:  # 전원 연결이 안되었을 때
         writer.close()
