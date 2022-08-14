@@ -11,22 +11,34 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+# from os import environ, getenv
+import os
+import environ
+from datetime import date
+
+year = str(date.today().year)
+month = str(date.today().month) if len(str(date.today().month)) == 2 else '0' + str(date.today().month)
+day = str(date.today().day) if len(str(date.today().day)) == 2 else '0' + str(date.today().day)
+
+tday = year + month + day
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# env
+env = environ.Env(DEBUG=(bool, True))
+environ.Env.read_env(
+    env_file=os.path.join(BASE_DIR, '.env')
+)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-pqn*31a8c3ssvbm9#zj(z_=h(0z7ytj9=p&yd$=%2uf5l=j^(a'
+SECRET_KEY = env('BACKEND_SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = env('BACKEND_ALLOWED_HOSTS').split(' ')
 
 # Application definition
 
@@ -37,7 +49,7 @@ INSTALLED_APPS = [
     'stats',
 
     # 여러 앱 사용 가능해짐 / 대표적으로 shell_plus -> shell에 접근 가능
-    'django_extensions', 
+    'django_extensions',
     # 데이터 직렬화를 위한 도구
     'rest_framework',
     # 다른 서버의 자원을 요청하는 메커니즘 => Vue와 통신을 위한 방법
@@ -50,7 +62,7 @@ INSTALLED_APPS = [
     'dj_rest_auth',
     'dj_rest_auth.registration',
 
-    # django allauth 
+    # django allauth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -118,11 +130,11 @@ DATABASES = {
     # MariaDB 사용
     'default': {
         'ENGINE': 'django.db.backends.mysql', # mysqlclient librarly 설치 => pip install mysqlclient
-        'NAME': 'pjt422db', # db 이름
-        'USER': 'root', 
-        'PASSWORD': 'root', # mariaDB 설치 시 입력한 root 비밀번호 입력
-        'HOST': 'localhost',
-        'PORT': ''  # default 3306 / Mariadb 설치 시 해당 포트 변경했다면 변경해줘야함
+        'NAME': env('MYSQL_DATABASE'), # db 이름
+        'USER': env('MYSQL_USER'),
+        'PASSWORD': env('MYSQL_ROOT_PASSWORD'), # mariaDB 설치 시 입력한 root 비밀번호 입력
+        'HOST': env('MYSQL_HOST'),
+        'PORT': env('MYSQL_PORT'),  # default 3306 / Mariadb 설치 시 해당 포트 변경했다면 변경해줘야함
     }
 }
 
@@ -177,7 +189,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ],
-    
+
     # 기본 권한 설정
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',  # 기본적으로 모두에게 허용
@@ -188,3 +200,125 @@ REST_FRAMEWORK = {
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.User'
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'formatters': {
+#         'verbose': {
+#             'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+#             'style': '{',
+
+#         },
+#         'simple': {
+#             'format': '{levelname} {message}',
+#             'style': '{',
+#         },
+#     },
+#     'handlers' : {
+#         'file': {
+#             'level': 'DEBUG',
+#             'class': 'logging.FileHandler',
+#             'filename': os.path.join(BASE_DIR, 'logs') + '/log.log',
+#             # 'formatter': 'verbose',
+#         }
+#     },
+#     'loggeres': {
+#         'django': {
+#             'handlers': ['file'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         }
+#     },
+# }
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,   # Django 기본 로그 미사용 여부
+    'formatters':{
+        'format1': {
+            'format': '%(asctime)s %(message)s',
+            'datefmt': '%Y/%m/%d %H:%M:%S'
+        },
+    },
+    'handlers': {
+        'daily':{
+            'level': 'INFO',   # handler level 
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs') + f'/{tday}',   # 로그 저장 위치
+            'formatter': 'format1',
+            'encoding': 'utf-8', # 한글 로그 가능
+        },
+        'console': {
+            'level' : 'INFO',
+            'class': 'logging.StreamHandler',
+        },
+        
+    },
+    'loggers': {
+        'trash_event': {
+            'handlers': ['daily', 'console'],
+            'level': 'INFO',   # logger level
+            'propagate': True,
+        },
+    },
+}
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'filters': {
+#         'require_debug_false': {
+#             '()': 'django.utils.log.RequireDebugFalse',
+#         },
+#         'require_debug_true': {
+#             '()': 'django.utils.log.RequireDebugTrue',
+#         },
+#     },
+#     'formatters': {
+#         'django.server': {
+#             '()': 'django.utils.log.ServerFormatter',
+#             'format': '[{server_time}] {message}',
+#             'style': '{',
+#         },
+#         'format1': {
+#             'format': '[%(asctime)s] %(message)s',
+#             'datefmt': '%Y/%m/%d %H:%M:%S'
+#         },
+#     },
+#     'handlers': {
+#         'console': {
+#             'level': 'INFO',
+#             'filters': ['require_debug_true'],
+#             'class': 'logging.StreamHandler',
+#         },
+#         'daily':{
+#             'level': 'ERROR',   # handler level 
+#             'class': 'logging.FileHandler',
+#             'filename': os.path.join(BASE_DIR, 'logs') + f'/{tday}',   # 로그 저장 위치
+#             'formatter': 'format1',
+#             'encoding': 'utf-8', # 한글 로그 가능
+#         },
+#         'django.server': {
+#             'level': 'INFO',
+#             'class': 'logging.StreamHandler',
+#             'formatter': 'django.server',
+#         },
+        
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['console', 'daily',],
+#             'level': 'INFO',
+#         },
+#         'django.server': {
+#             'handlers': ['django.server', ],
+#             'level': 'INFO',
+#             'propagate': False,
+#         },
+#     }
+# }

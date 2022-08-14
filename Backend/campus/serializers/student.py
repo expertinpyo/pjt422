@@ -1,10 +1,15 @@
 from rest_framework import serializers
 from ..models import Student
 
-# 학생 전체 조회
 class StudentListSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Student
-        exclude = ('created_at', 'updated_at', )
-        read_only = ('campus',)
+        fields = '__all__'
+        
+
+class StudentCreateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Student
+        fields = ('student_num', 'name', 'belong', 'rfid_num',)
