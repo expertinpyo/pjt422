@@ -211,7 +211,7 @@ async def handle(reader, writer):
             if data["type"] == "door_close":
                 client_id_list = find_set(conn, client_id)
                 for client in clients:
-                    data - {
+                    data = {
                         "type": "door_close",
                     }
                     if client.id in client_id_list:
