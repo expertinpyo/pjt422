@@ -98,23 +98,12 @@ def daily_data():
     #     else: 
     #         dates = str(int(dates) + 1)
     # elif dates[4:6] == '08':
-    #     if int(dates[6:]) > 11:
+    #     if int(dates[6:]) > 14:
     #         dates = '20220501'
     #     else:
     #         dates = str(int(dates) + 1)
     # else:
     #     if int(dates[6:]) == 31:
-    #         dates = dates[:5] + str(int(dates[5]+1)) + '01'
+    #         dates = dates[:5] + str(int(dates[4:6])+1) + '01'
     #     else:
     #         dates = str(int(dates) + 1)
-
-
-
-def weekly_data():
-    pass
-
-def monthly_data():
-    pass
-
-def yearly_data():
-    pass
