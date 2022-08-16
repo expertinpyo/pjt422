@@ -10,7 +10,7 @@ import logging
 ytd = date.today() - timedelta(days=1)
 dates = ytd.strftime('%Y%m%d')
 # dates = '20220501'
-logger = logging.getLogger('files')
+logger = logging.getLogger('trash_event')
 
 def start():
     scheduler = BackgroundScheduler()
