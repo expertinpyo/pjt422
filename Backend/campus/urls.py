@@ -10,10 +10,4 @@ urlpatterns = [
     path('student/', StudentAllView.as_view()), # 학생 전체 목록 조회
     path('student/<int:student_pk>/', StudentView.as_view()), # 특정 학생 수정 및 삭제
     path('notification/', NotificationView.as_view()), # 쓰레기통 알림
-    path('logdata/<rfid>/<int:trashbin_pk>/', LogView.as_view()), # 로그 데이터 조회
-    path('test/', TrashView.as_view()), # 로그 데이터 조회
-    path('trashbin/record/', RecordView.as_view()),
-    
-    #path('all/<str:rfid>/', views.check_all),  # 신원 조회
-    #path('state/<str:token>/', views.trashbin_type),  # 쓰레기통 종류 조회
 ]

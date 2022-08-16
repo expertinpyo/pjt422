@@ -21,9 +21,7 @@ from .serializers.group import GroupSerializer
 # import socketserver
 # import pickle
 # import struct
-import logging
 
-logger = logging.getLogger('trash_event')
 
 
 # 빌딩 / 층  / 쓰레가통 열람 권한 : 모든 이용자
@@ -231,32 +229,5 @@ class NotificationView(APIView):
         trashbins = Trashbin.objects.filter(amount__gte=0.4)
         serializer = TrashbinNotificationSerializer(trashbins, many=True)
         return Response(serializer.data)
-
-
-# 로그 데이터 실험용
-class LogView(APIView):
-
-    def get(self, request, rfid, trashbin_pk):
-        trashbin = get_object_or_404(Trashbin, pk=trashbin_pk)
-        group = trashbin.group
-        floor = group.floor
-        building = floor.building
-        logger.info(f'{building.name} {floor.name} {group.name} {trashbin.token} {trashbin.trash_type} {rfid} {trashbin.amount}')
-        return Response(status=status.HTTP_200_OK)
-
-class TrashView(APIView):
-    
-    def get(self, request):
-        trashs = get_list_or_404(Trashbin)
-        serializer = TrashbinNotificationSerializer(trashs, many=True)
-        return Response(serializer.data)
-
-
-class RecordView(APIView):
-    def get(self, request):
-        records = get_list_or_404(CleanRecord)
-        serializer = CleanRecordSerializer(records, many=True)
-        return Response(serializer.data)
-
 
 
