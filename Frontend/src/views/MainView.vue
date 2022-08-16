@@ -161,9 +161,9 @@ export default {
       }, {});
 
       const trashbin_colormap = {
-        SAF: "#00AA00",
-        CAU: "#AAAA00",
-        WAR: "#AA0000",
+        SAF: "#CEDDC9",
+        CAU: "#F2DCB1",
+        WAR: "#DE9F9F",
       };
 
       const notificationIds = this.notifications.map((el) => el.id);
@@ -248,5 +248,12 @@ export default {
 }
 .trash-map {
   margin: 5px;
+}
+.trash-map-selector-container label {
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+.trash-map-container label {
+  margin-left: 0;
 }
 </style>
