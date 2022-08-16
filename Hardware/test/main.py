@@ -1,6 +1,6 @@
 from pre import *
 
-set_gpio_for_front_door()
+pwm = set_gpio_for_front_door()
 set_gpio_for_capacity_check()
 lcd = set_display_lcd()
 btn = GPIO.input(btnPin)
@@ -23,7 +23,7 @@ while True:
             
             if (btn == False and information['userGroup']='supervisor'
                 and information['frontDoorState']=='close'):
-                unlock_front_door()
+                unlock_front_door(pwm)
                 information['frontDoorState']=='open'
                 
             if (btn == False and information['userGroup']='supervisor'
@@ -31,7 +31,7 @@ while True:
                 break;
         
         if (information['frontDoorState']=='open'):
-            lock_front_door()
+            lock_front_door(pwm)
             information['frontDoorState']=='close'
         
         the_last_action()
