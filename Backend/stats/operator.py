@@ -10,6 +10,7 @@ import logging
 ytd = date.today() - timedelta(days=1)
 dates = ytd.strftime('%Y%m%d')
 # dates = '20220501'
+logger = logging.getLogger('files')
 
 def start():
     scheduler = BackgroundScheduler()
@@ -88,35 +89,40 @@ def daily_data():
         serializer = BuildingDateSerializer(data=dic)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-
-    for dic in group_dict:
-        serializer = GroupDateSerializer(data=dic)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
+    logger.info(f'{dates} : building daily data save completely')
 
     for dic in floor_dict:
         serializer = FloorDateSerializer(data=dic)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-
+    logger.info(f'{dates} : floor daily data save completely')
+            
+    for dic in group_dict:
+        serializer = GroupDateSerializer(data=dic)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+    logger.info(f'{dates} : group daily data save completely')
 
     for dic in trashbin_dict:            
         serializer = TrashbinDateSerializer(data=dic)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
+    logger.info(f'{dates} : trashbin daily data save completely')
+    
+    
 
-    # if dates[4:6] == '06':
-    #     if int(dates[6:]) == 30:
-    #         dates = '20220701'
-    #     else: 
-    #         dates = str(int(dates) + 1)
-    # elif dates[4:6] == '08':
-    #     if int(dates[6:]) > 14:
-    #         dates = '20220501'
-    #     else:
-    #         dates = str(int(dates) + 1)
-    # else:
-    #     if int(dates[6:]) == 31:
-    #         dates = dates[:5] + str(int(dates[4:6])+1) + '01'
-    #     else:
-    #         dates = str(int(dates) + 1)
+    if dates[4:6] == '06':
+        if int(dates[6:]) == 30:
+            dates = '20220701'
+        else: 
+            dates = str(int(dates) + 1)
+    elif dates[4:6] == '08':
+        if int(dates[6:]) > 14:
+            dates = '20220501'
+        else:
+            dates = str(int(dates) + 1)
+    else:
+        if int(dates[6:]) == 31:
+            dates = dates[:5] + str(int(dates[4:6])+1) + '01'
+        else:
+            dates = str(int(dates) + 1)

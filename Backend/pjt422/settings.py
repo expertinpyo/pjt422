@@ -251,6 +251,10 @@ LOGGING = {
             'format': '%(asctime)s %(message)s',
             'datefmt': '%Y/%m/%d %H:%M:%S'
         },
+        'format2':{
+            'format': '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+            'datefmt': '%Y/%m/%d %H:%M:%S'
+        }
     },
     'handlers': {
         'daily':{
@@ -264,11 +268,18 @@ LOGGING = {
             'level' : 'INFO',
             'class': 'logging.StreamHandler',
         },
+        'files':{
+            'level' : 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR / 'logs/total.log',
+            'formatter': 'format2',
+            'encoding': 'utf-8'
+        }
         
     },
     'loggers': {
         'trash_event': {
-            'handlers': ['daily', 'console'],
+            'handlers': ['daily', 'console', 'files'],
             'level': 'INFO',   # logger level
             'propagate': True,
         },
