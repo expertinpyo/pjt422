@@ -4,18 +4,15 @@
       v-for="floor in floors"
       :key="floor.id"
       @click="buttonClicked(floor)"
-      class="floor-button btn"
+      class="floor-button"
       :class="{
-        'btn-primary': currentFloor == floor.id,
-        'btn-secondary': currentFloor != floor.id,
+        'btn-selected': currentFloor == floor.id,
+        'btn-unselected': currentFloor != floor.id,
       }"
       type="button"
     >
       {{ floor.name }}F
-      <span
-        v-if="floor.notificationCount > 0"
-        class="floor-notification badge bg-danger rounded-pill"
-      >
+      <span v-if="floor.notificationCount > 0" class="floor-notification badge">
         {{ floor.notificationCount }}
       </span>
     </button>
@@ -40,14 +37,27 @@ export default {
   justify-content: center;
 }
 .floor-button {
-  width: 80px;
-  margin-bottom: 15px;
   position: relative;
+  width: 65px;
+  height: 65px;
+  border-radius: 100%;
+  margin: 12px;
+  font-size: 18px;
+  border: 0;
 }
 .floor-notification {
   position: absolute !important;
+  width: 30px;
+  height: 25px;
   top: 0;
   right: 0;
-  transform: translate(50%, -50%);
+  transform: translate(40%, -30%);
+  background-color: white;
+  border: 1.5px solid #646161;
+  color: #bb2626;
+  font-weight: 500;
+}
+.btn-selected {
+  font-weight: bold;
 }
 </style>
