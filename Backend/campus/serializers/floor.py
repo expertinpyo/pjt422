@@ -10,7 +10,7 @@ class FloorSerializer(serializers.ModelSerializer):
         
 
 
-class FloorTrashbinSerializer(serializers.ModelSerializer):
+class FloorGroupSerializer(serializers.ModelSerializer):
     # 층 내 쓰레기통 그룹 조회
     class GroupListSerializer(serializers.ModelSerializer):
         class Meta:
