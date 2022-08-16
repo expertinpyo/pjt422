@@ -92,9 +92,8 @@ def get_type(conn, token):
     cur = conn.cursor()
     sql = 'SELECT trash_type FROM campus_trashbin WHERE token = %s'
     cur.execute(sql, (token))
-    result = cur.fetchone()  # token이 unique하므로
-    #print(result)
-    print(result['trash_type'])
+    result = cur.fetchone()  
+    
     return(result['trash_type'])
 
 
@@ -250,8 +249,8 @@ async def handle(reader, writer):
             # 7. 최종 상태 보내기
             if data["type"] == "stat":
                 update_data(conn, client_id, data["amount"])
-                if get_amount(conn, client_id) == 0:
-                    add_discard_user(conn, client_id, data["user_id"])
+                if get_amount(conn, client_id) == 0 and data["user"]["is_manager"]:
+                    add_discard_user(conn, client_id, data["user"]["user_id"])
     
 
     except ConnectionResetError:
