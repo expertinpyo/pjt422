@@ -7,15 +7,15 @@ from gpiozero import LED
 from time import *
 
 servo1 = Servo(16) # Continuous Rotation Servo
-servo2 = Servo(26) # 180 degree Rotation servo
+servo2 = 26 # 180 degree Rotation servo
 triggerPin = 14 # trig for ultrasonic
 echoPin = 4 # echo for ultrasonic
-redLED = LED(14)
-greenLED = LED(15)
+redLED = LED(23)
+greenLED = LED(24)
 btnPin = 18
 
-max_capacity = 30
-min_capacity = 5
+max_capacity = 30.58
+min_capacity = 12.92
 
 information = {
 #     "deviceID",
@@ -29,13 +29,13 @@ information = {
 
 def open_slide_door():
     servo1.value = 0.1
-    sleep(1.35)
+    sleep(1.5)
     servo1.detach()
 
 
 def close_slide_door():
     servo1.value = -0.5
-    sleep(1.45)
+    sleep(1.55)
     servo1.detach()
 
 
@@ -44,9 +44,10 @@ def set_gpio_for_front_door():
     GPIO.setup(servo2, GPIO.OUT)
     pwm = GPIO.PWM(servo2, 50)
     pwm.start(0)
+    return pwm
     
     
-def unlock_front_door():
+def unlock_front_door(pwm):
     GPIO.setup(servo2, GPIO.OUT)
     pwm.ChangeDutyCycle(3) #unlock
     sleep(0.3)
@@ -54,15 +55,15 @@ def unlock_front_door():
     sleep(1.7)
     
     
-def lock_front_door():
-    GPIO.setup(servo_pin, GPIO.OUT)
+def lock_front_door(pwm):
+    GPIO.setup(servo2, GPIO.OUT)
     pwm.ChangeDutyCycle(8) #lock
     sleep(0.3)
-    GPIO.setup(servo_pin, GPIO.IN)
+    GPIO.setup(servo2, GPIO.IN)
     sleep(1.7)
+
     
-    
-def cleanup_for_front_door():
+def cleanup_for_front_door(pwm):
     pwm.stop()
     GPIO.cleanup()
     
@@ -94,8 +95,10 @@ def cleanup_for_capacity_check():
     
     
 def current_capacity_rate():
-    currnetDistance = capacity_check()
-    return (currentDistance - min_capacity)/(max_capacity - min_capacity)
+    currentDistance = capacity_check()
+    rate = round((max_capacity - currentDistance)/(max_capacity - min_capacity),2)*100
+    if rate<0 : return 0
+    else : return rate
 
 
 def set_display_lcd():
@@ -104,16 +107,17 @@ def set_display_lcd():
     return lcd
 
 
-def display_lcd(content):
+def display_lcd(lcd, content):
     lcd.print(content)
     sleep(5)
     
     
-def clear_lcd():
+def clear_lcd(lcd):
     lcd.clear()
 
 
 def getuserID():
+    print("tag")
     id = SimpleMFRC522().read()[0]
     return id
 
@@ -145,4 +149,5 @@ def fail_auth():
 def the_last_action():
     close_slide_door()
     sleep(1.5)
-    led_off(greenLED)    
+    led_off(greenLED)
+
