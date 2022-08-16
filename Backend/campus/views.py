@@ -13,10 +13,10 @@ from .models import CleanRecord, Student, Building, Floor, Trashbin, Group
 
 # serializers
 from .serializers.building import BuildingFloorSerializer, BuildingSerializer
-from .serializers.floor import FloorSerializer, FloorTrashbinSerializer
+from .serializers.floor import FloorSerializer, FloorGroupSerializer
 from .serializers.student import StudentCreateSerializer, StudentListSerializer
 from .serializers.trashbin import CleanRecordSerializer, TrashbinCreateSerializer,TrashbinSerializer, TrashbinNotificationSerializer
-from .serializers.group import GroupSerializer
+from .serializers.group import GroupSerializer, GroupCreateSerializer
 
 # import socketserver
 # import pickle
@@ -92,12 +92,12 @@ class FloorView(APIView):
 
     def get(self, request, floor_pk):
         floor = get_object_or_404(Floor, pk=floor_pk)
-        serializer = FloorTrashbinSerializer(floor)
+        serializer = FloorGroupSerializer(floor)
         return Response(serializer.data)
     
     def post(self, request, floor_pk):
         floor = get_object_or_404(Floor, pk=floor_pk)
-        serializer = GroupSerializer(data=request.data)
+        serializer = GroupCreateSerializer(data=request.data)
         if request.user.is_superuser:
             if serializer.is_valid(raise_exception=True):
                 serializer.save(floor=floor)
@@ -106,7 +106,7 @@ class FloorView(APIView):
 
     def put(self, request, floor_pk):
         floor = get_object_or_404(Floor, pk=floor_pk)
-        serializer = FloorTrashbinSerializer(instance=floor, data=request.data)
+        serializer = FloorSerializer(instance=floor, data=request.data)
         if request.user.is_superuser:
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
@@ -116,7 +116,7 @@ class FloorView(APIView):
 
     def delete(self, request, floor_pk):
         if request.user.is_superuser:
-            floor = get_object_or_404(floor, pk=floor_pk)
+            floor = get_object_or_404(Floor, pk=floor_pk)
             floor.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
         raise exceptions.AuthenticationFailed('You do not have permission to perform this action.')
@@ -142,7 +142,7 @@ class GroupView(APIView):
 
     def put(self, request, group_pk):
         group = get_object_or_404(Group, pk=group_pk)
-        serializer = GroupSerializer(instance=group, data=request.data)
+        serializer = GroupCreateSerializer(instance=group, data=request.data)
         if request.user.is_superuser:
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
@@ -152,7 +152,7 @@ class GroupView(APIView):
 
     def delete(self, request, group_pk):
         if request.user.is_superuser:
-            group = get_object_or_404(group, pk=group_pk)
+            group = get_object_or_404(Group, pk=group_pk)
             group.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
         raise exceptions.AuthenticationFailed('You do not have permission to perform this action.')
@@ -170,7 +170,7 @@ class TrashbinView(APIView):
     
     def put(self, request, trashbin_pk):
         trashbin = get_object_or_404(Trashbin, pk=trashbin_pk)
-        serializer = TrashbinSerializer(instance=trashbin, data=request.data)
+        serializer = TrashbinCreateSerializer(instance=trashbin, data=request.data)
         if request.user.position != "JR":
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
@@ -180,7 +180,7 @@ class TrashbinView(APIView):
 
     def delete(self, request, trashbin_pk):
         if request.user.position != "JR":
-            trashbin = get_object_or_404(trashbin, pk=trashbin_pk)
+            trashbin = get_object_or_404(Trashbin, pk=trashbin_pk)
             trashbin.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
         raise exceptions.AuthenticationFailed('You do not have permission to perform this action.')
