@@ -212,37 +212,6 @@ APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"  # Default
 
 SCHEDULER_DEFAULT = True
 
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'formatters': {
-#         'verbose': {
-#             'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
-#             'style': '{',
-
-#         },
-#         'simple': {
-#             'format': '{levelname} {message}',
-#             'style': '{',
-#         },
-#     },
-#     'handlers' : {
-#         'file': {
-#             'level': 'DEBUG',
-#             'class': 'logging.FileHandler',
-#             'filename': os.path.join(BASE_DIR, 'logs') + '/log.log',
-#             # 'formatter': 'verbose',
-#         }
-#     },
-#     'loggeres': {
-#         'django': {
-#             'handlers': ['file'],
-#             'level': 'DEBUG',
-#             'propagate': True,
-#         }
-#     },
-# }
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,   # Django 기본 로그 미사용 여부
@@ -257,19 +226,12 @@ LOGGING = {
         }
     },
     'handlers': {
-        'daily':{
-            'level': 'INFO',   # handler level 
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs') + f'/{tday}',   # 로그 저장 위치
-            'formatter': 'format1',
-            'encoding': 'utf-8', # 한글 로그 가능
-        },
         'console': {
             'level' : 'INFO',
             'class': 'logging.StreamHandler',
         },
-        'files':{
-            'level' : 'INFO',
+        'file':{
+            'level' :'INFO', 
             'class': 'logging.FileHandler',
             'filename': BASE_DIR / 'logs/total.log',
             'formatter': 'format2',
@@ -279,7 +241,7 @@ LOGGING = {
     },
     'loggers': {
         'trash_event': {
-            'handlers': ['daily', 'console', 'files'],
+            'handlers': ['console', 'file'],
             'level': 'INFO',   # logger level
             'propagate': True,
         },
@@ -287,58 +249,3 @@ LOGGING = {
 }
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'filters': {
-#         'require_debug_false': {
-#             '()': 'django.utils.log.RequireDebugFalse',
-#         },
-#         'require_debug_true': {
-#             '()': 'django.utils.log.RequireDebugTrue',
-#         },
-#     },
-#     'formatters': {
-#         'django.server': {
-#             '()': 'django.utils.log.ServerFormatter',
-#             'format': '[{server_time}] {message}',
-#             'style': '{',
-#         },
-#         'format1': {
-#             'format': '[%(asctime)s] %(message)s',
-#             'datefmt': '%Y/%m/%d %H:%M:%S'
-#         },
-#     },
-#     'handlers': {
-#         'console': {
-#             'level': 'INFO',
-#             'filters': ['require_debug_true'],
-#             'class': 'logging.StreamHandler',
-#         },
-#         'daily':{
-#             'level': 'ERROR',   # handler level 
-#             'class': 'logging.FileHandler',
-#             'filename': os.path.join(BASE_DIR, 'logs') + f'/{tday}',   # 로그 저장 위치
-#             'formatter': 'format1',
-#             'encoding': 'utf-8', # 한글 로그 가능
-#         },
-#         'django.server': {
-#             'level': 'INFO',
-#             'class': 'logging.StreamHandler',
-#             'formatter': 'django.server',
-#         },
-        
-#     },
-#     'loggers': {
-#         'django': {
-#             'handlers': ['console', 'daily',],
-#             'level': 'INFO',
-#         },
-#         'django.server': {
-#             'handlers': ['django.server', ],
-#             'level': 'INFO',
-#             'propagate': False,
-#         },
-#     }
-# }
