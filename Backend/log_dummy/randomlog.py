@@ -1,4 +1,4 @@
-import random
+import random 
 
 trash_list = [
     {
@@ -8359,7 +8359,7 @@ for i in range(5, 9):
     if i == 6:
         nn = 31
     elif i == 8:
-        nn = 13
+        nn = 16
     else:
         nn = 32
     for j in range(1, nn):        
@@ -8367,7 +8367,7 @@ for i in range(5, 9):
         day = '20220' + str(i) + dd
         cnt = 0
         data = ''
-        while cnt < 1000:
+        while cnt < 500:
             idx = random.randrange(len(trash_list))
             target = trash_list[idx]
             
@@ -8383,12 +8383,11 @@ for i in range(5, 9):
 
             rand_rfid = str(random.randint(1, 1000))
             rand_zero = '0' * (10-len(rand_rfid))
-            sen = f'{day} {time} {target["group"]["floor"]["building"]["name"]} {target["group"]["floor"]["building"]["pk"]} {target["group"]["floor"]["name"]} {target["group"]["floor"]["pk"]} {target["token"]} {target["trash_type"]} {rand_zero+rand_rfid} {target["amount"]}'
+            sen = f'{day} {time} {target["group"]["floor"]["building"]["pk"]} {target["group"]["floor"]["pk"]} {target["group"]["pk"]} {target["token"]} {target["trash_type"]}'
             data += sen
             data += '\n'
-            target["amount"] = random.random()
             cnt += 1
 
-        f = open(f'20220{str(i)+dd}', 'w', encoding='UTF-8')
+        f = open(f'20220{str(i)+dd}.log', 'w', encoding='UTF-8')
         f.write(data)
         f.close()

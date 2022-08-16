@@ -60,11 +60,18 @@ class BuildingDate(Types):
         return self.year + self.month + self.date
 
 class FloorDate(Types):
-    # name = models.CharField(max_length=20)
     floor_pk = models.IntegerField()
     
     def __str__(self):
         return self.year + self.month + self.date
+
+class GroupDate(Types):
+    floor_pk = models.IntegerField()
+    group_pk = models.IntegerField()
+    
+    def __str__(self):
+        return self.year + self.month + self.date
+
 
 class TrashbinDate(Basic):
     
@@ -78,6 +85,7 @@ class TrashbinDate(Basic):
 
     token = models.CharField(max_length=20)
     floor_pk = models.IntegerField()
+    group_pk = models.IntegerField()
     trash_type = models.CharField(
         max_length=3,
         choices=TypeOfTrash.choices,
