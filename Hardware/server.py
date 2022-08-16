@@ -7,6 +7,26 @@ from os import getenv
 import pymysql
 import pymysql.cursors
 
+import logging
+from datetime import date
+
+# 오늘 날짜 확인
+year = str(date.today().year)
+month = str(date.today().month) if len(str(date.today().month)) == 2 else '0' + str(date.today().month)
+day = str(date.today().day) if len(str(date.today().day)) == 2 else '0' + str(date.today().day)
+tday = year + month + day
+# 로그 데이터를 위한 변수 선언
+logger = logging.getLogger()
+# Level INFO로 설정
+logger.setLevel(logging.INFO)
+# 로그데이터 형식
+formatter = logging.Formatter('%(asctime)s %(messages)s')
+# 오늘날짜.log로 저장
+file_handler = logging.FileHandler(f'{tday}.log')
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
+
+
 load_dotenv()
 
 # DB 연결
@@ -54,6 +74,16 @@ def update_data(conn, token, amount):
     # db에 amount 업데이트 한 후에 status도 업데이트해줘야 함
     sql2 = 'UPDATE campus_trashbin SET status = CASE WHEN amount >= 0.7 THEN "WAR" WHEN amount >= 0.3 THEN "CAU" ELSE "SAF" END WHERE token = %s'
     cur.execute(sql2, (token))
+
+    sql3 = 'SELECT tr.token, tr.trash_type, tr.group_id, gr.floor_id, fl.building_id FROM campus_trashbin AS tr INNER JOIN campus_group AS gr ON tr.group_id = gr.id INNER JOIN campus_floor AS fl ON gr.floor_id = fl.id WHERE tr.token = %s' 
+    cur.execute(sql3, (token))
+    result = cur.fetchone()
+    trash_type = result['trash_type']
+    group_id = result['group_id']
+    floor_id = result['floor_id']
+    building_id = result['building_id']
+    logger.info(f'{building_id} {floor_id} {group_id} {token} {trash_type}')
+
     conn.commit()  # 데이터베이스 정보에 변동을 주는 내용이므로 commit() 필수
 
 
