@@ -9,6 +9,13 @@ class TrashbinDateSerializer(serializers.ModelSerializer):
         fields = '__all__'
         
 
+class GroupDateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = GroupDate
+        fields = '__all__'
+
+
 class FloorDateSerializer(serializers.ModelSerializer):
 
     class Meta:

@@ -48,8 +48,12 @@ class BuildingWeeklyView(APIView):
         model_ids = []
         for i in range(7):
             datetime_result = str(str_date - relativedelta(days=i))
-            qry = BuildingDate.objects.get(building_pk=building_pk, year=datetime_result[:4], month=datetime_result[5:7], date=datetime_result[8:10])
-            model_ids.append(qry.pk)
+            try:
+                qry = BuildingDate.objects.get(building_pk=building_pk, year=datetime_result[:4], month=datetime_result[5:7], date=datetime_result[8:10])
+            except:
+                qry = False
+            if qry:
+                model_ids.append(qry.pk)
         df = pd.DataFrame.from_records(BuildingDate.objects.filter(pk__in=model_ids).values())
         new_df = df.groupby(['building_pk']).sum().reset_index()
         building = new_df.to_dict(orient='records')[0]
@@ -99,8 +103,12 @@ class FloorWeeklyView(APIView):
         model_ids = []
         for i in range(7):
             datetime_result = str(str_date - relativedelta(days=i))
-            qry = FloorDate.objects.get(floor_pk=floor_pk, year=datetime_result[:4], month=datetime_result[5:7], date=datetime_result[8:10])
-            model_ids.append(qry.pk)
+            try:
+                qry = FloorDate.objects.get(floor_pk=floor_pk, year=datetime_result[:4], month=datetime_result[5:7], date=datetime_result[8:10])
+            except:
+                qry = False
+            if qry:
+                model_ids.append(qry.pk)
         df = pd.DataFrame.from_records(FloorDate.objects.filter(pk__in=model_ids).values())
         new_df = df.groupby(['floor_pk']).sum().reset_index()
         floor = new_df.to_dict(orient='records')[0]
@@ -113,7 +121,7 @@ class FloorMonthlyView(APIView):
     
     def get(self, request, floor_pk, months):
         year, month = months[:4], months[4:6]
-        df = pd.DataFrame.from_records(BuildingDate.objects.filter(floor_pk=floor_pk, year=year, month=month).values())
+        df = pd.DataFrame.from_records(FloorDate.objects.filter(floor_pk=floor_pk, year=year, month=month).values())
         new_df = df.groupby(['year', 'month', 'building_pk', 'floor_pk']).sum().reset_index()
         floor = new_df.to_dict(orient='records')[0]
         serializer = FloorMonthSerializer(floor) 
@@ -124,11 +132,67 @@ class FloorYearView(APIView):
     permission_classes = [IsAuthenticated]
     
     def get(self, request, floor_pk, year):
-        df = pd.DataFrame.from_records(BuildingDate.objects.filter(floor_pk=floor_pk, year=year).values())
+        df = pd.DataFrame.from_records(FloorDate.objects.filter(floor_pk=floor_pk, year=year).values())
         new_df = df.groupby(['year', 'building_pk', 'floor_pk']).sum().reset_index()
         floor = new_df.to_dict(orient='records')[0]
         serializer = FloorYearSerializer(floor) 
         return Response(serializer.data)
+
+# 그룹 일간 데이터 조회
+class GroupDailyView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, group_pk, dates):
+        year, month, date = dates[:4], dates[4:6], dates[6:]
+        group = get_object_or_404(GroupDate, group_pk=group_pk, year=year, month=month, date=date)
+        serializer = GroupDateSerializer(group)
+        return Response(serializer.data)
+
+# 그룹 주간 데이터 조회
+class GroupWeeklyView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request, group_pk, dates):
+        year, month, date = dates[:4], dates[4:6], dates[6:] 
+        str_date = datetime.strptime(year + '-' + month + '-' + date, '%Y-%m-%d')
+        model_ids = []
+        for i in range(7):
+            datetime_result = str(str_date - relativedelta(days=i))
+            try:
+                qry = GroupDate.objects.get(group_pk=group_pk, year=datetime_result[:4], month=datetime_result[5:7], date=datetime_result[8:10])
+            except:
+                qry = False
+            if qry:
+                model_ids.append(qry.pk)
+        df = pd.DataFrame.from_records(GroupDate.objects.filter(pk__in=model_ids).values())
+        new_df = df.groupby(['group_pk']).sum().reset_index()
+        group = new_df.to_dict(orient='records')[0]
+        serializer = GroupWeekSerializer(group) 
+        return Response(serializer.data)
+
+# 그룹 월간 데이터 조회 
+class GroupMonthlyView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request, group_pk, months):
+        year, month = months[:4], months[4:6]
+        df = pd.DataFrame.from_records(GroupDate.objects.filter(group_pk=group_pk, year=year, month=month).values())
+        new_df = df.groupby(['year', 'month', 'building_pk', 'floor_pk','group_pk']).sum().reset_index()
+        group = new_df.to_dict(orient='records')[0]
+        serializer = GroupMonthSerializer(group) 
+        return Response(serializer.data)
+
+# 그룹 연간 데이터 조회 
+class GroupYearView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request, group_pk, year):
+        df = pd.DataFrame.from_records(GroupDate.objects.filter(group_pk=group_pk, year=year).values())
+        new_df = df.groupby(['year', 'building_pk', 'floor_pk', 'group_pk']).sum().reset_index()
+        group = new_df.to_dict(orient='records')[0]
+        serializer = GroupYearSerializer(group) 
+        return Response(serializer.data)
+
 
 
 # 쓰레기통 일간 데이터 조회
@@ -151,8 +215,12 @@ class TrashbinWeeklyView(APIView):
         model_ids = []
         for i in range(7):
             datetime_result = str(str_date - relativedelta(days=i))
-            qry = TrashbinDate.objects.get(token=token, year=datetime_result[:4], month=datetime_result[5:7], date=datetime_result[8:10])
-            model_ids.append(qry.pk)
+            try:
+                qry = TrashbinDate.objects.get(token=token, year=datetime_result[:4], month=datetime_result[5:7], date=datetime_result[8:10])
+            except:
+                qry = False
+            if qry:
+                model_ids.append(qry.pk)
         df = pd.DataFrame.from_records(TrashbinDate.objects.filter(pk__in=model_ids).values())
         new_df = df.groupby(['token']).sum().reset_index()
         trashbin = new_df.to_dict(orient='records')[0]
@@ -166,7 +234,7 @@ class TrashbinMonthlyView(APIView):
     def get(self, request, token, months):
         year, month = months[:4], months[4:6]
         df = pd.DataFrame.from_records(TrashbinDate.objects.filter(token=token, year=year, month=month).values())
-        new_df = df.groupby(['year', 'month', 'building_pk', 'floor_pk', 'token']).sum().reset_index()
+        new_df = df.groupby(['year', 'month', 'building_pk', 'floor_pk', 'group_pk', 'token']).sum().reset_index()
         print(new_df)
         trashbin = new_df.to_dict(orient='records')[0]
         serializer = TrashbinMonthSerializer(trashbin) 
@@ -178,7 +246,8 @@ class TrashbinYearView(APIView):
     
     def get(self, request, token, year):
         df = pd.DataFrame.from_records(TrashbinDate.objects.filter(token=token, year=year).values())
-        new_df = df.groupby(['year', 'building_pk', 'floor_pk', 'token']).sum().reset_index()
+        new_df = df.groupby(['year', 'building_pk', 'floor_pk', 'group_pk', 'token']).sum().reset_index()
         trashbin = new_df.to_dict(orient='records')[0]
         serializer = TrashbinYearSerializer(trashbin) 
         return Response(serializer.data)
+
