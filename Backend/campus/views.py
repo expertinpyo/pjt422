@@ -231,3 +231,11 @@ class NotificationView(APIView):
         return Response(serializer.data)
 
 
+class RecordView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        records = get_list_or_404(CleanRecord)
+        serializer = CleanRecordSerializer(records, many=True)
+        return Response(serializer.data)
+
