@@ -1,8 +1,7 @@
 <template>
   <div class="settings-building-container">
     <div class="select-container">
-      <div>
-        건물
+      <div class="building-select">
         <div class="select-div">
           <select class="form-select" v-model="currentBuilding">
             <option
@@ -13,12 +12,11 @@
               {{ building.name }}
             </option>
           </select>
-          <i class="bi bi-pencil select-icons"></i>
-          <i class="bi bi-plus-circle select-icons"></i>
+          <img src="@/assets/edit.png" class="select-icons" />
+          <img src="@/assets/add.png" class="select-icons" />
         </div>
       </div>
-      <div>
-        층
+      <div class="floor-select">
         <div class="select-div">
           <select class="form-select" v-model="currentFloor">
             <option
@@ -29,15 +27,15 @@
               {{ floor_.name }}
             </option>
           </select>
-          <i class="bi bi-pencil select-icons"></i>
-          <i class="bi bi-plus-circle select-icons"></i>
+          <img src="@/assets/edit.png" class="select-icons" />
+          <img src="@/assets/add.png" class="select-icons" />
         </div>
       </div>
     </div>
     <hr />
     <div class="trashmap-container">
-      <div>
-        쓰레기통 (x,y)
+      <div class="trashmap-select">
+        <label>쓰레기통 목록 (x, y)</label>
         <ul class="list-group trashbin-list">
           <li
             class="list-group-item"
@@ -46,10 +44,13 @@
           >
             <b>{{ trashbin.name }}</b>
             ({{ trashbin.x }}, {{ trashbin.y }})
-            <i class="bi bi-pencil select-icons trashbin-list-edit-icon"></i>
+            <img
+              src="@/assets/edit.png"
+              class="select-icons trashbin-list-edit-icon"
+            />
           </li>
           <li class="list-group-item">
-            <i class="bi bi-plus-circle select-icons"></i>
+            <img src="@/assets/add.png" class="select-icons" />
           </li>
         </ul>
       </div>
@@ -123,9 +124,9 @@ export default {
     },
     async fetchCurrentFloor() {
       const trashbin_colormap = {
-        SAF: "#00AA00",
-        CAU: "#AAAA00",
-        WAR: "#AA0000",
+        SAF: "#CEDDC9",
+        CAU: "#F2DCB1",
+        WAR: "#DE9F9F",
       };
 
       const resTrashbins = await this.$axios.get(
@@ -163,32 +164,41 @@ export default {
 </script>
 
 <style scoped>
+#SettingBuilding {
+  font-family: "Pretendard-Regular";
+}
 .select-container {
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  margin: 10px;
+  justify-content: flex-end;
+  margin: 10px 0;
 }
 .select-div {
   display: flex;
+  margin-right: 25px;
 }
 .select-icons {
-  font-size: larger;
   align-self: center;
-  margin: 0 5px;
+  margin: 0 4px;
+  width: 20px;
+  height: 20px;
 }
 .trashmap-container {
   display: flex;
-  margin: 10px;
+  margin-top: 50px;
+}
+.trashmap-select {
+  margin-left: 40px;
+  margin-right: 100px;
 }
 .trashbin-list {
-  min-width: 250px;
+  min-width: 300px;
   margin-right: 10px;
   padding-right: 40px;
   overflow-y: scroll;
 }
 .list-group-item {
   position: relative;
+  height: 40px;
 }
 .trashbin-list-edit-icon {
   position: absolute;

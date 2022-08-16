@@ -57,7 +57,6 @@ export default {
   font-style: normal;
 }
 #app {
-  /* font-family: Avenir, Helvetica, Arial, sans-serif;  */
   font-family: Pretendard-Regular;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
