@@ -35,6 +35,7 @@ export default {
 <style scoped>
 .floor-selector {
   justify-content: center;
+  font-family: "Pretendard-Regular";
 }
 .floor-button {
   position: relative;

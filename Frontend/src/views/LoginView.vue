@@ -85,7 +85,6 @@ export default {
 .login-container {
   width: 500px;
   margin: 150px auto;
-  font-family: Pretendard-Regular;
   color: #354f52;
   font-weight: lighter;
 }
