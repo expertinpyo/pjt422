@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'django_extensions',
     # 데이터 직렬화를 위한 도구
     'rest_framework',
+    # hardware와 통신하기 위해 필요
+    # 'socketio',
     # 다른 서버의 자원을 요청하는 메커니즘 => Vue와 통신을 위한 방법
     'corsheaders',
 
@@ -72,6 +74,9 @@ INSTALLED_APPS = [
 
     # Mariadb관련 앱
     # 'board.apps.BoardConfig',
+
+    # 스케줄러
+    'django_apscheduler',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -202,6 +207,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.User'
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"  # Default
+
+SCHEDULER_DEFAULT = True
 
 # LOGGING = {
 #     'version': 1,
