@@ -22,7 +22,7 @@ logger.setLevel(logging.INFO)
 # 로그데이터 형식
 formatter = logging.Formatter('%(asctime)s %(messages)s')
 # 오늘날짜.log로 저장
-file_handler = logging.FileHandler(f'{tday}.log')
+file_handler = logging.FileHandler(f'../backend/log_dummy/{tday}.log')
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 
