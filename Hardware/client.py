@@ -37,7 +37,7 @@ status = {
     "rfid": {"id": "", "last_tagged_time": time()},
     "user": {},
     "door": {"is_slide_open": False, "is_front_unlock": False, "open_time": time()},
-    "trash_amount": current_capacity_rate(),
+    "trash_amount": 0,
 }
 
 
@@ -93,7 +93,7 @@ async def socket_listener(reader, writer):
                 status["door"]["is_front_unlock"] = False
             await the_last_action()
             status["door"]["is_slide_open"] = False
-            status["trash_amount"] = current_capacity_rate()
+            status["trash_amount"] = await current_capacity_rate()
 
             await write_data(
                 writer,
@@ -174,6 +174,7 @@ async def device_loop(writer):
 
 
 async def main():
+    status["trash_amount"] = await current_capacity_rate()
     reader, writer = await asyncio.open_connection(HOST, PORT)
     await write_data(
         writer, {"type": "init", "id": status["id"], "amount": status["trash_amount"]}

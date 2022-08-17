@@ -61,7 +61,7 @@ def check_rfid(conn, rfid):
         else:  # 미등록
             user = {'id': None, 'is_manager': False}
     
-    return {'user': user}
+    return user
 
 
 
@@ -204,6 +204,11 @@ async def handle(reader, writer):
     # query... data["amount"] 업데이트  => 부팅시 받은 amount를 update 
     if get_amount(conn, client_id) != data["amount"]:
         update_data(conn, client_id, data["amount"])
+
+    await write_data(writer, {
+        "type": "init",
+        "trashbin_type": get_type(conn, client_id)
+    })
 
     clients.append(Client(client_id, writer))
     print(f"connection open {client_id}")
