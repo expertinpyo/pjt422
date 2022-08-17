@@ -148,11 +148,6 @@ class TrashbinView(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
         raise exceptions.AuthenticationFailed('You do not have permission to perform this action.')
 
-class AllTrashView(APIView):
-    def get(self, request):
-        trashs = Trashbin.objects.all()
-        serializer = TrashbinNotificationSerializer(trashs, many=True)
-        return Response(serializer.data)
 
 # 전체 학생 조회 및 추가
 class StudentAllView(APIView):
