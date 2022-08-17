@@ -64,16 +64,6 @@ def check_rfid(conn, rfid):
     return {'user': user}
 
 
-def check_manager(conn, rfid):
-    cur = conn.cursor()
-    sql = 'SELECT * FROM accounts_user WHERE rfid_num = %s'
-    cur.execute(sql, (rfid))
-    result = cur.fetchone()
-    if result != None:
-        user = {'id': result['id'], 'is_manager': True}
-    else:
-        user = {'id': None, 'is_manager': False}
-    return {'user': user}
 
         
     
@@ -252,13 +242,11 @@ async def handle(reader, writer):
 
             # 앞문 열기 요청 / 응답
             if data["type"] == "front_unlock":
-                user = check_rfid(conn, data["rfid"])
-                if user["is_manager"]:
+                if data["user"]["is_manager"] == True:
                     client_id_list = find_set(conn, client_id)
                     for client in clients:
                         data = {
                             "type": "front_unlock",
-                            "user": user
                         }
                         if client.id in client_id_list:
                             await write_data(client.writer, data)
