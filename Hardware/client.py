@@ -133,7 +133,7 @@ async def device_loop(writer):
         ):
             await write_data(
                 writer,
-                {"type": "front_unlock"},
+                {"type": "front_unlock", "user": status["user"]},
             )
 
         # 버튼이 눌렸고
@@ -165,9 +165,9 @@ async def device_loop(writer):
                     "rfid": rfid,
                 },
             )
-
-        status["rfid"]["id"] = rfid
-        status["rfid"]["last_tagged_time"] = time()
+        if rfid:
+            status["rfid"]["id"] = rfid
+            status["rfid"]["last_tagged_time"] = time()
 
         await asyncio.sleep(0.1)
 
