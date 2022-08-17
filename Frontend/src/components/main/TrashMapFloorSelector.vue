@@ -46,6 +46,9 @@ export default {
   font-size: 18px;
   border: 0;
 }
+.floor-button.btn-selected {
+  border: 1px green solid;
+}
 .floor-notification {
   position: absolute !important;
   width: 30px;

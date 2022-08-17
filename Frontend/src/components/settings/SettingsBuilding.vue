@@ -303,7 +303,7 @@ export default {
 }
 .list-group-item {
   position: relative;
-  height: 40px;
+  /* height: 40px; */
 }
 .trashbin-list-edit-icon {
   position: absolute;
