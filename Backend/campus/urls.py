@@ -10,6 +10,5 @@ urlpatterns = [
     path('student/<int:student_pk>/', StudentView.as_view()), # 특정 학생 수정 및 삭제
     path('notification/', NotificationView.as_view()), # 쓰레기통 알림
     path('trashbin/record/', RecordView.as_view()),
-    path('test/', AllTrashView.as_view()),
 
 ]
