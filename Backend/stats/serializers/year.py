@@ -9,13 +9,6 @@ class TrashbinYearSerializer(serializers.ModelSerializer):
         exclude = ('date', 'month','id')
         
 
-class GroupYearSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = GroupDate
-        exclude = ('date', 'month','id')
-
-
 class FloorYearSerializer(serializers.ModelSerializer):
 
     class Meta:

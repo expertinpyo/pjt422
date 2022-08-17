@@ -6,15 +6,8 @@ class TrashbinWeekSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TrashbinDate
-        exclude = ('date','id', 'year', 'month','building_pk', 'floor_pk', 'group_pk')
+        exclude = ('date','id', 'year', 'month','building_pk', 'floor_pk',)
         
-
-class GroupWeekSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = FloorDate
-        exclude = ('date','id', 'year', 'month', 'building_pk', 'floor_pk')
-
 
 class FloorWeekSerializer(serializers.ModelSerializer):
 
