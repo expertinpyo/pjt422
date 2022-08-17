@@ -63,7 +63,47 @@
 
 
 ## 개발 스택
-* FE : HTML, CSS, Javascript, Vue@3.2.13, Vuex@4.0.0, Vue-router@4.0.3, Bootstrap@5.1.3
-* BE : * Python@3.9.9, DJango@3.2.12, Django-restframework@3.13.1, Django-cors-headers@3.12.0, drf-yasg@1.21.3, dj-rest-auth@2.2.4
-* Infra : MariaDB, AWS EC2
-* HW : Python
+- FE
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white"/>
+<img src="https://img.shields.io/badge/CSS-1572B6?style=flat&logo=css3&logoColor=white"/>
+<img src="https://img.shields.io/badge/Javascript-F7DF1E?style=flat&logo=javascript&logoColor=white"/>
+<img src="https://img.shields.io/badge/Vuejs-4FC08D?style=flat&logo=vue.js&logoColor=white"/>
+<img src="https://img.shields.io/badge/Vuex-4FC08D?style=flat&logo=vuex&logoColor=white"/>
+<img src="https://img.shields.io/badge/VueRouter-4FC08D?style=flat&logo=vuerouter&logoColor=white"/>
+<img src="https://img.shields.io/badge/Bootstrap5-7952B3?style=flat&logo=bootstrap&logoColor=white"/>
+<img src="https://img.shields.io/badge/Babel-F9DC3E?style=flat&logo=babel&logoColor=white"/>
+<img src="https://img.shields.io/badge/ESLint-4B32C3?style=flat&logo=eslint&logoColor=white"/>
+<img src="https://img.shields.io/badge/Npm-CB3837?style=flat&logo=npm&logoColor=white"/>
+
+
+- BE
+<img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white"/>
+<img src="https://img.shields.io/badge/Django-092E20?style=flat&logo=django&logoColor=white"/>
+<img src="https://img.shields.io/badge/Djangorestframework-092E20?style=flat&logo=djangorestframework&logoColor=white"/>
+<img src="https://img.shields.io/badge/Djangocorsheaders-092E20?style=flat&logo=djangocorsheaders&logoColor=white"/>
+<img src="https://img.shields.io/badge/drfyasg-092E20?style=flat&logo=drfyasg&logoColor=white"/>
+<img src="https://img.shields.io/badge/djrestauth-092E20?style=flat&logo=djrestauth&logoColor=white"/>
+<img src="https://img.shields.io/badge/Pandas-150458?style=flat&logo=pandas&logoColor=white"/>
+<img src="https://img.shields.io/badge/JSON-000000?style=flat&logo=json&logoColor=white"/>
+
+
+- Infra
+<img src="https://img.shields.io/badge/MariaDB-003545?style=flat&logo=mariadb&logoColor=white"/>
+<img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white"/>
+<img src="https://img.shields.io/badge/AmazonAWS-232F3E?style=flat&logo=amazonaws&logoColor=white"/>
+<img src="https://img.shields.io/badge/AmazonEC2-FF9900?style=flat&logo=amazonec2&logoColor=white"/>
+<img src="https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white"/>
+<img src="https://img.shields.io/badge/NGINX-009639?style=flat&logo=nginx&logoColor=white"/>
+
+
+- HW
+<img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white"/>
+<img src="https://img.shields.io/badge/RaspberryPi-A22846?style=flat&logo=raspberrypi&logoColor=white"/>
+
+
+- CI/CD
+<img src="https://img.shields.io/badge/Jenkins-D24939?style=flat&logo=jenkins&logoColor=white"/>
+
+- Tools
+<img src="https://img.shields.io/badge/Gitlab-FC6D26?style=flat&logo=gitlab&logoColor=white"/>
+<img src="https://img.shields.io/badge/JiraSoftware-0052CC?style=flat&logo=jirasoftware&logoColor=white"/>
