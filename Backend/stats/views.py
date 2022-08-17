@@ -138,63 +138,6 @@ class FloorYearView(APIView):
         serializer = FloorYearSerializer(floor) 
         return Response(serializer.data)
 
-# 그룹 일간 데이터 조회
-class GroupDailyView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def get(self, request, group_pk, dates):
-        year, month, date = dates[:4], dates[4:6], dates[6:]
-        group = get_object_or_404(GroupDate, group_pk=group_pk, year=year, month=month, date=date)
-        serializer = GroupDateSerializer(group)
-        return Response(serializer.data)
-
-# 그룹 주간 데이터 조회
-class GroupWeeklyView(APIView):
-    permission_classes = [IsAuthenticated]
-    
-    def get(self, request, group_pk, dates):
-        year, month, date = dates[:4], dates[4:6], dates[6:] 
-        str_date = datetime.strptime(year + '-' + month + '-' + date, '%Y-%m-%d')
-        model_ids = []
-        for i in range(7):
-            datetime_result = str(str_date - relativedelta(days=i))
-            try:
-                qry = GroupDate.objects.get(group_pk=group_pk, year=datetime_result[:4], month=datetime_result[5:7], date=datetime_result[8:10])
-            except:
-                qry = False
-            if qry:
-                model_ids.append(qry.pk)
-        df = pd.DataFrame.from_records(GroupDate.objects.filter(pk__in=model_ids).values())
-        new_df = df.groupby(['group_pk']).sum().reset_index()
-        group = new_df.to_dict(orient='records')[0]
-        serializer = GroupWeekSerializer(group) 
-        return Response(serializer.data)
-
-# 그룹 월간 데이터 조회 
-class GroupMonthlyView(APIView):
-    permission_classes = [IsAuthenticated]
-    
-    def get(self, request, group_pk, months):
-        year, month = months[:4], months[4:6]
-        df = pd.DataFrame.from_records(GroupDate.objects.filter(group_pk=group_pk, year=year, month=month).values())
-        new_df = df.groupby(['year', 'month', 'building_pk', 'floor_pk','group_pk']).sum().reset_index()
-        group = new_df.to_dict(orient='records')[0]
-        serializer = GroupMonthSerializer(group) 
-        return Response(serializer.data)
-
-# 그룹 연간 데이터 조회 
-class GroupYearView(APIView):
-    permission_classes = [IsAuthenticated]
-    
-    def get(self, request, group_pk, year):
-        df = pd.DataFrame.from_records(GroupDate.objects.filter(group_pk=group_pk, year=year).values())
-        new_df = df.groupby(['year', 'building_pk', 'floor_pk', 'group_pk']).sum().reset_index()
-        group = new_df.to_dict(orient='records')[0]
-        serializer = GroupYearSerializer(group) 
-        return Response(serializer.data)
-
-
-
 # 쓰레기통 일간 데이터 조회
 class TrashbinDailyView(APIView):
     permission_classes = [IsAuthenticated]
@@ -234,7 +177,7 @@ class TrashbinMonthlyView(APIView):
     def get(self, request, token, months):
         year, month = months[:4], months[4:6]
         df = pd.DataFrame.from_records(TrashbinDate.objects.filter(token=token, year=year, month=month).values())
-        new_df = df.groupby(['year', 'month', 'building_pk', 'floor_pk', 'group_pk', 'token']).sum().reset_index()
+        new_df = df.groupby(['year', 'month', 'building_pk', 'floor_pk', 'token']).sum().reset_index()
         print(new_df)
         trashbin = new_df.to_dict(orient='records')[0]
         serializer = TrashbinMonthSerializer(trashbin) 
@@ -246,7 +189,7 @@ class TrashbinYearView(APIView):
     
     def get(self, request, token, year):
         df = pd.DataFrame.from_records(TrashbinDate.objects.filter(token=token, year=year).values())
-        new_df = df.groupby(['year', 'building_pk', 'floor_pk', 'group_pk', 'token']).sum().reset_index()
+        new_df = df.groupby(['year', 'building_pk', 'floor_pk', 'token']).sum().reset_index()
         trashbin = new_df.to_dict(orient='records')[0]
         serializer = TrashbinYearSerializer(trashbin) 
         return Response(serializer.data)

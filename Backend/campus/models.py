@@ -31,13 +31,6 @@ class Floor(DefaultInfo):
     def __str__(self):
         return self.name
 
-class Group(DefaultInfo):
-    name = models.CharField(max_length=100, unique=True)
-    floor = models.ForeignKey(Floor, on_delete=models.CASCADE, related_name='group')
-    
-    def __str__(self):
-        return self.name
-
 class Trashbin(models.Model):
     class TypeOfTrash(models.TextChoices):
         GENERAL = 'GER', _('General')
@@ -67,8 +60,9 @@ class Trashbin(models.Model):
     )
     location_x = models.FloatField()
     location_y = models.FloatField()
-    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name='trashbin')
-    
+    group = models.CharField(max_length=5)
+    floor = models.ForeignKey(Floor, on_delete=models.CASCADE, related_name='trashbin')
+    is_connected = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     discard_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='discard_trashbin', through='CleanRecord')  # 쓰레기통을 비운 관리잔

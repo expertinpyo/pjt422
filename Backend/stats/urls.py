@@ -11,11 +11,6 @@ urlpatterns = [
     path('floor/<int:floor_pk>/week/<dates>/', FloorWeeklyView.as_view()),    # 층 주간 데이터 조회
     path('floor/<int:floor_pk>/month/<months>/', FloorMonthlyView.as_view()),  # 층 월간 데이터 조회
     path('floor/<int:floor_pk>/year/<year>/', FloorYearView.as_view()),    # 층 연간 데이터 조회
-    
-    path('group/<int:group_pk>/<dates>/', GroupDailyView.as_view()),    # 그룹 일간 데이터 조회
-    path('group/<int:group_pk>/week/<dates>/', GroupWeeklyView.as_view()),    # 그룹 주간 데이터 조회
-    path('group/<int:group_pk>/month/<months>/', GroupMonthlyView.as_view()),  # 그룹 월간 데이터 조회
-    path('group/<int:group_pk>/year/<year>/', GroupYearView.as_view()),    # 그룹 연간 데이터 조회
 
     path('trashbin/<token>/<dates>/', TrashbinDailyView.as_view()),     # 쓰레기통 일간 데이터 조회
     path('trashbin/<token>/week/<dates>/', TrashbinWeeklyView.as_view()),   # 쓰레기통 주간 데이터 조회
