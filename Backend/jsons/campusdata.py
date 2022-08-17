@@ -41,6 +41,7 @@ data_1 = {
     'fields' : field_1
 }
 cnt_bin = 1
+cnt_group = 1
 buildings.append(data_1)
 for i in range(4):
     fields_2 = {
@@ -60,8 +61,20 @@ for i in range(4):
         'fields': fields_2
     }
     floors.append(data_2)
-    gr = 0
+    
     for j in range(3):
+        fields_group = {
+            'name': cnt_group,
+            'created_at': created_at,
+            'updated_at': updated_at,
+        }
+        data_group = {
+            'pk': cnt_group,
+            'model': 'campus.group',
+            'fields': fields_group
+        }
+        groups.append(data_group)
+
         type_list = []
         for k in range(3):
             if i == 1:
@@ -93,7 +106,7 @@ for i in range(4):
                         'amount': random.random(),
                         'location_x': location_x,
                         'location_y': location_y,
-                        'group' : str(j),
+                        'group' : cnt_group,
                         'created_at': created_at,
                         'updated_at': updated_at,
                         'floor': i+1,
@@ -111,7 +124,7 @@ for i in range(4):
                     }
             trashbins.append(data_3)
             cnt_bin += 1
-
+        cnt_group += 1
 
 for j in range(1, len(building)):
     fields2 = {
@@ -153,6 +166,17 @@ for j in range(1, len(building)):
             location_y = random.randrange(30, 400)
             ver_hor = random.random()
             type_list = []
+            fields_group = {
+            'name': cnt_group,
+            'created_at': created_at,
+            'updated_at': updated_at,
+            }
+            data_group = {
+                'pk': cnt_group,
+                'model': 'campus.group',
+                'fields': fields_group
+            }
+            groups.append(data_group)
             for asd in range(3):
                 if ver_hor >= 0.5:
                     location_x += 20
@@ -171,7 +195,7 @@ for j in range(1, len(building)):
                     'location_y': location_y,
                     'created_at': created_at,
                     'updated_at': updated_at,
-                    'group': str(gr),
+                    'group': cnt_group,
                     'floor' : cnt_floor
                 }
                 if fields4['amount'] >= 0.7:
@@ -187,6 +211,7 @@ for j in range(1, len(building)):
                 }
                 trashbins.append(data4)
                 cnt_trashbin += 1
+            cnt_group += 1
         cnt_floor += 1
     cnt_building += 1
 
@@ -224,6 +249,9 @@ with open('buildings.json', 'w', encoding='utf-8') as json_file:
 
 with open('floors.json', 'w', encoding='utf-8') as json_file:
     json.dump(floors, json_file, ensure_ascii=False, default=str)
+
+with open('groups.json', 'w', encoding='utf-8') as json_file:
+    json.dump(groups, json_file, ensure_ascii=False, default=str)
 
 with open('trashbins.json', 'w', encoding='utf-8') as json_file:
     json.dump(trashbins, json_file, ensure_ascii=False, default=str)

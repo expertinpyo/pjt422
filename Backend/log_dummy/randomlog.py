@@ -11,16 +11,16 @@ trash_list = [
                 "name": "평생교육관"
             }
         },
-        "token": "10000000tokenij7",
-        "trash_type": "GER",
-        "amount": 0.030516731011519305,
-        "status": "SAF",
+        "token": "10000000tokenij2",
+        "trash_type": "GLA",
+        "amount": 0.6346277880064001,
+        "status": "CAU",
         "location_x": 500.0,
         "location_y": 275.0,
-        "group": "0",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 1,
         "discard_users": []
     },
     {
@@ -33,16 +33,16 @@ trash_list = [
                 "name": "평생교육관"
             }
         },
-        "token": "10000000tokenij2",
-        "trash_type": "CAN",
-        "amount": 0.39567317000601965,
+        "token": "10000000tokenij3",
+        "trash_type": "PPR",
+        "amount": 0.0934726831677154,
         "status": "SAF",
         "location_x": 520.0,
         "location_y": 275.0,
-        "group": "0",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 1,
         "discard_users": []
     },
     {
@@ -55,16 +55,16 @@ trash_list = [
                 "name": "평생교육관"
             }
         },
-        "token": "10000000tokenij8",
+        "token": "10000000tokenij3",
         "trash_type": "PET",
-        "amount": 0.2547395649309665,
-        "status": "SAF",
+        "amount": 0.927956062731758,
+        "status": "WAR",
         "location_x": 540.0,
         "location_y": 275.0,
-        "group": "0",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 1,
         "discard_users": []
     },
     {
@@ -77,16 +77,16 @@ trash_list = [
                 "name": "평생교육관"
             }
         },
-        "token": "10000000tokenij7",
+        "token": "10000000tokenij2",
         "trash_type": "PPR",
-        "amount": 0.20624465914118073,
-        "status": "SAF",
+        "amount": 0.8583013655464262,
+        "status": "WAR",
         "location_x": 207.0,
         "location_y": 123.0,
-        "group": "1",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 2,
         "discard_users": []
     },
     {
@@ -99,16 +99,16 @@ trash_list = [
                 "name": "평생교육관"
             }
         },
-        "token": "10000000tokenij8",
-        "trash_type": "PET",
-        "amount": 0.7990576815531738,
+        "token": "10000000tokenij2",
+        "trash_type": "GLA",
+        "amount": 0.8822247664515837,
         "status": "WAR",
         "location_x": 227.0,
         "location_y": 123.0,
-        "group": "1",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 2,
         "discard_users": []
     },
     {
@@ -121,16 +121,16 @@ trash_list = [
                 "name": "평생교육관"
             }
         },
-        "token": "10000000tokenij7",
-        "trash_type": "GLA",
-        "amount": 0.4028814180969468,
-        "status": "CAU",
+        "token": "10000000tokenij6",
+        "trash_type": "GER",
+        "amount": 0.7374912259276587,
+        "status": "WAR",
         "location_x": 247.0,
         "location_y": 123.0,
-        "group": "1",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 2,
         "discard_users": []
     },
     {
@@ -143,16 +143,16 @@ trash_list = [
                 "name": "평생교육관"
             }
         },
-        "token": "10000000tokenij7",
-        "trash_type": "CAN",
-        "amount": 0.3172476461213324,
-        "status": "SAF",
+        "token": "10000000tokenij8",
+        "trash_type": "GLA",
+        "amount": 0.938858092943237,
+        "status": "WAR",
         "location_x": 1020.0,
         "location_y": 350.0,
-        "group": "2",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 3,
         "discard_users": []
     },
     {
@@ -165,16 +165,16 @@ trash_list = [
                 "name": "평생교육관"
             }
         },
-        "token": "10000000tokenij5",
-        "trash_type": "GLA",
-        "amount": 0.0460652562736833,
-        "status": "SAF",
+        "token": "10000000tokenij2",
+        "trash_type": "CAN",
+        "amount": 0.5927984580780831,
+        "status": "CAU",
         "location_x": 1020.0,
         "location_y": 370.0,
-        "group": "2",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 3,
         "discard_users": []
     },
     {
@@ -187,16 +187,16 @@ trash_list = [
                 "name": "평생교육관"
             }
         },
-        "token": "10000000tokenij9",
-        "trash_type": "PPR",
-        "amount": 0.6065556850920341,
+        "token": "10000000tokenij8",
+        "trash_type": "PET",
+        "amount": 0.5788567031153529,
         "status": "CAU",
         "location_x": 1020.0,
         "location_y": 390.0,
-        "group": "2",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 3,
         "discard_users": []
     },
     {
@@ -211,14 +211,14 @@ trash_list = [
         },
         "token": "10000000186490f2",
         "trash_type": "GER",
-        "amount": 0.7844222573429906,
+        "amount": 0.8240899974698471,
         "status": "WAR",
         "location_x": 657.0,
         "location_y": 280.0,
-        "group": "0",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 4,
         "discard_users": []
     },
     {
@@ -233,14 +233,14 @@ trash_list = [
         },
         "token": "1000000089ff6e7a",
         "trash_type": "PET",
-        "amount": 0.13924511123742733,
+        "amount": 0.27085346342021666,
         "status": "SAF",
         "location_x": 657.0,
         "location_y": 300.0,
-        "group": "0",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 4,
         "discard_users": []
     },
     {
@@ -254,15 +254,15 @@ trash_list = [
             }
         },
         "token": "10000000tokenasd",
-        "trash_type": "PET",
-        "amount": 0.12142118427245874,
-        "status": "SAF",
+        "trash_type": "GLA",
+        "amount": 0.7623332450022294,
+        "status": "WAR",
         "location_x": 657.0,
         "location_y": 320.0,
-        "group": "0",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 4,
         "discard_users": []
     },
     {
@@ -276,15 +276,15 @@ trash_list = [
             }
         },
         "token": "10000000tokenasd",
-        "trash_type": "GLA",
-        "amount": 0.817770847453445,
-        "status": "WAR",
+        "trash_type": "GER",
+        "amount": 0.6225241285034303,
+        "status": "CAU",
         "location_x": 190.0,
         "location_y": 125.0,
-        "group": "1",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 5,
         "discard_users": []
     },
     {
@@ -298,15 +298,15 @@ trash_list = [
             }
         },
         "token": "10000000tokenasd",
-        "trash_type": "PET",
-        "amount": 0.8620393108225235,
-        "status": "WAR",
+        "trash_type": "GLA",
+        "amount": 0.09708788400237023,
+        "status": "SAF",
         "location_x": 210.0,
         "location_y": 125.0,
-        "group": "1",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 5,
         "discard_users": []
     },
     {
@@ -320,15 +320,15 @@ trash_list = [
             }
         },
         "token": "10000000tokenasd",
-        "trash_type": "CAN",
-        "amount": 0.34252462668506756,
-        "status": "SAF",
+        "trash_type": "PPR",
+        "amount": 0.8626757386582095,
+        "status": "WAR",
         "location_x": 230.0,
         "location_y": 125.0,
-        "group": "1",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 5,
         "discard_users": []
     },
     {
@@ -343,14 +343,14 @@ trash_list = [
         },
         "token": "10000000tokenasd",
         "trash_type": "CAN",
-        "amount": 0.841768384326108,
-        "status": "WAR",
+        "amount": 0.6781866224223265,
+        "status": "CAU",
         "location_x": 910.0,
         "location_y": 120.0,
-        "group": "2",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 6,
         "discard_users": []
     },
     {
@@ -365,14 +365,14 @@ trash_list = [
         },
         "token": "10000000tokenasd",
         "trash_type": "PET",
-        "amount": 0.42734769912454174,
+        "amount": 0.43484587236572536,
         "status": "CAU",
         "location_x": 910.0,
         "location_y": 140.0,
-        "group": "2",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 6,
         "discard_users": []
     },
     {
@@ -387,14 +387,14 @@ trash_list = [
         },
         "token": "10000000tokenasd",
         "trash_type": "GLA",
-        "amount": 0.39609125002832424,
-        "status": "SAF",
+        "amount": 0.41307170088021183,
+        "status": "CAU",
         "location_x": 910.0,
         "location_y": 160.0,
-        "group": "2",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 6,
         "discard_users": []
     },
     {
@@ -408,15 +408,15 @@ trash_list = [
             }
         },
         "token": "10000000tokenij1",
-        "trash_type": "GER",
-        "amount": 0.29879878359908485,
-        "status": "SAF",
+        "trash_type": "PPR",
+        "amount": 0.4757737560875044,
+        "status": "CAU",
         "location_x": 600.0,
         "location_y": 255.0,
-        "group": "0",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 7,
         "discard_users": []
     },
     {
@@ -429,16 +429,16 @@ trash_list = [
                 "name": "평생교육관"
             }
         },
-        "token": "10000000tokenij5",
-        "trash_type": "PPR",
-        "amount": 0.9715665004216151,
+        "token": "10000000tokenij8",
+        "trash_type": "GLA",
+        "amount": 0.7280861506941434,
         "status": "WAR",
         "location_x": 620.0,
         "location_y": 255.0,
-        "group": "0",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 7,
         "discard_users": []
     },
     {
@@ -451,16 +451,16 @@ trash_list = [
                 "name": "평생교육관"
             }
         },
-        "token": "10000000tokenij5",
-        "trash_type": "GLA",
-        "amount": 0.6849604352945702,
-        "status": "CAU",
+        "token": "10000000tokenij6",
+        "trash_type": "PET",
+        "amount": 0.36331864389132595,
+        "status": "SAF",
         "location_x": 640.0,
         "location_y": 255.0,
-        "group": "0",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 7,
         "discard_users": []
     },
     {
@@ -473,16 +473,16 @@ trash_list = [
                 "name": "평생교육관"
             }
         },
-        "token": "10000000tokenij1",
+        "token": "10000000tokenij2",
         "trash_type": "PET",
-        "amount": 0.8755098839098002,
-        "status": "WAR",
+        "amount": 0.1518980313889825,
+        "status": "SAF",
         "location_x": 280.0,
         "location_y": 392.0,
-        "group": "1",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 8,
         "discard_users": []
     },
     {
@@ -495,16 +495,16 @@ trash_list = [
                 "name": "평생교육관"
             }
         },
-        "token": "10000000tokenij9",
-        "trash_type": "CAN",
-        "amount": 0.19471351384690372,
-        "status": "SAF",
+        "token": "10000000tokenij4",
+        "trash_type": "PPR",
+        "amount": 0.6776319048814731,
+        "status": "CAU",
         "location_x": 300.0,
         "location_y": 392.0,
-        "group": "1",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 8,
         "discard_users": []
     },
     {
@@ -517,16 +517,16 @@ trash_list = [
                 "name": "평생교육관"
             }
         },
-        "token": "10000000tokenij2",
-        "trash_type": "PPR",
-        "amount": 0.6498442851038031,
+        "token": "10000000tokenij3",
+        "trash_type": "GER",
+        "amount": 0.674567399323091,
         "status": "CAU",
         "location_x": 320.0,
         "location_y": 392.0,
-        "group": "1",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 8,
         "discard_users": []
     },
     {
@@ -539,16 +539,16 @@ trash_list = [
                 "name": "평생교육관"
             }
         },
-        "token": "10000000tokenij5",
-        "trash_type": "CAN",
-        "amount": 0.6133930498635991,
+        "token": "10000000tokenij9",
+        "trash_type": "GLA",
+        "amount": 0.4009205818304974,
         "status": "CAU",
         "location_x": 1090.0,
         "location_y": 230.0,
-        "group": "2",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 9,
         "discard_users": []
     },
     {
@@ -561,16 +561,16 @@ trash_list = [
                 "name": "평생교육관"
             }
         },
-        "token": "10000000tokenij1",
-        "trash_type": "GLA",
-        "amount": 0.6705732246724992,
-        "status": "CAU",
+        "token": "10000000tokenij5",
+        "trash_type": "PPR",
+        "amount": 0.764085075081819,
+        "status": "WAR",
         "location_x": 1090.0,
         "location_y": 250.0,
-        "group": "2",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 9,
         "discard_users": []
     },
     {
@@ -583,16 +583,16 @@ trash_list = [
                 "name": "평생교육관"
             }
         },
-        "token": "10000000tokenij3",
-        "trash_type": "PPR",
-        "amount": 0.832515905899631,
-        "status": "WAR",
+        "token": "10000000tokenij8",
+        "trash_type": "CAN",
+        "amount": 0.3804156298647331,
+        "status": "SAF",
         "location_x": 1090.0,
         "location_y": 270.0,
-        "group": "2",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 9,
         "discard_users": []
     },
     {
@@ -605,16 +605,16 @@ trash_list = [
                 "name": "평생교육관"
             }
         },
-        "token": "10000000tokenij5",
-        "trash_type": "CAN",
-        "amount": 0.5553321002933499,
+        "token": "10000000tokenij8",
+        "trash_type": "GLA",
+        "amount": 0.6360284877819891,
         "status": "CAU",
         "location_x": 120.0,
         "location_y": 245.0,
-        "group": "0",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 10,
         "discard_users": []
     },
     {
@@ -627,16 +627,16 @@ trash_list = [
                 "name": "평생교육관"
             }
         },
-        "token": "10000000tokenij5",
-        "trash_type": "PPR",
-        "amount": 0.6170303467431675,
+        "token": "10000000tokenij7",
+        "trash_type": "PET",
+        "amount": 0.5230610485573411,
         "status": "CAU",
         "location_x": 140.0,
         "location_y": 245.0,
-        "group": "0",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 10,
         "discard_users": []
     },
     {
@@ -651,14 +651,14 @@ trash_list = [
         },
         "token": "10000000tokenij1",
         "trash_type": "GER",
-        "amount": 0.6007294448350335,
-        "status": "CAU",
+        "amount": 0.8954623967847901,
+        "status": "WAR",
         "location_x": 160.0,
         "location_y": 245.0,
-        "group": "0",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 10,
         "discard_users": []
     },
     {
@@ -671,16 +671,16 @@ trash_list = [
                 "name": "평생교육관"
             }
         },
-        "token": "10000000tokenij4",
+        "token": "10000000tokenij2",
         "trash_type": "PET",
-        "amount": 0.9337748708924442,
+        "amount": 0.7892614542802272,
         "status": "WAR",
         "location_x": 575.0,
         "location_y": 320.0,
-        "group": "1",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 11,
         "discard_users": []
     },
     {
@@ -693,16 +693,16 @@ trash_list = [
                 "name": "평생교육관"
             }
         },
-        "token": "10000000tokenij7",
-        "trash_type": "CAN",
-        "amount": 0.1476025706848848,
+        "token": "10000000tokenij2",
+        "trash_type": "GLA",
+        "amount": 0.29647806956506595,
         "status": "SAF",
         "location_x": 575.0,
         "location_y": 340.0,
-        "group": "1",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 11,
         "discard_users": []
     },
     {
@@ -715,16 +715,16 @@ trash_list = [
                 "name": "평생교육관"
             }
         },
-        "token": "10000000tokenij7",
-        "trash_type": "PPR",
-        "amount": 0.01795622111691042,
+        "token": "10000000tokenij3",
+        "trash_type": "GER",
+        "amount": 0.21983602548621206,
         "status": "SAF",
         "location_x": 575.0,
         "location_y": 360.0,
-        "group": "1",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 11,
         "discard_users": []
     },
     {
@@ -737,16 +737,16 @@ trash_list = [
                 "name": "평생교육관"
             }
         },
-        "token": "10000000tokenij4",
-        "trash_type": "PPR",
-        "amount": 0.8789473960370197,
+        "token": "10000000tokenij5",
+        "trash_type": "CAN",
+        "amount": 0.734244494889422,
         "status": "WAR",
         "location_x": 1016.0,
         "location_y": 160.0,
-        "group": "2",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 12,
         "discard_users": []
     },
     {
@@ -759,16 +759,16 @@ trash_list = [
                 "name": "평생교육관"
             }
         },
-        "token": "10000000tokenij5",
-        "trash_type": "GLA",
-        "amount": 0.621216476781266,
+        "token": "10000000tokenij1",
+        "trash_type": "GER",
+        "amount": 0.6148610374023142,
         "status": "CAU",
         "location_x": 1016.0,
         "location_y": 180.0,
-        "group": "2",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 12,
         "discard_users": []
     },
     {
@@ -782,15 +782,15 @@ trash_list = [
             }
         },
         "token": "10000000tokenij6",
-        "trash_type": "PET",
-        "amount": 0.8036200370937253,
-        "status": "WAR",
+        "trash_type": "PPR",
+        "amount": 0.42085540638223917,
+        "status": "CAU",
         "location_x": 1016.0,
         "location_y": 200.0,
-        "group": "2",
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 12,
         "discard_users": []
     },
     {
@@ -804,15 +804,15 @@ trash_list = [
             }
         },
         "token": "1B137",
-        "trash_type": "GER",
+        "trash_type": "CAN",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 486.0,
-        "location_y": 60.0,
-        "group": "0",
+        "location_x": 113.0,
+        "location_y": 244.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 13,
         "discard_users": []
     },
     {
@@ -826,15 +826,15 @@ trash_list = [
             }
         },
         "token": "1B138",
-        "trash_type": "PPR",
+        "trash_type": "GER",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 486.0,
-        "location_y": 80.0,
-        "group": "0",
+        "location_x": 113.0,
+        "location_y": 264.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 13,
         "discard_users": []
     },
     {
@@ -848,15 +848,15 @@ trash_list = [
             }
         },
         "token": "1B139",
-        "trash_type": "GLA",
+        "trash_type": "PPR",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 486.0,
-        "location_y": 100.0,
-        "group": "0",
+        "location_x": 113.0,
+        "location_y": 284.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 13,
         "discard_users": []
     },
     {
@@ -870,15 +870,15 @@ trash_list = [
             }
         },
         "token": "1B140",
-        "trash_type": "GER",
+        "trash_type": "PET",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 507.0,
-        "location_y": 344.0,
-        "group": "1",
+        "location_x": 506.0,
+        "location_y": 247.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 14,
         "discard_users": []
     },
     {
@@ -892,15 +892,15 @@ trash_list = [
             }
         },
         "token": "1B141",
-        "trash_type": "PPR",
+        "trash_type": "CAN",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 507.0,
-        "location_y": 364.0,
-        "group": "1",
+        "location_x": 506.0,
+        "location_y": 267.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 14,
         "discard_users": []
     },
     {
@@ -914,15 +914,15 @@ trash_list = [
             }
         },
         "token": "1B142",
-        "trash_type": "PET",
+        "trash_type": "GER",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 507.0,
-        "location_y": 384.0,
-        "group": "1",
+        "location_x": 506.0,
+        "location_y": 287.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 14,
         "discard_users": []
     },
     {
@@ -936,15 +936,15 @@ trash_list = [
             }
         },
         "token": "1B143",
-        "trash_type": "CAN",
+        "trash_type": "GER",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 142.0,
-        "location_y": 92.0,
-        "group": "2",
+        "location_x": 437.0,
+        "location_y": 80.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 15,
         "discard_users": []
     },
     {
@@ -958,15 +958,15 @@ trash_list = [
             }
         },
         "token": "1B144",
-        "trash_type": "GER",
+        "trash_type": "PPR",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 162.0,
-        "location_y": 92.0,
-        "group": "2",
+        "location_x": 437.0,
+        "location_y": 100.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 15,
         "discard_users": []
     },
     {
@@ -980,15 +980,15 @@ trash_list = [
             }
         },
         "token": "1B145",
-        "trash_type": "PPR",
+        "trash_type": "GLA",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 182.0,
-        "location_y": 92.0,
-        "group": "2",
+        "location_x": 437.0,
+        "location_y": 120.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 15,
         "discard_users": []
     },
     {
@@ -1002,15 +1002,15 @@ trash_list = [
             }
         },
         "token": "1146",
-        "trash_type": "PET",
+        "trash_type": "CAN",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 342.0,
-        "location_y": 357.0,
-        "group": "0",
+        "location_x": 504.0,
+        "location_y": 180.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 16,
         "discard_users": []
     },
     {
@@ -1024,15 +1024,15 @@ trash_list = [
             }
         },
         "token": "1147",
-        "trash_type": "GLA",
+        "trash_type": "PPR",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 362.0,
-        "location_y": 357.0,
-        "group": "0",
+        "location_x": 524.0,
+        "location_y": 180.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 16,
         "discard_users": []
     },
     {
@@ -1046,15 +1046,15 @@ trash_list = [
             }
         },
         "token": "1148",
-        "trash_type": "CAN",
+        "trash_type": "GER",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 382.0,
-        "location_y": 357.0,
-        "group": "0",
+        "location_x": 544.0,
+        "location_y": 180.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 16,
         "discard_users": []
     },
     {
@@ -1068,15 +1068,15 @@ trash_list = [
             }
         },
         "token": "1149",
-        "trash_type": "GLA",
+        "trash_type": "PET",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 50.0,
-        "location_y": 324.0,
-        "group": "1",
+        "location_x": 239.0,
+        "location_y": 264.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 17,
         "discard_users": []
     },
     {
@@ -1090,15 +1090,15 @@ trash_list = [
             }
         },
         "token": "1150",
-        "trash_type": "PET",
+        "trash_type": "GLA",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 50.0,
-        "location_y": 344.0,
-        "group": "1",
+        "location_x": 239.0,
+        "location_y": 284.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 17,
         "discard_users": []
     },
     {
@@ -1112,15 +1112,15 @@ trash_list = [
             }
         },
         "token": "1151",
-        "trash_type": "CAN",
+        "trash_type": "PPR",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 50.0,
-        "location_y": 364.0,
-        "group": "1",
+        "location_x": 239.0,
+        "location_y": 304.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 17,
         "discard_users": []
     },
     {
@@ -1134,15 +1134,15 @@ trash_list = [
             }
         },
         "token": "1152",
-        "trash_type": "GER",
+        "trash_type": "PET",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 408.0,
-        "location_y": 321.0,
-        "group": "2",
+        "location_x": 197.0,
+        "location_y": 132.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 18,
         "discard_users": []
     },
     {
@@ -1156,15 +1156,15 @@ trash_list = [
             }
         },
         "token": "1153",
-        "trash_type": "GLA",
+        "trash_type": "CAN",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 428.0,
-        "location_y": 321.0,
-        "group": "2",
+        "location_x": 217.0,
+        "location_y": 132.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 18,
         "discard_users": []
     },
     {
@@ -1178,15 +1178,15 @@ trash_list = [
             }
         },
         "token": "1154",
-        "trash_type": "PET",
+        "trash_type": "PPR",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 448.0,
-        "location_y": 321.0,
-        "group": "2",
+        "location_x": 237.0,
+        "location_y": 132.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 18,
         "discard_users": []
     },
     {
@@ -1200,15 +1200,15 @@ trash_list = [
             }
         },
         "token": "2B155",
-        "trash_type": "GLA",
+        "trash_type": "GER",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 131.0,
-        "location_y": 276.0,
-        "group": "0",
+        "location_x": 288.0,
+        "location_y": 201.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 19,
         "discard_users": []
     },
     {
@@ -1225,12 +1225,12 @@ trash_list = [
         "trash_type": "CAN",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 131.0,
-        "location_y": 296.0,
-        "group": "0",
+        "location_x": 308.0,
+        "location_y": 201.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 19,
         "discard_users": []
     },
     {
@@ -1244,15 +1244,15 @@ trash_list = [
             }
         },
         "token": "2B157",
-        "trash_type": "GER",
+        "trash_type": "PET",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 131.0,
-        "location_y": 316.0,
-        "group": "0",
+        "location_x": 328.0,
+        "location_y": 201.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 19,
         "discard_users": []
     },
     {
@@ -1266,15 +1266,15 @@ trash_list = [
             }
         },
         "token": "2B158",
-        "trash_type": "PET",
+        "trash_type": "CAN",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 301.0,
-        "location_y": 247.0,
-        "group": "1",
+        "location_x": 502.0,
+        "location_y": 152.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 20,
         "discard_users": []
     },
     {
@@ -1288,15 +1288,15 @@ trash_list = [
             }
         },
         "token": "2B159",
-        "trash_type": "CAN",
+        "trash_type": "GER",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 321.0,
-        "location_y": 247.0,
-        "group": "1",
+        "location_x": 522.0,
+        "location_y": 152.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 20,
         "discard_users": []
     },
     {
@@ -1310,15 +1310,15 @@ trash_list = [
             }
         },
         "token": "2B160",
-        "trash_type": "PPR",
+        "trash_type": "GLA",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 341.0,
-        "location_y": 247.0,
-        "group": "1",
+        "location_x": 542.0,
+        "location_y": 152.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 20,
         "discard_users": []
     },
     {
@@ -1332,15 +1332,15 @@ trash_list = [
             }
         },
         "token": "2B161",
-        "trash_type": "PPR",
+        "trash_type": "PET",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 351.0,
-        "location_y": 77.0,
-        "group": "2",
+        "location_x": 129.0,
+        "location_y": 276.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 21,
         "discard_users": []
     },
     {
@@ -1357,12 +1357,12 @@ trash_list = [
         "trash_type": "CAN",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 351.0,
-        "location_y": 97.0,
-        "group": "2",
+        "location_x": 149.0,
+        "location_y": 276.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 21,
         "discard_users": []
     },
     {
@@ -1376,15 +1376,15 @@ trash_list = [
             }
         },
         "token": "2B163",
-        "trash_type": "PET",
+        "trash_type": "GER",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 351.0,
-        "location_y": 117.0,
-        "group": "2",
+        "location_x": 169.0,
+        "location_y": 276.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 21,
         "discard_users": []
     },
     {
@@ -1398,15 +1398,15 @@ trash_list = [
             }
         },
         "token": "2164",
-        "trash_type": "GER",
+        "trash_type": "CAN",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 514.0,
-        "location_y": 357.0,
-        "group": "0",
+        "location_x": 602.0,
+        "location_y": 222.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 22,
         "discard_users": []
     },
     {
@@ -1420,15 +1420,15 @@ trash_list = [
             }
         },
         "token": "2165",
-        "trash_type": "GLA",
+        "trash_type": "PET",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 534.0,
-        "location_y": 357.0,
-        "group": "0",
+        "location_x": 622.0,
+        "location_y": 222.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 22,
         "discard_users": []
     },
     {
@@ -1442,15 +1442,15 @@ trash_list = [
             }
         },
         "token": "2166",
-        "trash_type": "CAN",
+        "trash_type": "GER",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 554.0,
-        "location_y": 357.0,
-        "group": "0",
+        "location_x": 642.0,
+        "location_y": 222.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 22,
         "discard_users": []
     },
     {
@@ -1467,12 +1467,12 @@ trash_list = [
         "trash_type": "GLA",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 419.0,
-        "location_y": 111.0,
-        "group": "1",
+        "location_x": 384.0,
+        "location_y": 269.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 23,
         "discard_users": []
     },
     {
@@ -1489,12 +1489,12 @@ trash_list = [
         "trash_type": "GER",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 439.0,
-        "location_y": 111.0,
-        "group": "1",
+        "location_x": 384.0,
+        "location_y": 289.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 23,
         "discard_users": []
     },
     {
@@ -1511,12 +1511,12 @@ trash_list = [
         "trash_type": "CAN",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 459.0,
-        "location_y": 111.0,
-        "group": "1",
+        "location_x": 384.0,
+        "location_y": 309.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 23,
         "discard_users": []
     },
     {
@@ -1530,15 +1530,15 @@ trash_list = [
             }
         },
         "token": "2170",
-        "trash_type": "GER",
+        "trash_type": "GLA",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 440.0,
-        "location_y": 190.0,
-        "group": "2",
+        "location_x": 404.0,
+        "location_y": 290.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 24,
         "discard_users": []
     },
     {
@@ -1552,15 +1552,15 @@ trash_list = [
             }
         },
         "token": "2171",
-        "trash_type": "PPR",
+        "trash_type": "GER",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 440.0,
-        "location_y": 210.0,
-        "group": "2",
+        "location_x": 424.0,
+        "location_y": 290.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 24,
         "discard_users": []
     },
     {
@@ -1574,213 +1574,213 @@ trash_list = [
             }
         },
         "token": "2172",
-        "trash_type": "PET",
+        "trash_type": "CAN",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 440.0,
-        "location_y": 230.0,
-        "group": "2",
+        "location_x": 444.0,
+        "location_y": 290.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 24,
         "discard_users": []
     },
     {
         "id": 73,
         "floor": {
             "pk": 9,
-            "name": "2",
+            "name": "B1",
             "building": {
-                "pk": 3,
-                "name": "어학관"
+                "pk": 4,
+                "name": "체육관"
             }
         },
-        "token": "2273",
-        "trash_type": "GLA",
+        "token": "3B173",
+        "trash_type": "GER",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 251.0,
-        "location_y": 79.0,
-        "group": "0",
+        "location_x": 532.0,
+        "location_y": 158.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 25,
         "discard_users": []
     },
     {
         "id": 74,
         "floor": {
             "pk": 9,
-            "name": "2",
+            "name": "B1",
             "building": {
-                "pk": 3,
-                "name": "어학관"
+                "pk": 4,
+                "name": "체육관"
             }
         },
-        "token": "2274",
-        "trash_type": "GER",
+        "token": "3B174",
+        "trash_type": "GLA",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 251.0,
-        "location_y": 99.0,
-        "group": "0",
+        "location_x": 532.0,
+        "location_y": 178.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 25,
         "discard_users": []
     },
     {
         "id": 75,
         "floor": {
             "pk": 9,
-            "name": "2",
+            "name": "B1",
             "building": {
-                "pk": 3,
-                "name": "어학관"
+                "pk": 4,
+                "name": "체육관"
             }
         },
-        "token": "2275",
+        "token": "3B175",
         "trash_type": "PPR",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 251.0,
-        "location_y": 119.0,
-        "group": "0",
+        "location_x": 532.0,
+        "location_y": 198.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 25,
         "discard_users": []
     },
     {
         "id": 76,
         "floor": {
             "pk": 9,
-            "name": "2",
+            "name": "B1",
             "building": {
-                "pk": 3,
-                "name": "어학관"
+                "pk": 4,
+                "name": "체육관"
             }
         },
-        "token": "2276",
-        "trash_type": "CAN",
+        "token": "3B176",
+        "trash_type": "PET",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 263.0,
-        "location_y": 259.0,
-        "group": "1",
+        "location_x": 166.0,
+        "location_y": 151.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 26,
         "discard_users": []
     },
     {
         "id": 77,
         "floor": {
             "pk": 9,
-            "name": "2",
+            "name": "B1",
             "building": {
-                "pk": 3,
-                "name": "어학관"
+                "pk": 4,
+                "name": "체육관"
             }
         },
-        "token": "2277",
-        "trash_type": "PET",
+        "token": "3B177",
+        "trash_type": "GLA",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 283.0,
-        "location_y": 259.0,
-        "group": "1",
+        "location_x": 186.0,
+        "location_y": 151.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 26,
         "discard_users": []
     },
     {
         "id": 78,
         "floor": {
             "pk": 9,
-            "name": "2",
+            "name": "B1",
             "building": {
-                "pk": 3,
-                "name": "어학관"
+                "pk": 4,
+                "name": "체육관"
             }
         },
-        "token": "2278",
+        "token": "3B178",
         "trash_type": "PPR",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 303.0,
-        "location_y": 259.0,
-        "group": "1",
+        "location_x": 206.0,
+        "location_y": 151.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 26,
         "discard_users": []
     },
     {
         "id": 79,
         "floor": {
             "pk": 9,
-            "name": "2",
+            "name": "B1",
             "building": {
-                "pk": 3,
-                "name": "어학관"
+                "pk": 4,
+                "name": "체육관"
             }
         },
-        "token": "2279",
-        "trash_type": "GLA",
+        "token": "3B179",
+        "trash_type": "PET",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 317.0,
-        "location_y": 123.0,
-        "group": "2",
+        "location_x": 210.0,
+        "location_y": 313.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 27,
         "discard_users": []
     },
     {
         "id": 80,
         "floor": {
             "pk": 9,
-            "name": "2",
+            "name": "B1",
             "building": {
-                "pk": 3,
-                "name": "어학관"
+                "pk": 4,
+                "name": "체육관"
             }
         },
-        "token": "2280",
-        "trash_type": "GER",
+        "token": "3B180",
+        "trash_type": "CAN",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 317.0,
-        "location_y": 143.0,
-        "group": "2",
+        "location_x": 210.0,
+        "location_y": 333.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 27,
         "discard_users": []
     },
     {
         "id": 81,
         "floor": {
             "pk": 9,
-            "name": "2",
+            "name": "B1",
             "building": {
-                "pk": 3,
-                "name": "어학관"
+                "pk": 4,
+                "name": "체육관"
             }
         },
-        "token": "2281",
+        "token": "3B181",
         "trash_type": "PPR",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 317.0,
-        "location_y": 163.0,
-        "group": "2",
+        "location_x": 210.0,
+        "location_y": 353.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 27,
         "discard_users": []
     },
     {
@@ -1789,20 +1789,20 @@ trash_list = [
             "pk": 10,
             "name": "B1",
             "building": {
-                "pk": 4,
-                "name": "체육관"
+                "pk": 5,
+                "name": "중앙도서관"
             }
         },
-        "token": "3B182",
-        "trash_type": "GER",
+        "token": "4B182",
+        "trash_type": "PET",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 519.0,
-        "location_y": 194.0,
-        "group": "0",
+        "location_x": 373.0,
+        "location_y": 80.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 28,
         "discard_users": []
     },
     {
@@ -1811,20 +1811,20 @@ trash_list = [
             "pk": 10,
             "name": "B1",
             "building": {
-                "pk": 4,
-                "name": "체육관"
+                "pk": 5,
+                "name": "중앙도서관"
             }
         },
-        "token": "3B183",
-        "trash_type": "CAN",
+        "token": "4B183",
+        "trash_type": "GLA",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 539.0,
-        "location_y": 194.0,
-        "group": "0",
+        "location_x": 373.0,
+        "location_y": 100.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 28,
         "discard_users": []
     },
     {
@@ -1833,20 +1833,20 @@ trash_list = [
             "pk": 10,
             "name": "B1",
             "building": {
-                "pk": 4,
-                "name": "체육관"
+                "pk": 5,
+                "name": "중앙도서관"
             }
         },
-        "token": "3B184",
-        "trash_type": "PPR",
+        "token": "4B184",
+        "trash_type": "CAN",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 559.0,
-        "location_y": 194.0,
-        "group": "0",
+        "location_x": 373.0,
+        "location_y": 120.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 28,
         "discard_users": []
     },
     {
@@ -1855,20 +1855,20 @@ trash_list = [
             "pk": 10,
             "name": "B1",
             "building": {
-                "pk": 4,
-                "name": "체육관"
+                "pk": 5,
+                "name": "중앙도서관"
             }
         },
-        "token": "3B185",
-        "trash_type": "PET",
+        "token": "4B185",
+        "trash_type": "CAN",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 211.0,
-        "location_y": 127.0,
-        "group": "1",
+        "location_x": 348.0,
+        "location_y": 144.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 29,
         "discard_users": []
     },
     {
@@ -1877,20 +1877,20 @@ trash_list = [
             "pk": 10,
             "name": "B1",
             "building": {
-                "pk": 4,
-                "name": "체육관"
+                "pk": 5,
+                "name": "중앙도서관"
             }
         },
-        "token": "3B186",
-        "trash_type": "PPR",
+        "token": "4B186",
+        "trash_type": "GLA",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 211.0,
-        "location_y": 147.0,
-        "group": "1",
+        "location_x": 368.0,
+        "location_y": 144.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 29,
         "discard_users": []
     },
     {
@@ -1899,20 +1899,20 @@ trash_list = [
             "pk": 10,
             "name": "B1",
             "building": {
-                "pk": 4,
-                "name": "체육관"
+                "pk": 5,
+                "name": "중앙도서관"
             }
         },
-        "token": "3B187",
-        "trash_type": "GER",
+        "token": "4B187",
+        "trash_type": "PPR",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 211.0,
-        "location_y": 167.0,
-        "group": "1",
+        "location_x": 388.0,
+        "location_y": 144.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 29,
         "discard_users": []
     },
     {
@@ -1921,20 +1921,20 @@ trash_list = [
             "pk": 10,
             "name": "B1",
             "building": {
-                "pk": 4,
-                "name": "체육관"
+                "pk": 5,
+                "name": "중앙도서관"
             }
         },
-        "token": "3B188",
+        "token": "4B188",
         "trash_type": "GER",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 183.0,
-        "location_y": 331.0,
-        "group": "2",
+        "location_x": 288.0,
+        "location_y": 367.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 30,
         "discard_users": []
     },
     {
@@ -1943,20 +1943,20 @@ trash_list = [
             "pk": 10,
             "name": "B1",
             "building": {
-                "pk": 4,
-                "name": "체육관"
+                "pk": 5,
+                "name": "중앙도서관"
             }
         },
-        "token": "3B189",
+        "token": "4B189",
         "trash_type": "CAN",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 203.0,
-        "location_y": 331.0,
-        "group": "2",
+        "location_x": 308.0,
+        "location_y": 367.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 30,
         "discard_users": []
     },
     {
@@ -1965,20 +1965,20 @@ trash_list = [
             "pk": 10,
             "name": "B1",
             "building": {
-                "pk": 4,
-                "name": "체육관"
+                "pk": 5,
+                "name": "중앙도서관"
             }
         },
-        "token": "3B190",
-        "trash_type": "GLA",
+        "token": "4B190",
+        "trash_type": "PPR",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 223.0,
-        "location_y": 331.0,
-        "group": "2",
+        "location_x": 328.0,
+        "location_y": 367.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 30,
         "discard_users": []
     },
     {
@@ -1987,20 +1987,20 @@ trash_list = [
             "pk": 11,
             "name": "1",
             "building": {
-                "pk": 4,
-                "name": "체육관"
+                "pk": 5,
+                "name": "중앙도서관"
             }
         },
-        "token": "3191",
-        "trash_type": "PPR",
+        "token": "4191",
+        "trash_type": "GER",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 516.0,
-        "location_y": 372.0,
-        "group": "0",
+        "location_x": 560.0,
+        "location_y": 373.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 31,
         "discard_users": []
     },
     {
@@ -2009,20 +2009,20 @@ trash_list = [
             "pk": 11,
             "name": "1",
             "building": {
-                "pk": 4,
-                "name": "체육관"
+                "pk": 5,
+                "name": "중앙도서관"
             }
         },
-        "token": "3192",
+        "token": "4192",
         "trash_type": "PET",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 536.0,
-        "location_y": 372.0,
-        "group": "0",
+        "location_x": 580.0,
+        "location_y": 373.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 31,
         "discard_users": []
     },
     {
@@ -2031,20 +2031,20 @@ trash_list = [
             "pk": 11,
             "name": "1",
             "building": {
-                "pk": 4,
-                "name": "체육관"
+                "pk": 5,
+                "name": "중앙도서관"
             }
         },
-        "token": "3193",
-        "trash_type": "CAN",
+        "token": "4193",
+        "trash_type": "GLA",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 556.0,
-        "location_y": 372.0,
-        "group": "0",
+        "location_x": 600.0,
+        "location_y": 373.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 31,
         "discard_users": []
     },
     {
@@ -2053,20 +2053,20 @@ trash_list = [
             "pk": 11,
             "name": "1",
             "building": {
-                "pk": 4,
-                "name": "체육관"
+                "pk": 5,
+                "name": "중앙도서관"
             }
         },
-        "token": "3194",
+        "token": "4194",
         "trash_type": "PPR",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 54.0,
-        "location_y": 247.0,
-        "group": "1",
+        "location_x": 35.0,
+        "location_y": 172.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 32,
         "discard_users": []
     },
     {
@@ -2075,20 +2075,20 @@ trash_list = [
             "pk": 11,
             "name": "1",
             "building": {
-                "pk": 4,
-                "name": "체육관"
+                "pk": 5,
+                "name": "중앙도서관"
             }
         },
-        "token": "3195",
-        "trash_type": "GER",
+        "token": "4195",
+        "trash_type": "PET",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 74.0,
-        "location_y": 247.0,
-        "group": "1",
+        "location_x": 35.0,
+        "location_y": 192.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 32,
         "discard_users": []
     },
     {
@@ -2097,20 +2097,20 @@ trash_list = [
             "pk": 11,
             "name": "1",
             "building": {
-                "pk": 4,
-                "name": "체육관"
+                "pk": 5,
+                "name": "중앙도서관"
             }
         },
-        "token": "3196",
+        "token": "4196",
         "trash_type": "GLA",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 94.0,
-        "location_y": 247.0,
-        "group": "1",
+        "location_x": 35.0,
+        "location_y": 212.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 32,
         "discard_users": []
     },
     {
@@ -2119,20 +2119,20 @@ trash_list = [
             "pk": 11,
             "name": "1",
             "building": {
-                "pk": 4,
-                "name": "체육관"
+                "pk": 5,
+                "name": "중앙도서관"
             }
         },
-        "token": "3197",
-        "trash_type": "GLA",
+        "token": "4197",
+        "trash_type": "CAN",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 198.0,
-        "location_y": 342.0,
-        "group": "2",
+        "location_x": 543.0,
+        "location_y": 286.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 33,
         "discard_users": []
     },
     {
@@ -2141,20 +2141,20 @@ trash_list = [
             "pk": 11,
             "name": "1",
             "building": {
-                "pk": 4,
-                "name": "체육관"
+                "pk": 5,
+                "name": "중앙도서관"
             }
         },
-        "token": "3198",
-        "trash_type": "CAN",
+        "token": "4198",
+        "trash_type": "PPR",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 218.0,
-        "location_y": 342.0,
-        "group": "2",
+        "location_x": 543.0,
+        "location_y": 306.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 33,
         "discard_users": []
     },
     {
@@ -2163,416 +2163,20 @@ trash_list = [
             "pk": 11,
             "name": "1",
             "building": {
-                "pk": 4,
-                "name": "체육관"
+                "pk": 5,
+                "name": "중앙도서관"
             }
         },
-        "token": "3199",
-        "trash_type": "GER",
-        "amount": 0.0,
-        "status": "SAF",
-        "location_x": 238.0,
-        "location_y": 342.0,
-        "group": "2",
-        "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
-        "discard_users": []
-    },
-    {
-        "id": 100,
-        "floor": {
-            "pk": 12,
-            "name": "2",
-            "building": {
-                "pk": 4,
-                "name": "체육관"
-            }
-        },
-        "token": "32100",
-        "trash_type": "CAN",
-        "amount": 0.0,
-        "status": "SAF",
-        "location_x": 581.0,
-        "location_y": 157.0,
-        "group": "0",
-        "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
-        "discard_users": []
-    },
-    {
-        "id": 101,
-        "floor": {
-            "pk": 12,
-            "name": "2",
-            "building": {
-                "pk": 4,
-                "name": "체육관"
-            }
-        },
-        "token": "32101",
+        "token": "4199",
         "trash_type": "PET",
         "amount": 0.0,
         "status": "SAF",
-        "location_x": 601.0,
-        "location_y": 157.0,
-        "group": "0",
+        "location_x": 543.0,
+        "location_y": 326.0,
         "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
-        "discard_users": []
-    },
-    {
-        "id": 102,
-        "floor": {
-            "pk": 12,
-            "name": "2",
-            "building": {
-                "pk": 4,
-                "name": "체육관"
-            }
-        },
-        "token": "32102",
-        "trash_type": "PPR",
-        "amount": 0.0,
-        "status": "SAF",
-        "location_x": 621.0,
-        "location_y": 157.0,
-        "group": "0",
-        "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
-        "discard_users": []
-    },
-    {
-        "id": 103,
-        "floor": {
-            "pk": 12,
-            "name": "2",
-            "building": {
-                "pk": 4,
-                "name": "체육관"
-            }
-        },
-        "token": "32103",
-        "trash_type": "PPR",
-        "amount": 0.0,
-        "status": "SAF",
-        "location_x": 206.0,
-        "location_y": 190.0,
-        "group": "1",
-        "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
-        "discard_users": []
-    },
-    {
-        "id": 104,
-        "floor": {
-            "pk": 12,
-            "name": "2",
-            "building": {
-                "pk": 4,
-                "name": "체육관"
-            }
-        },
-        "token": "32104",
-        "trash_type": "GER",
-        "amount": 0.0,
-        "status": "SAF",
-        "location_x": 206.0,
-        "location_y": 210.0,
-        "group": "1",
-        "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
-        "discard_users": []
-    },
-    {
-        "id": 105,
-        "floor": {
-            "pk": 12,
-            "name": "2",
-            "building": {
-                "pk": 4,
-                "name": "체육관"
-            }
-        },
-        "token": "32105",
-        "trash_type": "CAN",
-        "amount": 0.0,
-        "status": "SAF",
-        "location_x": 206.0,
-        "location_y": 230.0,
-        "group": "1",
-        "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
-        "discard_users": []
-    },
-    {
-        "id": 106,
-        "floor": {
-            "pk": 12,
-            "name": "2",
-            "building": {
-                "pk": 4,
-                "name": "체육관"
-            }
-        },
-        "token": "32106",
-        "trash_type": "PPR",
-        "amount": 0.0,
-        "status": "SAF",
-        "location_x": 405.0,
-        "location_y": 53.0,
-        "group": "2",
-        "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
-        "discard_users": []
-    },
-    {
-        "id": 107,
-        "floor": {
-            "pk": 12,
-            "name": "2",
-            "building": {
-                "pk": 4,
-                "name": "체육관"
-            }
-        },
-        "token": "32107",
-        "trash_type": "PET",
-        "amount": 0.0,
-        "status": "SAF",
-        "location_x": 425.0,
-        "location_y": 53.0,
-        "group": "2",
-        "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
-        "discard_users": []
-    },
-    {
-        "id": 108,
-        "floor": {
-            "pk": 12,
-            "name": "2",
-            "building": {
-                "pk": 4,
-                "name": "체육관"
-            }
-        },
-        "token": "32108",
-        "trash_type": "GLA",
-        "amount": 0.0,
-        "status": "SAF",
-        "location_x": 445.0,
-        "location_y": 53.0,
-        "group": "2",
-        "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
-        "discard_users": []
-    },
-    {
-        "id": 109,
-        "floor": {
-            "pk": 13,
-            "name": "B1",
-            "building": {
-                "pk": 5,
-                "name": "중앙도서관"
-            }
-        },
-        "token": "4B1109",
-        "trash_type": "CAN",
-        "amount": 0.0,
-        "status": "SAF",
-        "location_x": 53.0,
-        "location_y": 197.0,
-        "group": "0",
-        "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
-        "discard_users": []
-    },
-    {
-        "id": 110,
-        "floor": {
-            "pk": 13,
-            "name": "B1",
-            "building": {
-                "pk": 5,
-                "name": "중앙도서관"
-            }
-        },
-        "token": "4B1110",
-        "trash_type": "PET",
-        "amount": 0.0,
-        "status": "SAF",
-        "location_x": 53.0,
-        "location_y": 217.0,
-        "group": "0",
-        "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
-        "discard_users": []
-    },
-    {
-        "id": 111,
-        "floor": {
-            "pk": 13,
-            "name": "B1",
-            "building": {
-                "pk": 5,
-                "name": "중앙도서관"
-            }
-        },
-        "token": "4B1111",
-        "trash_type": "GER",
-        "amount": 0.0,
-        "status": "SAF",
-        "location_x": 53.0,
-        "location_y": 237.0,
-        "group": "0",
-        "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
-        "discard_users": []
-    },
-    {
-        "id": 112,
-        "floor": {
-            "pk": 13,
-            "name": "B1",
-            "building": {
-                "pk": 5,
-                "name": "중앙도서관"
-            }
-        },
-        "token": "4B1112",
-        "trash_type": "CAN",
-        "amount": 0.0,
-        "status": "SAF",
-        "location_x": 37.0,
-        "location_y": 89.0,
-        "group": "1",
-        "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
-        "discard_users": []
-    },
-    {
-        "id": 113,
-        "floor": {
-            "pk": 13,
-            "name": "B1",
-            "building": {
-                "pk": 5,
-                "name": "중앙도서관"
-            }
-        },
-        "token": "4B1113",
-        "trash_type": "PPR",
-        "amount": 0.0,
-        "status": "SAF",
-        "location_x": 37.0,
-        "location_y": 109.0,
-        "group": "1",
-        "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
-        "discard_users": []
-    },
-    {
-        "id": 114,
-        "floor": {
-            "pk": 13,
-            "name": "B1",
-            "building": {
-                "pk": 5,
-                "name": "중앙도서관"
-            }
-        },
-        "token": "4B1114",
-        "trash_type": "GER",
-        "amount": 0.0,
-        "status": "SAF",
-        "location_x": 37.0,
-        "location_y": 129.0,
-        "group": "1",
-        "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
-        "discard_users": []
-    },
-    {
-        "id": 115,
-        "floor": {
-            "pk": 13,
-            "name": "B1",
-            "building": {
-                "pk": 5,
-                "name": "중앙도서관"
-            }
-        },
-        "token": "4B1115",
-        "trash_type": "PPR",
-        "amount": 0.0,
-        "status": "SAF",
-        "location_x": 481.0,
-        "location_y": 270.0,
-        "group": "2",
-        "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
-        "discard_users": []
-    },
-    {
-        "id": 116,
-        "floor": {
-            "pk": 13,
-            "name": "B1",
-            "building": {
-                "pk": 5,
-                "name": "중앙도서관"
-            }
-        },
-        "token": "4B1116",
-        "trash_type": "PET",
-        "amount": 0.0,
-        "status": "SAF",
-        "location_x": 481.0,
-        "location_y": 290.0,
-        "group": "2",
-        "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
-        "discard_users": []
-    },
-    {
-        "id": 117,
-        "floor": {
-            "pk": 13,
-            "name": "B1",
-            "building": {
-                "pk": 5,
-                "name": "중앙도서관"
-            }
-        },
-        "token": "4B1117",
-        "trash_type": "GLA",
-        "amount": 0.0,
-        "status": "SAF",
-        "location_x": 481.0,
-        "location_y": 310.0,
-        "group": "2",
-        "is_connected": True,
-        "created_at": "2022-08-17T14:53:19.497787+09:00",
-        "updated_at": "2022-08-17T14:53:19.497787+09:00",
+        "created_at": "2022-08-17T18:33:54.565388+09:00",
+        "updated_at": "2022-08-17T18:33:54.565388+09:00",
+        "group": 33,
         "discard_users": []
     }
 ]

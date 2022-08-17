@@ -7,7 +7,7 @@ class TrashbinCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Trashbin
-        exclude = ('floor', 'discard_users', )
+        exclude = ('floor', 'discard_users', 'group')
 
 
 # 쓰레기통 상세 조회
