@@ -49,28 +49,40 @@ def check_rfid(conn, rfid):
     cur = conn.cursor()
     sql = 'SELECT * FROM campus_student WHERE rfid_num = %s'
     cur.execute(sql,[rfid])
-    result = cur.fetchone()  # fetchone()은 한줄씩 읽어오는 것 / fetchall()은 한번에 읽어오는 것
-    print(result)
+    result = cur.fetchone()  
     if result != None:  # 학생이라는 뜻
         user = {'id': result['student_num'], 'is_manager': False}
     else:
         sql = 'SELECT *  FROM accounts_user WHERE rfid_num = %s'
         cur.execute(sql,[rfid])
         result = cur.fetchone()
-        if result != None:
-            user = {'id': result['student_num'], 'is_manager': True}
-        else:
-            user = {'id': None, 'is_manager': True}
-    print(user)
+        if result != None:  # 관리자에 해당
+            user = {'id': result['id'], 'is_manager': True}
+        else:  # 미등록
+            user = {'id': None, 'is_manager': False}
+    
     return {'user': user}
-            
+
+
+def check_manager(conn, rfid):
+    cur = conn.cursor()
+    sql = 'SELECT * FROM accounts_user WHERE rfid_num = %s'
+    cur.execute(sql, (rfid))
+    result = cur.fetchone()
+    if result != None:
+        user = {'id': result['id'], 'is_manager': True}
+    else:
+        user = {'id': None, 'is_manager': False}
+    return {'user': user}
+
+        
     
 # # 최종 상태를 클라이언트로부터 받은 다음 그걸 DB에 업데이트
 def update_data(conn, token, amount):
     cur = conn.cursor()
     sql = 'UPDATE campus_trashbin SET amount = %s WHERE token = %s'
     cur.execute(sql, (amount, token)) 
-    #conn.commit()
+    
     # db에 amount 업데이트 한 후에 status도 업데이트해줘야 함
     sql2 = 'UPDATE campus_trashbin SET status = CASE WHEN amount >= 0.7 THEN "WAR" WHEN amount >= 0.3 THEN "CAU" ELSE "SAF" END WHERE token = %s'
     cur.execute(sql2, (token))
@@ -83,8 +95,7 @@ def update_data(conn, token, amount):
     floor_id = result['floor_id']
     building_id = result['building_id']
     logger.info(f'{building_id} {floor_id} {group_id} {token} {trash_type}')
-
-    conn.commit()  # 데이터베이스 정보에 변동을 주는 내용이므로 commit() 필수
+    conn.commit()  
 
 
 # 2. (타이머) client에 trashbin_type 넘기기 
@@ -132,7 +143,7 @@ def get_amount(conn, token):
 # def main():
 #     conn = dbconnect()
 #     print('연결완료')
-#     get_amount(conn, '1B21')
+#     check_rfid(conn, 'rf00000001')
 #     conn.close()
 #     print('연결해제')
 
@@ -241,13 +252,16 @@ async def handle(reader, writer):
 
             # 앞문 열기 요청 / 응답
             if data["type"] == "front_unlock":
-                client_id_list = find_set(conn, client_id)
-                for client in clients:
-                    data = {
-                        "type": "front_unlock",
-                    }
-                    if client.id in client_id_list:
-                        await write_data(client.writer, data)
+                user = check_rfid(conn, data["rfid"])
+                if user["is_manager"]:
+                    client_id_list = find_set(conn, client_id)
+                    for client in clients:
+                        data = {
+                            "type": "front_unlock",
+                            "user": user
+                        }
+                        if client.id in client_id_list:
+                            await write_data(client.writer, data)
 
             # 5. 문닫기 요청 / 6. 문닫기 응답
             if data["type"] == "door_close":
