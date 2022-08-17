@@ -2,8 +2,6 @@ import random
 import json
 import datetime
 
-
-
 floors = []
 buildings = []
 trashbins = []
@@ -15,6 +13,8 @@ belong = ["기숙사", "평생교육관", "자연과학", "경영학", "경제�
 building = ["평생교육관", "기숙사", "어학관", "체육관", "중앙도서관"]
 floor = ["B1", "1", "2", "3", "4"]
 trash_type = ['GER', 'PET', 'CAN', 'GLA', 'PPR']
+
+locations = [[(500, 275, 0), (207, 123, 0),(1020, 350, 1)], [(657, 280, 1), (190, 125, 0), (910, 120, 1)], [(600, 255, 0), (280, 392, 0), (1090, 230, 1)], [(120, 245, 0), (575, 320, 1), (1016, 160, 1)]]
 
 created_at = datetime.datetime.now()
 updated_at = datetime.datetime.now()
@@ -62,9 +62,7 @@ for i in range(4):
     floors.append(data_2)
     gr = 0
     for j in range(3):
-        location_x = random.randrange(100, 1200)
-        location_y = random.randrange(100, 500)
-        ver_hor = random.random()
+        type_list = []
         for k in range(3):
             if i == 1:
                 if j == 0:
@@ -76,14 +74,22 @@ for i in range(4):
                         token = '10000000tokenasd'
             else:
                 token = '10000000token' + 'i' + 'j' + str(random.randint(1, 9))
-            if ver_hor >= 0.5:
-                location_x += (k * 20)
+            
+            location_x = locations[i][j][0]
+            location_y = locations[i][j][1]
+            
+            if locations[i][j][2]:
+                location_y += k * 20
             else:
-                location_y += (k * 20)
-
+                location_x += k * 20
+            while True:
+                    n = random.randint(0, 4)
+                    if not n in type_list:
+                        type_list.append(n)
+                        break
             fields_3 = {
                         'token': token,
-                        'trash_type' : trash_type[random.randint(0, 4)],
+                        'trash_type' : trash_type[n],
                         'amount': random.random(),
                         'location_x': location_x,
                         'location_y': location_y,
@@ -142,19 +148,25 @@ for j in range(1, len(building)):
         }
         floors.append(data3)
         orders += 1        
-        location_x = random.randrange(30, 600)
-        location_y = random.randrange(30, 400)
-        ver_hor = random.random()
         for gr in range(3):
+            location_x = random.randrange(30, 600)
+            location_y = random.randrange(30, 400)
+            ver_hor = random.random()
+            type_list = []
             for asd in range(3):
                 if ver_hor >= 0.5:
-                    location_x += (asd * 20)
+                    location_x += 20
                 else:
-                    location_y += (asd * 20)
+                    location_y += 20
+                while True:
+                    n = random.randint(0, 4)
+                    if not n in type_list:
+                        type_list.append(n)
+                        break
                 fields4 = {
                     'token': str(j)+floor[k-1]+str(cnt_trashbin),
-                    'trash_type' : trash_type[random.randint(0, 4)],
-                    'amount': random.random(),
+                    'trash_type' : trash_type[n],
+                    'amount': 0,
                     'location_x': location_x,
                     'location_y': location_y,
                     'created_at': created_at,
@@ -212,9 +224,6 @@ with open('buildings.json', 'w', encoding='utf-8') as json_file:
 
 with open('floors.json', 'w', encoding='utf-8') as json_file:
     json.dump(floors, json_file, ensure_ascii=False, default=str)
-
-with open('groups.json', 'w', encoding='utf-8') as json_file:
-    json.dump(groups, json_file, ensure_ascii=False, default=str)
 
 with open('trashbins.json', 'w', encoding='utf-8') as json_file:
     json.dump(trashbins, json_file, ensure_ascii=False, default=str)
