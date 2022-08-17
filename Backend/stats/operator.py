@@ -10,6 +10,7 @@ import logging
 ytd = date.today() - timedelta(days=1)
 dates = ytd.strftime('%Y%m%d')
 # dates = '20220501'
+logger = logging.getLogger('trash_event')
 
 def start():
     scheduler = BackgroundScheduler()
@@ -28,15 +29,12 @@ def daily_data():
     if FloorDate.objects.filter(date=date, month=month, year=year):
         return
 
-    if GroupDate.objects.filter(date=date, month=month, year=year):
-        return
-    
     if TrashbinDate.objects.filter(date=date, month=month, year=year):
         return
     # {building_id} {floor_id} {group_id} {token} {trash_type}'
     with open (f'log_dummy/{dates}.log', encoding='UTF8') as f:
         records = [line.rstrip().split(' ') for line in f]
-    columns = ['date', 'time', 'building_pk', 'floor_pk', 'group_pk', 'token', 'trash_type']
+    columns = ['date', 'time', 'building_pk', 'floor_pk', 'token', 'trash_type']
     df = pd.DataFrame(records, columns=columns)
     
     df['year'] = df.date.str[:4]
@@ -54,19 +52,12 @@ def daily_data():
 
     new_df = left_data.merge(right_data, on='token')
     new_df.drop(columns=['time', 'hour'], inplace=True)
-    new_df = new_df.astype({'floor_pk':'int', 'building_pk':'int', 'group_pk': 'int'})
+    new_df = new_df.astype({'floor_pk':'int', 'building_pk':'int'})
     types = new_df.drop(columns = ['hour_00','hour_01','hour_02','hour_03','hour_04','hour_05','hour_06','hour_07','hour_08','hour_09','hour_10','hour_11','hour_12','hour_13','hour_14','hour_15','hour_16','hour_17','hour_18','hour_19','hour_20','hour_21','hour_22','hour_23'])
 
 
-    trashbin= new_df.groupby(['year','month','date','building_pk', 'floor_pk', 'group_pk', 'token', 'trash_type']).sum().reset_index()
+    trashbin= new_df.groupby(['year','month','date','building_pk', 'floor_pk', 'token', 'trash_type']).sum().reset_index()
     trashbin_dict = trashbin.to_dict(orient='records')
-
-    group_type = types.groupby(['year','month','date','building_pk', 'floor_pk', 'group_pk','trash_type']).total.sum().unstack(fill_value=0)
-    group_type.reset_index(inplace=True)
-    group_type.drop(columns = ['year', 'month', 'date', 'building_pk', 'floor_pk'], inplace=True)
-    group = new_df.groupby(['year','month','date','building_pk', 'floor_pk', 'group_pk']).sum().reset_index()
-    group = group.merge(group_type, on='group_pk')
-    group_dict = group.to_dict(orient='records')
 
     floor_type = types.groupby(['year','month','date','building_pk', 'floor_pk','trash_type']).total.sum().unstack(fill_value=0)
     floor_type.reset_index(inplace=True)
@@ -74,7 +65,6 @@ def daily_data():
     floor = new_df.groupby(['year','month','date','building_pk', 'floor_pk']).sum().reset_index()
     floor = floor.merge(floor_type, on='floor_pk')
     floor_dict = floor.to_dict(orient='records')
-
 
     building_type = types.groupby(['year','month','date','building_pk','trash_type']).total.sum().unstack(fill_value=0)
     building_type.reset_index(inplace=True)
@@ -88,22 +78,22 @@ def daily_data():
         serializer = BuildingDateSerializer(data=dic)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-
-    for dic in group_dict:
-        serializer = GroupDateSerializer(data=dic)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
+    logger.info(f'{dates} : building daily data save completely')
 
     for dic in floor_dict:
         serializer = FloorDateSerializer(data=dic)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
+    logger.info(f'{dates} : floor daily data save completely')
 
 
     for dic in trashbin_dict:            
         serializer = TrashbinDateSerializer(data=dic)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
+    logger.info(f'{dates} : trashbin daily data save completely')
+    
+    
 
     # if dates[4:6] == '06':
     #     if int(dates[6:]) == 30:
