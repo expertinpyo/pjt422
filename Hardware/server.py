@@ -75,7 +75,7 @@ def update_data(conn, token, amount):
     sql2 = 'UPDATE campus_trashbin SET status = CASE WHEN amount >= 0.7 THEN "WAR" WHEN amount >= 0.3 THEN "CAU" ELSE "SAF" END WHERE token = %s'
     cur.execute(sql2, (token))
 
-    sql3 = 'SELECT tr.token, tr.trash_type, tr.group_id, gr.floor_id, fl.building_id FROM campus_trashbin AS tr INNER JOIN campus_group AS gr ON tr.group_id = gr.id INNER JOIN campus_floor AS fl ON gr.floor_id = fl.id WHERE tr.token = %s' 
+    sql3 = 'SELECT tr.token, tr.trash_type, tr.floor_id, fl.building_id FROM campus_trashbin AS tr INNER JOIN campus_floor AS fl ON tr.floor_id = fl.id WHERE tr.token = %s' 
     cur.execute(sql3, (token))
     result = cur.fetchone()
     trash_type = result['trash_type']
