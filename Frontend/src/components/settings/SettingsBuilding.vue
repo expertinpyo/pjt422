@@ -36,8 +36,7 @@
   </div>
   <div class="settings-building-container">
     <div class="select-container">
-      <div>
-        건물
+      <div class="building-select">
         <div class="select-div">
           <select class="form-select" v-model="currentBuilding">
             <option
@@ -48,20 +47,31 @@
               {{ building.name }}
             </option>
           </select>
-          <i class="bi bi-pencil select-icons" @click="modifyBuilding"></i>
-          <i class="bi bi-plus-circle select-icons" @click="addBuilding"></i>
+          <img
+            src="@/assets/edit.png"
+            class="select-icons"
+            @click="modifyBuilding"
+          />
+          <img
+            src="@/assets/add.png"
+            class="select-icons"
+            @click="addBuilding"
+          />
         </div>
       </div>
-      <div>
-        층
+      <div class="floor-select">
         <div class="select-div">
           <select class="form-select" v-model="currentFloor">
             <option v-for="floor in floors" :key="floor.id" :value="floor.id">
               {{ floor.name }}
             </option>
           </select>
-          <i class="bi bi-pencil select-icons" @click="modifyFloor"></i>
-          <i class="bi bi-plus-circle select-icons" @click="addFloor"></i>
+          <img
+            src="@/assets/edit.png"
+            class="select-icons"
+            @click="modifyFloor"
+          />
+          <img src="@/assets/add.png" class="select-icons" @click="addFloor" />
         </div>
       </div>
     </div>
@@ -78,13 +88,14 @@
             <b>{{ trashbin.name }}</b>
             <br />
             ({{ trashbin.x }}, {{ trashbin.y }})
-            <i
-              class="bi bi-pencil select-icons trashbin-list-edit-icon"
+            <img
+              src="@/assets/edit.png"
+              class="select-icons trashbin-list-edit-icon"
               @click="modifyTrashbin(idx)"
-            ></i>
+            />
           </li>
           <li class="list-group-item">
-            <i class="bi bi-plus-circle select-icons" @click="addTrashbin"></i>
+            <img src="@/assets/add.png" class="select-icons" />
           </li>
         </ul>
       </div>
@@ -258,32 +269,41 @@ export default {
 </script>
 
 <style scoped>
+#SettingBuilding {
+  font-family: "Pretendard-Regular";
+}
 .select-container {
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  margin: 10px;
+  justify-content: flex-end;
+  margin: 10px 0;
 }
 .select-div {
   display: flex;
+  margin-right: 25px;
 }
 .select-icons {
-  font-size: larger;
   align-self: center;
-  margin: 0 5px;
+  margin: 0 4px;
+  width: 20px;
+  height: 20px;
 }
 .trashmap-container {
   display: flex;
-  margin: 10px;
+  margin-top: 50px;
+}
+.trashmap-select {
+  margin-left: 40px;
+  margin-right: 100px;
 }
 .trashbin-list {
-  min-width: 250px;
+  min-width: 300px;
   margin-right: 10px;
   padding-right: 40px;
   overflow-y: scroll;
 }
 .list-group-item {
   position: relative;
+  height: 40px;
 }
 .trashbin-list-edit-icon {
   position: absolute;
