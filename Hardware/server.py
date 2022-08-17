@@ -235,6 +235,19 @@ async def handle(reader, writer):
                         }
                         if client.id in client_id_list:
                             await write_data(client.writer, data)
+                else:
+                    data = {"type": "auth_fail"}
+                    await write_data(writer, data)
+
+            # 앞문 열기 요청 / 응답
+            if data["type"] == "front_unlock":
+                client_id_list = find_set(conn, client_id)
+                for client in clients:
+                    data = {
+                        "type": "front_unlock",
+                    }
+                    if client.id in client_id_list:
+                        await write_data(client.writer, data)
 
             # 5. 문닫기 요청 / 6. 문닫기 응답
             if data["type"] == "door_close":
