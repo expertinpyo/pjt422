@@ -71,9 +71,10 @@ export default {
   },
   watch: {
     mapToggleChecked() {
-      this.currentFloor = -(1 + this.currentFloor);
+      this.currentFloor = -this.currentFloor;
     },
-    async currentBuilding() {
+    async currentBuilding(buildingId) {
+      if (buildingId === 0) return;
       this.mapToggleChecked = false;
       try {
         await this.fetchFloors();
@@ -81,10 +82,11 @@ export default {
         // console.log(err);
       }
     },
-    async currentFloor() {
+    async currentFloor(floorId) {
+      if (floorId === 0) return;
       if (this.mapToggleChecked && this.currentFloor >= 0) {
         this.mapToggleChecked = false;
-        this.currentFloor = -(1 + this.currentFloor);
+        this.currentFloor = -this.currentFloor;
       }
     },
     "$store.state.hoveredTrashbin"() {
@@ -127,7 +129,6 @@ export default {
     },
     async fetchBuildings() {
       const resBuildings = await this.$axios.get("/api/v1/building");
-      console.log(resBuildings.data);
       this.buildings = resBuildings.data.reduce((prev, cur) => {
         prev[cur.pk] = {
           id: cur.pk,
@@ -136,10 +137,10 @@ export default {
         return prev;
       }, {});
 
+      this.currentBuilding = 0;
       if (Object.keys(this.buildings).length) {
         this.currentBuilding =
           this.buildings[Object.keys(this.buildings)[0]].id;
-        await this.fetchFloors();
       }
     },
     async fetchFloors() {
@@ -161,9 +162,9 @@ export default {
       }, {});
 
       const trashbin_colormap = {
-        SAF: "#00AA00",
-        CAU: "#AAAA00",
-        WAR: "#AA0000",
+        SAF: "#CEDDC9",
+        CAU: "#F2DCB1",
+        WAR: "#DE9F9F",
       };
 
       const notificationIds = this.notifications.map((el) => el.id);
@@ -193,6 +194,7 @@ export default {
         this.floors[floor_id].notificationCount = notificationCount;
       });
 
+      this.currentFloor = 0;
       if (Object.keys(this.floors).length) {
         this.currentFloor = this.floors[Object.keys(this.floors)[0]].id;
       }
@@ -248,5 +250,12 @@ export default {
 }
 .trash-map {
   margin: 5px;
+}
+.trash-map-selector-container label {
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+.trash-map-container label {
+  margin-left: 0;
 }
 </style>

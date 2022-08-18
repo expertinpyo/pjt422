@@ -1,9 +1,9 @@
 <template>
-  <nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <nav class="navbar navbar-expand-sm navbar-light">
     <div class="container-fluid">
       <RouterLink class="navbar-brand" to="/" exact>
-        <img src="@/assets/logo.png" width="39" height="39" />
-        422
+        <img src="@/assets/logo.png" width="50" height="50" />
+        <span class="navbar-brandname">싸피대학교 쓰레기통 관리 시스템</span>
       </RouterLink>
       <button
         class="navbar-toggler"
@@ -43,7 +43,7 @@
           </li>
           <li v-if="isAuthed" class="nav-item">
             <RouterLink class="nav-link" active-class="active" to="/logout">
-              로그아웃
+              <span class="nav-item-logout">로그아웃</span>
             </RouterLink>
           </li>
           <li v-if="!isAuthed" class="nav-item">
@@ -69,13 +69,26 @@ export default {
 </script>
 
 <style>
+.container-fluid {
+  font-family: GowunBatang-Regular;
+  font-weight: 700;
+  border-bottom: 1.5px solid #828282;
+}
 .nav-link {
   max-width: 120px;
-  margin-left: auto;
-  margin-right: auto;
-  font-weight: bold;
+  margin: 5px 10px;
 }
 .nav-link.active {
-  border-bottom: 1px solid black;
+  /* border-bottom: 1px solid black; */
+}
+.navbar-brandname {
+  font-size: 18px;
+  font-weight: bolder;
+  padding: 0 10px;
+}
+.nav-item-logout {
+  padding: 5px;
+  border-radius: 10px;
+  /* background-color: #a5b8a5; */
 }
 </style>
