@@ -185,6 +185,7 @@ export default {
               name: el.trash_type,
               x: el.location_x,
               y: el.location_y,
+              amount: el.amount,
               color: trashbin_colormap[el.status],
               hasNotification,
             };
