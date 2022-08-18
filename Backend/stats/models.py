@@ -60,7 +60,6 @@ class BuildingDate(Types):
         return self.year + self.month + self.date
 
 class FloorDate(Types):
-    # name = models.CharField(max_length=20)
     floor_pk = models.IntegerField()
     
     def __str__(self):
