@@ -1,8 +1,42 @@
 <template>
+  <div
+    class="modal fade"
+    id="settings-building-modal"
+    tabindex="-1"
+    aria-labelledby="settings-building-modal-label"
+    aria-hidden="true"
+    ref="modal"
+  >
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="settings-building-modal-label">
+            {{ modalData.title }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">...</div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="settings-building-container">
     <div class="select-container">
-      <div>
-        건물
+      <div class="building-select">
         <div class="select-div">
           <select class="form-select" v-model="currentBuilding">
             <option
@@ -13,49 +47,60 @@
               {{ building.name }}
             </option>
           </select>
-          <i class="bi bi-pencil select-icons"></i>
-          <i class="bi bi-plus-circle select-icons"></i>
+          <img
+            src="@/assets/edit.png"
+            class="select-icons"
+            @click="modifyBuilding"
+          />
+          <img
+            src="@/assets/add.png"
+            class="select-icons"
+            @click="addBuilding"
+          />
         </div>
       </div>
-      <div>
-        층
+      <div class="floor-select">
         <div class="select-div">
           <select class="form-select" v-model="currentFloor">
-            <option
-              v-for="floor_ in floors"
-              :key="floor_.id"
-              :value="floor_.id"
-            >
-              {{ floor_.name }}
+            <option v-for="floor in floors" :key="floor.id" :value="floor.id">
+              {{ floor.name }}
             </option>
           </select>
-          <i class="bi bi-pencil select-icons"></i>
-          <i class="bi bi-plus-circle select-icons"></i>
+          <img
+            src="@/assets/edit.png"
+            class="select-icons"
+            @click="modifyFloor"
+          />
+          <img src="@/assets/add.png" class="select-icons" @click="addFloor" />
         </div>
       </div>
     </div>
     <hr />
-    <div class="trashmap-container">
+    <div class="trashmap-container" v-if="Object.keys(floors).length">
       <div>
         쓰레기통 (x,y)
         <ul class="list-group trashbin-list">
           <li
             class="list-group-item"
-            v-for="trashbin in floor.trashbins"
+            v-for="(trashbin, idx) in floors[currentFloor].trashbins"
             :key="trashbin.id"
           >
             <b>{{ trashbin.name }}</b>
+            <br />
             ({{ trashbin.x }}, {{ trashbin.y }})
-            <i class="bi bi-pencil select-icons trashbin-list-edit-icon"></i>
+            <img
+              src="@/assets/edit.png"
+              class="select-icons trashbin-list-edit-icon"
+              @click="modifyTrashbin(idx)"
+            />
           </li>
           <li class="list-group-item">
-            <i class="bi bi-plus-circle select-icons"></i>
+            <img src="@/assets/add.png" class="select-icons" />
           </li>
         </ul>
       </div>
       <TrashMap
-        v-if="Object.keys(floor).length"
-        :floor="floor"
+        :floor="floors[currentFloor]"
         :width="mapWidth"
         :height="mapHeight"
       />
@@ -65,6 +110,7 @@
 
 <script>
 import TrashMap from "@/components/trashmap/TrashMap.vue";
+import { Modal } from "bootstrap";
 export default {
   name: "SettingsBuilding",
   components: { TrashMap },
@@ -74,17 +120,31 @@ export default {
       currentFloor: 0,
       buildings: {},
       floors: {},
-      floor: {},
+      trashbins: [],
       mapWidth: 600,
       mapHeight: 600,
+      modalData: {
+        title: "Title",
+        data: [],
+      },
     };
   },
   watch: {
-    currentBuilding() {
-      this.fetchFloors();
+    async currentBuilding(buildingId) {
+      if (buildingId === 0) return;
+      try {
+        await this.fetchFloors();
+      } catch (err) {
+        // console.log(err);
+      }
     },
-    currentFloor() {
-      this.fetchCurrentFloor();
+    async currentFloor(floorId) {
+      if (floorId === 0) return;
+      try {
+        await this.fetchTrashbins();
+      } catch (err) {
+        // console.log(err);
+      }
     },
   },
   methods: {
@@ -98,10 +158,10 @@ export default {
         return prev;
       }, {});
 
+      this.currentBuilding = 0;
       if (Object.keys(this.buildings).length) {
         this.currentBuilding =
           this.buildings[Object.keys(this.buildings)[0]].id;
-        await this.fetchFloors();
       }
     },
     async fetchFloors() {
@@ -112,83 +172,138 @@ export default {
         prev[cur.pk] = {
           id: cur.pk,
           name: cur.name,
+          width: cur.width,
+          height: cur.height,
+          src: cur.map_path,
+          trashbinSize: cur.trashbin_size,
+          trashbins: [],
         };
         return prev;
       }, {});
 
+      this.currentFloor = 0;
       if (Object.keys(this.floors).length) {
         this.currentFloor = this.floors[Object.keys(this.floors)[0]].id;
-        await this.fetchCurrentFloor();
       }
     },
-    async fetchCurrentFloor() {
-      const trashbin_colormap = {
-        SAF: "#00AA00",
-        CAU: "#AAAA00",
-        WAR: "#AA0000",
-      };
-
+    async fetchTrashbins() {
       const resTrashbins = await this.$axios.get(
         "/api/v1/floor/" + this.currentFloor
       );
-      const floor = resTrashbins.data;
-      const trashbins = floor.trashbin.map((el) => {
+
+      this.trashbins = resTrashbins.data.trashbin.map((el) => {
         return {
           id: el.id,
           name: el.token,
           x: el.location_x,
           y: el.location_y,
-          color: trashbin_colormap[el.status],
+          color: "#00AA00",
+          hasNotification: false,
         };
       });
-      this.floor = {
-        id: floor.pk,
-        name: floor.name,
-        width: floor.width,
-        height: floor.height,
-        src: floor.map_path,
-        trashbinSize: floor.trashbin_size,
-        trashbins: trashbins,
+      this.floors[this.currentFloor].trashbins = this.trashbins;
+    },
+    modifyBuilding() {
+      const building = this.buildings[this.currentBuilding];
+      console.log("modifyBuilding", building);
+      this.modalData = {
+        title: "건물 편집",
+        data: [],
       };
+      this.modal.show();
+    },
+    addBuilding() {
+      console.log("addBuilding");
+      this.modalData = {
+        title: "건물 추가",
+        data: [],
+      };
+      this.modal.show();
+    },
+    modifyFloor() {
+      const floor = this.floors[this.currentFloor];
+      console.log("modifyFloor", floor);
+      this.modalData = {
+        title: "층 편집",
+        data: [],
+      };
+      this.modal.show();
+    },
+    addFloor() {
+      console.log("addFloor");
+      this.modalData = {
+        title: "층 추가",
+        data: [],
+      };
+      this.modal.show();
+    },
+    modifyTrashbin(trashbinIdx) {
+      const trashbin = this.trashbins[trashbinIdx];
+      console.log("modifyTrashbin", trashbin);
+      this.modalData = {
+        title: "쓰레기통 편집",
+        data: [],
+      };
+      this.modal.show();
+    },
+    addTrashbin() {
+      console.log("addTrashbin");
+      this.modalData = {
+        title: "쓰레기통 추가",
+        data: [],
+      };
+      this.modal.show();
     },
   },
-  created() {
+  async created() {
     try {
-      this.fetchBuildings();
+      await this.fetchBuildings();
     } catch (err) {
       // err
     }
+  },
+  mounted() {
+    this.modal = new Modal(this.$refs.modal);
   },
 };
 </script>
 
 <style scoped>
+#SettingBuilding {
+  font-family: "Pretendard-Regular";
+}
 .select-container {
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  margin: 10px;
+  justify-content: flex-end;
+  margin: 10px 0;
 }
 .select-div {
   display: flex;
+  margin-right: 25px;
 }
 .select-icons {
-  font-size: larger;
   align-self: center;
-  margin: 0 5px;
+  margin: 0 4px;
+  width: 20px;
+  height: 20px;
 }
 .trashmap-container {
   display: flex;
-  margin: 10px;
+  margin-top: 50px;
+}
+.trashmap-select {
+  margin-left: 40px;
+  margin-right: 100px;
 }
 .trashbin-list {
-  min-width: 250px;
+  min-width: 300px;
   margin-right: 10px;
   padding-right: 40px;
   overflow-y: scroll;
 }
 .list-group-item {
   position: relative;
+  /* height: 40px; */
 }
 .trashbin-list-edit-icon {
   position: absolute;
