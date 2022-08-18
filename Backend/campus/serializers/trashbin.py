@@ -16,7 +16,7 @@ class TrashbinSerializer(serializers.ModelSerializer):
     class UserSerializer(serializers.ModelSerializer):
         class Meta:
             model = get_user_model()
-            excludes = ('created_at', 'updated_at',)
+            exclude = ('created_at', 'updated_at',)
 
     discard_users = UserSerializer(many=True, read_only=True)
     
