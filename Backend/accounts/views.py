@@ -29,6 +29,7 @@ class ManagerAllView(APIView):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)
+        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ManagerView(APIView):
@@ -43,7 +44,7 @@ class ManagerView(APIView):
         else:
             if request.user == user:
                 serializer = ManagerNormalUpdateSerializer(instance=user, data=request.data)
-                IsOK = True
+                IsOk = True
         if IsOk:
             if serializer.is_valid(raise_exception=True):
                 serializer.save()
