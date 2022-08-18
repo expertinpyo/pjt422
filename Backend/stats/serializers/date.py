@@ -8,7 +8,7 @@ class TrashbinDateSerializer(serializers.ModelSerializer):
         model = TrashbinDate
         fields = '__all__'
         
-
+        
 class FloorDateSerializer(serializers.ModelSerializer):
 
     class Meta:
