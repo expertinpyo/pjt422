@@ -1,13 +1,21 @@
 <template>
-  <canvas
-    ref="canvas"
-    @mousedown="mousedown"
-    @mousemove.prevent="mousemove"
-    @wheel.prevent="wheel"
-  ></canvas>
+  <div ref="outerDiv" style="position: relative">
+    <canvas
+      ref="canvas"
+      @mousedown="mousedown"
+      @mousemove.prevent="mousemove"
+      @wheel.prevent="wheel"
+    ></canvas>
+    <i
+      ref="tooltip"
+      style="position: absolute"
+      :style="{ top: tooltipTop + 'px', left: tooltipLeft + 'px' }"
+    ></i>
+  </div>
 </template>
 
 <script>
+import { Tooltip } from "bootstrap";
 export default {
   name: "TrashMap",
   props: ["floor", "width", "height"],
@@ -18,6 +26,8 @@ export default {
       offsetY: 0,
       mousePrevX: 0,
       mousePrevY: 0,
+      tooltipTop: 0,
+      tooltipLeft: 0,
     };
   },
   watch: {
@@ -36,6 +46,32 @@ export default {
     },
     "$store.state.hoveredTrashbin"() {
       this.draw();
+      if (this.$store.state.hoveredTrashbin) {
+        if (this.tooltip) {
+          this.tooltip.dispose();
+          this.tooltip = null;
+        }
+
+        this.tooltip = new Tooltip(this.$refs.tooltip, {
+          placement: "top",
+          html: true,
+          title: `<b>${this.$store.state.hoveredTrashbin.name}</b><br />${
+            Math.round(this.$store.state.hoveredTrashbin.amount) * 100
+          }%`,
+          trigger: "manual",
+        });
+
+        this.tooltipLeft =
+          (this.$store.state.hoveredTrashbin.x + this.offsetX) * this.zoom;
+        this.tooltipTop =
+          (this.$store.state.hoveredTrashbin.y + this.offsetY - 10) * this.zoom;
+        this.tooltip.title = "huh";
+        this.tooltip.update();
+        this.tooltip.show();
+      } else {
+        this.tooltip.dispose();
+        this.tooltip = null;
+      }
     },
     "$store.state.selectedTrashbin"() {
       this.draw();
@@ -223,6 +259,7 @@ export default {
     this.ctx = this.canvas.getContext("2d");
     this.calcAndApplyBaseValues();
     this.loadMapAndDraw();
+    this.tooltip = null;
   },
 };
 </script>
