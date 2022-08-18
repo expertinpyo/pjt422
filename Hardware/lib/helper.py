@@ -1,7 +1,7 @@
 import os
 import RPi.GPIO as GPIO
 from gpiozero import Servo, LED, Button
-import RPi_I2C_driver
+from . import RPi_I2C_driver
 from mfrc522 import SimpleMFRC522
 from time import time
 from asyncio import sleep
