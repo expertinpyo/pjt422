@@ -55,9 +55,11 @@ export default {
         this.tooltip = new Tooltip(this.$refs.tooltip, {
           placement: "top",
           html: true,
-          title: `<b>${this.$store.state.hoveredTrashbin.name}</b><br />${
-            Math.round(this.$store.state.hoveredTrashbin.amount) * 100
-          }%`,
+          title: `<b>${
+            this.$store.state.hoveredTrashbin.name
+          }</b><br />${Math.round(
+            this.$store.state.hoveredTrashbin.amount * 100
+          )}%`,
           trigger: "manual",
         });
 
