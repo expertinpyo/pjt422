@@ -46,6 +46,8 @@ services:
       - ./.env
     restart: always
     entrypoint: ./wait-for-it.sh db:3306 --
+    volumes:
+      - ./Hardware/log:/app/daily_log
 
   hardware:
     build: ./Hardware
@@ -60,6 +62,8 @@ services:
       - ./.env
     restart: always
     entrypoint: ./wait-for-it.sh db:3306 --
+    volumes:
+      - ./Hardware/log:/app/log
 
   db:
     image: mariadb:latest
