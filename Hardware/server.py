@@ -49,7 +49,7 @@ def check_rfid(conn, rfid):
     cur = conn.cursor()
     sql = 'SELECT * FROM campus_student WHERE rfid_num = %s'
     cur.execute(sql,[rfid])
-    result = cur.fetchone()  
+    result = cur.fetchone()
     if result != None:  # 학생이라는 뜻
         user = {'id': result['student_num'], 'is_manager': False}
     else:
@@ -60,41 +60,40 @@ def check_rfid(conn, rfid):
             user = {'id': result['id'], 'is_manager': True}
         else:  # 미등록
             user = {'id': None, 'is_manager': False}
-    
+
     return user
 
 
 
-        
-    
+
+
 # # 최종 상태를 클라이언트로부터 받은 다음 그걸 DB에 업데이트
 def update_data(conn, token, amount):
     cur = conn.cursor()
     sql = 'UPDATE campus_trashbin SET amount = %s WHERE token = %s'
-    cur.execute(sql, (amount, token)) 
-    
+    cur.execute(sql, (amount, token))
+
     # db에 amount 업데이트 한 후에 status도 업데이트해줘야 함
     sql2 = 'UPDATE campus_trashbin SET status = CASE WHEN amount >= 0.7 THEN "WAR" WHEN amount >= 0.3 THEN "CAU" ELSE "SAF" END WHERE token = %s'
     cur.execute(sql2, (token))
 
-    sql3 = 'SELECT tr.token, tr.trash_type, tr.floor_id, fl.building_id FROM campus_trashbin AS tr INNER JOIN campus_floor AS fl ON tr.floor_id = fl.id WHERE tr.token = %s' 
+    sql3 = 'SELECT tr.token, tr.trash_type, tr.floor_id, fl.building_id FROM campus_trashbin AS tr INNER JOIN campus_floor AS fl ON tr.floor_id = fl.id WHERE tr.token = %s'
     cur.execute(sql3, (token))
     result = cur.fetchone()
     trash_type = result['trash_type']
-    group_id = result['group_id']
     floor_id = result['floor_id']
     building_id = result['building_id']
-    logger.info(f'{building_id} {floor_id} {group_id} {token} {trash_type}')
-    conn.commit()  
+    logger.info(f'{building_id} {floor_id} {token} {trash_type}')
+    conn.commit()
 
 
-# 2. (타이머) client에 trashbin_type 넘기기 
+# 2. (타이머) client에 trashbin_type 넘기기
 def get_type(conn, token):
     cur = conn.cursor()
     sql = 'SELECT trash_type FROM campus_trashbin WHERE token = %s'
     cur.execute(sql, (token))
-    result = cur.fetchone()  
-    
+    result = cur.fetchone()
+
     return(result['trash_type'])
 
 
@@ -105,13 +104,13 @@ def add_discard_user(conn, token, user_id):
     cur.execute(sql1, (token))
     result = cur.fetchone()
     trashbin_id = result['id']
-    
+
     sql2 = 'INSERT INTO campus_cleanrecord (updated_at, trashbin_id, user_id) VALUES(now(), %s, %s)'
     cur.execute(sql2, (trashbin_id, user_id))
     conn.commit()
 
 
-# 4. 여러개의 client에 데이터를 넘기기 위해 세트를 찾아야 함 
+# 4. 여러개의 client에 데이터를 넘기기 위해 세트를 찾아야 함
 # query... client_id -> 세트[client_id] 리스트 client_id_list
 def find_set(conn, token):
     client_list = []
@@ -119,12 +118,12 @@ def find_set(conn, token):
     sql = 'SELECT token FROM campus_trashbin WHERE group_id = (SELECT group_id FROM campus_trashbin WHERE token = %s)'
     cur.execute(sql, (token))
     result = cur.fetchall()  # [{'token': '1B21'}, {'token': '1B22'}, {'token': '1B23'}]
-    print(result)  
+    print(result)
     for i in range(len(result)):
         client_list.append(result[i]['token'])
     print(client_list)
     return client_list     # ['1B21', '1B22', '1B23']
-    
+
 
 # 해당 쓰레기통의 현재 양 조회
 def get_amount(conn, token):
@@ -188,8 +187,8 @@ async def read_data(reader):
 
 
 async def handle(reader, writer):
-    global conn 
-    data = await read_data(reader)  
+    global conn
+    data = await read_data(reader)
     if data is None:  # 전원 연결이 안되었을 때
         writer.close()
         return
@@ -206,7 +205,7 @@ async def handle(reader, writer):
             writer.close()
             return
 
-    # query... data["amount"] 업데이트  => 부팅시 받은 amount를 update 
+    # query... data["amount"] 업데이트  => 부팅시 받은 amount를 update
     if get_amount(conn, client_id) != data["amount"]:
         update_data(conn, client_id, data["amount"])
 
@@ -232,9 +231,9 @@ async def handle(reader, writer):
                 # query... rfid check
                 user = check_rfid(conn, data["rfid"])
                 is_rfid_ok = True
-                if user["id"] == None:  
+                if user["id"] == None:
                     is_rfid_ok = False
-                
+
                 if is_rfid_ok:
                     # query... client_id -> 세트[client_id] 리스트 client_id_list
                     client_id_list = find_set(conn, client_id)
@@ -270,13 +269,13 @@ async def handle(reader, writer):
                     }
                     if client.id in client_id_list:
                         await write_data(client.writer, data)
-            
+
             # 7. 최종 상태 보내기
             if data["type"] == "stat":
                 update_data(conn, client_id, data["amount"])
-                if get_amount(conn, client_id) == 0 and data["user"]["is_manager"]:
-                    add_discard_user(conn, client_id, data["user"]["user_id"])
-    
+                if data["user"]["is_manager"] and data["clean"]:
+                    add_discard_user(conn, client_id, data["user"]["id"])
+
 
     except ConnectionResetError:
         pass
@@ -331,7 +330,7 @@ if __name__ == "__main__":
 
 
 
-# # rfid_num으로 권한 확인하기 
+# # rfid_num으로 권한 확인하기
 # def search_data(conn, rfid):
 #     cur = conn.cursor()
 #     sql = 'SELECT count(rfid_num) as count FROM campus_student WHERE rfid_num = %s'

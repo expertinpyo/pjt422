@@ -27,6 +27,14 @@ HOST, PORT = getenv("HOST", "localhost"), int(getenv("PORT", "9999"))
 
 OPEN_TIMEOUT = 30
 
+TRASHBIN_TYPE = {
+    "GER": "General",
+    "PET": "Plastic",
+    "CAN": "Can",
+    "GLA": "Glass",
+    "PPR": "Paper",
+}
+
 pwm = set_gpio_for_front_door()
 set_gpio_for_capacity_check()
 lcd = set_display_lcd()
@@ -72,14 +80,14 @@ async def socket_listener(reader, writer):
             exit(0)
 
         if data["type"] == "stat":
-            status["trashbin_type"] = data["trashbin_type"]
+            status["trashbin_type"] = TRASHBIN_TYPE[data["trashbin_type"]]
 
         if data["type"] == "door_open" and not status["door"]["is_slide_open"]:
             await pass_auth()
             status["user"] = data["user"]
             status["door"]["is_slide_open"] = True
             status["door"]["open_time"] = time()
-            
+
         if data["type"] == "fail_auth" and not status["door"]["is_slide_open"]:
             await fail_auth()
 
@@ -88,11 +96,13 @@ async def socket_listener(reader, writer):
             status["door"]["is_front_unlock"] = True
 
         if data["type"] == "door_close" and status["door"]["is_slide_open"]:
+            status["door"]["is_slide_open"] = False
+            clean = False
             if status["door"]["is_front_unlock"]:
                 await lock_front_door(pwm)
                 status["door"]["is_front_unlock"] = False
+                clean = True
             await the_last_action()
-            status["door"]["is_slide_open"] = False
             status["trash_amount"] = await current_capacity_rate()
 
             await write_data(
@@ -101,6 +111,7 @@ async def socket_listener(reader, writer):
                     "type": "stat",
                     "amount": status["trash_amount"],
                     "user": status["user"],
+                    "clean": clean
                 },
             )
 
@@ -185,7 +196,7 @@ async def main():
     if data["type"] != "init":
         return
 
-    status["trashbin_type"] = data["trashbin_type"]
+    status["trashbin_type"] = TRASHBIN_TYPE[data["trashbin_type"]]
     await display_lcd(lcd, status["trashbin_type"])
 
     await asyncio.gather(device_loop(writer), socket_listener(reader, writer))

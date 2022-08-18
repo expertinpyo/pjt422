@@ -19,14 +19,14 @@ MAX_CAPACITY = 30.58
 MIN_CAPACITY = 12.92
 
 async def open_slide_door():
-    servo1.value = 0.1
-    await sleep(1.5)
+    servo1.value = 0.3
+    await sleep(1.2)
     servo1.detach()
 
 
 async def close_slide_door():
-    servo1.value = -0.5
-    await sleep(1.55)
+    servo1.value = -0.7
+    await sleep(1.2)
     servo1.detach()
 
 
@@ -88,7 +88,7 @@ def cleanup_for_capacity_check():
 async def current_capacity_rate():
     currentDistance = await capacity_check()
     rate = round((currentDistance - MIN_CAPACITY)/(MAX_CAPACITY - MIN_CAPACITY),2)
-    if rate < 0: 
+    if rate < 0:
         return 0
     if rate > 1:
         return 1
