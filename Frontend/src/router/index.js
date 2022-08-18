@@ -50,7 +50,6 @@ const routes = [
     path: "/settings",
     name: "settings",
     component: SettingsView,
-    redirect: "/settings/building",
     children: [
       {
         path: "building",
