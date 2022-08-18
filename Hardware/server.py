@@ -99,10 +99,15 @@ def get_type(conn, token):
 
 
 # 관리자면 cleanrecord에 추가하기 => 관리자가 비울때만 (즉, 최종에서 amount == 0이 될때)
-def add_discard_user(conn, trashbin_id, user_id):
+def add_discard_user(conn, token, user_id):
     cur = conn.cursor()
-    sql = 'INSERT INTO campus_cleanrecord (updated_at, trashbin_id, user_id) VALUES(now(), %s, %s)'
-    cur.execute(sql, (trashbin_id, user_id))
+    sql1 = 'SELECT id FROM campus_trashbin WHERE token = %s'
+    cur.execute(sql1, (token))
+    result = cur.fetchone()
+    trashbin_id = result['id']
+    
+    sql2 = 'INSERT INTO campus_cleanrecord (updated_at, trashbin_id, user_id) VALUES(now(), %s, %s)'
+    cur.execute(sql2, (trashbin_id, user_id))
     conn.commit()
 
 
@@ -133,7 +138,7 @@ def get_amount(conn, token):
 # def main():
 #     conn = dbconnect()
 #     print('연결완료')
-#     check_rfid(conn, 'rf00000001')
+#     add_discard_user(conn, '10000000tokenij2', 1)
 #     conn.close()
 #     print('연결해제')
 
