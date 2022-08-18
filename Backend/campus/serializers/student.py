@@ -6,7 +6,6 @@ class StudentListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = '__all__'
-        read_only_fields = ('campus',)
         
 
 class StudentCreateSerializer(serializers.ModelSerializer):
