@@ -7,24 +7,7 @@ from os import getenv
 import pymysql
 import pymysql.cursors
 
-import logging
-from datetime import date
-
-# 오늘 날짜 확인
-year = str(date.today().year)
-month = str(date.today().month) if len(str(date.today().month)) == 2 else '0' + str(date.today().month)
-day = str(date.today().day) if len(str(date.today().day)) == 2 else '0' + str(date.today().day)
-tday = year + month + day
-# 로그 데이터를 위한 변수 선언
-logger = logging.getLogger()
-# Level INFO로 설정
-logger.setLevel(logging.INFO)
-# 로그데이터 형식
-formatter = logging.Formatter('%(asctime)s %(message)s')
-# 오늘날짜.log로 저장
-file_handler = logging.FileHandler(f'log/{tday}.log')
-file_handler.setFormatter(formatter)
-logger.addHandler(file_handler)
+from datetime import datetime
 
 
 load_dotenv()
@@ -83,8 +66,11 @@ def update_data(conn, token, amount):
     trash_type = result['trash_type']
     floor_id = result['floor_id']
     building_id = result['building_id']
-    logger.info(f'{building_id} {floor_id} {token} {trash_type}')
     conn.commit()
+
+    now = datetime.now()
+    with open(f"log/{now.strftime('%Y%m%d')}.log", "a") as fp:
+        fp.write(f"{now.strftime('%Y-%m-%d %H:%M:%S')} {building_id} {floor_id} {token} {trash_type}\n")
 
 
 # 2. (타이머) client에 trashbin_type 넘기기
