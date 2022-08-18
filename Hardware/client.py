@@ -27,6 +27,14 @@ HOST, PORT = getenv("HOST", "localhost"), int(getenv("PORT", "9999"))
 
 OPEN_TIMEOUT = 30
 
+TRASHBIN_TYPE = {
+    "GER": "General",
+    "PET": "Plastic",
+    "CAN": "Can",
+    "GLA": "Glass",
+    "PPR": "Paper",
+}
+
 pwm = set_gpio_for_front_door()
 set_gpio_for_capacity_check()
 lcd = set_display_lcd()
@@ -37,7 +45,7 @@ status = {
     "rfid": {"id": "", "last_tagged_time": time()},
     "user": {},
     "door": {"is_slide_open": False, "is_front_unlock": False, "open_time": time()},
-    "trash_amount": current_capacity_rate(),
+    "trash_amount": 0,
 }
 
 
@@ -66,33 +74,36 @@ async def read_data(reader):
 async def socket_listener(reader, writer):
     while True:
         data = await read_data(reader)
+        print(data)
         if data is None:
             # 연결 끊어짐
             exit(0)
 
         if data["type"] == "stat":
-            status["trashbin_type"] = data["trashbin_type"]
+            status["trashbin_type"] = TRASHBIN_TYPE[data["trashbin_type"]]
 
         if data["type"] == "door_open" and not status["door"]["is_slide_open"]:
-            pass_auth()
+            await pass_auth()
             status["user"] = data["user"]
             status["door"]["is_slide_open"] = True
             status["door"]["open_time"] = time()
-            
+
         if data["type"] == "fail_auth" and not status["door"]["is_slide_open"]:
-            fail_auth()
+            await fail_auth()
 
         if data["type"] == "front_unlock" and not status["door"]["is_front_unlock"]:
-            unlock_front_door(pwm)
+            await unlock_front_door(pwm)
             status["door"]["is_front_unlock"] = True
 
         if data["type"] == "door_close" and status["door"]["is_slide_open"]:
-            if status["door"]["is_front_unlock"]:
-                lock_front_door(pwm)
-                status["door"]["is_front_unlock"] = False
-            the_last_action()
             status["door"]["is_slide_open"] = False
-            status["trash_amount"] = current_capacity_rate()
+            clean = False
+            if status["door"]["is_front_unlock"]:
+                await lock_front_door(pwm)
+                status["door"]["is_front_unlock"] = False
+                clean = True
+            await the_last_action()
+            status["trash_amount"] = await current_capacity_rate()
 
             await write_data(
                 writer,
@@ -100,6 +111,7 @@ async def socket_listener(reader, writer):
                     "type": "stat",
                     "amount": status["trash_amount"],
                     "user": status["user"],
+                    "clean": clean
                 },
             )
 
@@ -173,6 +185,7 @@ async def device_loop(writer):
 
 
 async def main():
+    status["trash_amount"] = await current_capacity_rate()
     reader, writer = await asyncio.open_connection(HOST, PORT)
     await write_data(
         writer, {"type": "init", "id": status["id"], "amount": status["trash_amount"]}
@@ -183,8 +196,8 @@ async def main():
     if data["type"] != "init":
         return
 
-    status["trashbin_type"] = data["trashbin_type"]
-    display_lcd(lcd, status["trashbin_type"])
+    status["trashbin_type"] = TRASHBIN_TYPE[data["trashbin_type"]]
+    await display_lcd(lcd, status["trashbin_type"])
 
     await asyncio.gather(device_loop(writer), socket_listener(reader, writer))
 

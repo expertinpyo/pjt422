@@ -3,7 +3,8 @@ import RPi.GPIO as GPIO
 from gpiozero import Servo, LED, Button
 import RPi_I2C_driver
 from mfrc522 import SimpleMFRC522
-from time import time, sleep
+from time import time
+from asyncio import sleep
 
 servo1 = Servo(16) # Continuous Rotation Servo
 servo2 = 26 # 180 degree Rotation servo
@@ -17,15 +18,15 @@ btn = Button(18)
 MAX_CAPACITY = 30.58
 MIN_CAPACITY = 12.92
 
-def open_slide_door():
-    servo1.value = 0.1
-    sleep(1.5)
+async def open_slide_door():
+    servo1.value = 0.3
+    await sleep(1.2)
     servo1.detach()
 
 
-def close_slide_door():
-    servo1.value = -0.5
-    sleep(1.55)
+async def close_slide_door():
+    servo1.value = -0.7
+    await sleep(1.2)
     servo1.detach()
 
 
@@ -37,20 +38,20 @@ def set_gpio_for_front_door():
     return pwm
 
 
-def unlock_front_door(pwm):
+async def unlock_front_door(pwm):
     GPIO.setup(servo2, GPIO.OUT)
     pwm.ChangeDutyCycle(3) #unlock
-    sleep(0.3)
+    await sleep(0.3)
     GPIO.setup(servo2, GPIO.IN)
-    sleep(1.7)
+    await sleep(1.7)
 
 
-def lock_front_door(pwm):
+async def lock_front_door(pwm):
     GPIO.setup(servo2, GPIO.OUT)
     pwm.ChangeDutyCycle(8) #lock
-    sleep(0.3)
+    await sleep(0.3)
     GPIO.setup(servo2, GPIO.IN)
-    sleep(1.7)
+    await sleep(1.7)
 
 
 def cleanup_for_front_door(pwm):
@@ -64,9 +65,9 @@ def set_gpio_for_capacity_check():
     GPIO.setup(echoPin, GPIO.IN)
 
 
-def capacity_check():
+async def capacity_check():
     GPIO.output(triggerPin, GPIO.LOW)
-    sleep(0.00001)
+    await sleep(0.00001)
     GPIO.output(triggerPin, GPIO.HIGH)
 
     while GPIO.input(echoPin) == 0:
@@ -84,10 +85,10 @@ def cleanup_for_capacity_check():
     GPIO.cleanup()
 
 
-def current_capacity_rate():
-    currentDistance = capacity_check()
+async def current_capacity_rate():
+    currentDistance = await capacity_check()
     rate = round((currentDistance - MIN_CAPACITY)/(MAX_CAPACITY - MIN_CAPACITY),2)
-    if rate < 0: 
+    if rate < 0:
         return 0
     if rate > 1:
         return 1
@@ -100,9 +101,9 @@ def set_display_lcd():
     return lcd
 
 
-def display_lcd(lcd, content):
+async def display_lcd(lcd, content):
     lcd.print(content)
-    sleep(5)
+    await sleep(5)
 
 
 def clear_lcd(lcd):
@@ -130,18 +131,17 @@ def led_off(colorLED):
 def is_btn_pressed():
     return btn.is_pressed
 
-def pass_auth():
+async def pass_auth():
     led_on(greenLED)
-    open_slide_door()
+    await open_slide_door()
 
 
-def fail_auth():
+async def fail_auth():
     led_on(redLED)
-    sleep(3)
+    await sleep(3)
     led_off(redLED)
 
 
-def the_last_action():
-    close_slide_door()
-    sleep(1.5)
+async def the_last_action():
     led_off(greenLED)
+    await close_slide_door()
