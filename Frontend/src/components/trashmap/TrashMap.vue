@@ -64,11 +64,11 @@ export default {
         this.ctx.strokeStyle = "#000000";
         if (this.$store.state.hoveredTrashbin === trashbin) {
           this.ctx.lineWidth = 2;
-          this.ctx.strokeStyle = "#000000";
+          this.ctx.strokeStyle = "#88FF88";
         }
         if (this.$store.state.selectedTrashbin === trashbin) {
           this.ctx.lineWidth = 2;
-          this.ctx.strokeStyle = "#CF2222";
+          this.ctx.strokeStyle = "#FF8888";
         }
         this.ctx.strokeRect(
           trashbin.x - this.floor.trashbinSize / 2,
@@ -82,7 +82,7 @@ export default {
       for (let trashbin of this.floor.trashbins) {
         this.ctx.save();
         if (trashbin?.hasNotification) {
-          this.ctx.fillStyle = "#E54444";
+          this.ctx.fillStyle = "#FF0000";
           this.ctx.beginPath();
           this.ctx.arc(
             trashbin.x,
