@@ -20,13 +20,24 @@
       role="alert"
     >
       <span class="notification-left">
-        <strong>{{ notification.token }}</strong>
-        ({{ notification.location_x }}, {{ notification.location_y }})
-        {{ (100 * notification.current_amount) / notification.total_amount }}%
+        <strong>
+          {{ notification.floor.building.name }} {{ notification.floor.name }}층
+          ({{ notification.location_x }}, {{ notification.location_y }}) 위치의
+          쓰레기통
+        </strong>
       </span>
-      <span class="notification-center">
-        내용내용내용내용내용내용내용내용내용내용내용내용
+      <span v-if="notification.amount >= 0.7">
+        <strong>위험! 해당 쓰레기통을 지금 바로 비워주세요!</strong>
       </span>
+      <span v-else>
+        <strong>
+          주의! 해당 쓰레기통은 현재
+          {{ Number(notification.amount * 100).toFixed(1) }}% 만큼 차있습니다.
+        </strong>
+      </span>
+
+      <span></span>
+      <span class="notification-center"></span>
       <span class="notification-right">
         <img class="notification-alarm-img" src="@/assets/alarm.png" />
       </span>
