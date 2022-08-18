@@ -47,6 +47,20 @@ services:
     restart: always
     entrypoint: ./wait-for-it.sh db:3306 --
 
+  hardware:
+    build: ./Hardware
+    image: 422_hardware:${BUILD_TAG}
+    container_name: 422_hardware
+    ports:
+      - "9999:9999"
+    depends_on:
+      - db
+    command: python server.py
+    env_file:
+      - ./.env
+    restart: always
+    entrypoint: ./wait-for-it.sh db:3306 --
+
   db:
     image: mariadb:latest
     container_name: 422_db

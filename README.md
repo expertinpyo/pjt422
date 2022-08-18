@@ -1,9 +1,10 @@
-# 422 - 사소하지만 이렇게 이루어진다
+# PROJECT 422
+> **422(사이이)** 는 ‘사소하지만 이렇게 이루어진다’의 줄임말이면서 4/22 지구의 날을 생각하여 이름이 붙여진 대학교 건물 내의 쓰레기통을 관리하는 웹 IoT 기반 시스템입니다.
 
-422(사이이)는 ‘사소하지만 이렇게 이루어진다’의 줄임말이면서 4/22 지구의 날을 생각하여 이름이 붙여진 대학교 건물 내의 쓰레기통을 관리하는 웹 IoT 기반 시스템입니다.
-<br>
-<br>
-<br>
+
+
+
+
 <!-- 필수 항목 -->
 
 ## 카테고리
@@ -22,193 +23,87 @@
 
 ## 프로젝트 소개
 
-* 프로젝트명: 웹 기반 교내 쓰레기통 관리 시스템
-* 서비스 특징: 웹/모바일(웹 IoT) 프로젝트
+* 프로젝트명: 422
+* 슬로건 : *사소하지만 이렇게 이루어진다*
+* 서비스 특징: 웹 IoT 프로젝트
 * 주요 기능
-  - 교내 쓰레기통 현황을 웹으로 파악하여 효율적으로 쓰레기통을 관리할 수 있음
-  - 통계를 통해 시간대별 쓰레기 배출량을 파악하여 쓰레기통 분류를 유동적으로 변경할 수 있음
+  - 사용자 인증 단계를 추가하여 무분별한 배출을 막을 수 있습니다.
+  - 교내 쓰레기통 현황을 웹으로 파악하여 효율적으로 쓰레기통을 관리할 수 있습니다.
+  - 통계를 통해 시간대별 쓰레기 배출량을 파악하여 쓰레기통 분류를 유동적으로 변경할 수 있습니다.
 * 주요 기술
   - Single Page Application
   - Raspberry Pi
   - REST API
-* 참조 리소스
-  - a
-* 배포 환경
+  - Serializer
+* 참조 리소스 (수정 필요. 예시 써놓음)
+  - Material-UI: React Component Library
+  - sass-loader: scss 로드 및 컴파일
+  - Vuetify: 디자인 전반 적용
+  - Color Thief: 이미지 색상 추출 라이브러리. 커버 사진 색상 추출 및 배경 변경에 활용
+  - Animation.css: CSS 애니메이션 지원 라이브러리. 메인 페이지 진입 애니메이션에 활용
+  - Pandas : 데이터 조작 및 분석 라이브러리. HW 작동시 발생하는 로그 데이터 분석 및 통계 도출에 활용
+  - Jupyter Notebook : Web에서 python 코드를 실행할 수 있는 개발도구. Pandas 라이브러리 사용에 활용 
+  - drf-yasg : Django restframework swagger 지원 라이브러리. API 서버를 자동으로 문서화 시켜줌
+  - django_apscheduler : 경량화된 APScheduler django app 버전. 일일 로그데이터 분석 자동화에 활용
+* 배포 환경 (수정 필요)
   - URL: // 웹 서비스, 랜딩 페이지, 프로젝트 소개 등의 배포 URL 기입
   - 테스트 계정: // 로그인이 필요한 경우, 사용 가능한 테스트 계정(ID/PW) 기입
-- 프로젝트 명세서
+
+* 자세한 사항은 [Wiki](https://lab.ssafy.com/s07-webmobile3-sub2/S07P12A207/-/wikis/home) 참조
+* 프로젝트 명세서
   - [링크](https://www.notion.so/deeplearningbest/A207-PJT-27012dcbaeb148adbe262816cf1cbc19)
 
-<!-- 자유 양식 -->
 
 ## 팀 소개
-
 * 안다영 : 팀장, FE, HW, UCC
-* 김지인 : FE, HW, Be, Infra
+* 김지인 : FE, Be, HW
 * 박정미 : FE, HW, UCC
-* 장세진 : BE, Infra
-* 홍인표 : BE, Infra
+* 장세진 : BE
+* 홍인표 : BE
 
 
 ## 개발 스택
-
-* FE : HTML, CSS, Javascript, Vue@3.2.13, Vuex@4.0.0, Vue-router@4.0.3, Bootstrap@5.1.3
-* BE : Python, DJango
-* Infra : SQLite, AWS EC2
-
-
-
-<!-- 자유 양식 -->
-
-<!-- ## 프로젝트 상세 설명 -->
-
-<!-- // 개발 환경, 기술 스택, 시스템 구성도, ERD, 기능 상세 설명 등 -->
-
-
-## 배경
-
-- 사람들이 무분별하게 버린 쓰레기로 인해 쓰레기통이 쉽게 오염되고, 방치된 쓰레기통은 악취와 벌레 꼬임을 유발해 관리가 더욱 어려워진다.
-- 올바른 분리배출(라벨지 떼기, 내용물 헹구어 버리기, 재활용 마크를 확인 후 분류하기)이 제대로 이루어지지 않아 재활용율이 낮아지고 있다.
+- FE
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white"/>
+<img src="https://img.shields.io/badge/CSS-1572B6?style=flat&logo=css3&logoColor=white"/>
+<img src="https://img.shields.io/badge/Javascript-F7DF1E?style=flat&logo=javascript&logoColor=white"/>
+<img src="https://img.shields.io/badge/Vuejs-4FC08D?style=flat&logo=vue.js&logoColor=white"/>
+<img src="https://img.shields.io/badge/Vuex-4FC08D?style=flat&logo=vuex&logoColor=white"/>
+<img src="https://img.shields.io/badge/VueRouter-4FC08D?style=flat&logo=vuerouter&logoColor=white"/>
+<img src="https://img.shields.io/badge/Bootstrap5-7952B3?style=flat&logo=bootstrap&logoColor=white"/>
+<img src="https://img.shields.io/badge/Babel-F9DC3E?style=flat&logo=babel&logoColor=white"/>
+<img src="https://img.shields.io/badge/ESLint-4B32C3?style=flat&logo=eslint&logoColor=white"/>
+<img src="https://img.shields.io/badge/Npm-CB3837?style=flat&logo=npm&logoColor=white"/>
 
 
-
-## 기능 상세
-
-### HW
-
-- Raspberry Pi 4
-  - 쓰레기통의 각 분류당 1개씩 사용
-- 초음파 센서
-	- 쓰레기통이 어느 정도 차있는지 확인
-  - 쓰레기통의 각 분류당 1개씩 사용
-- RFID 리더기 모듈
-  - 사용자가 무분별하게 쓰레기를 버리지 않도록 태그 시에만 쓰레기통이 열림
-  - 관리자가 태그 시 쓰레기통을 언제 비웠는지에 대한 데이터가 DB로 전송
-  - 사용자는 학생증, 관리자는 출입증을 이용
-  - 사용자 혹은 관리자 추가 등록시 학생증/출입증을 태그해 ID를 DB로 전송
-- 16x2 LCD(I2C)
-	- 쓰레기통의 분류를 표시 -> 일반/플라스틱/캔&유리
-  - 쓰레기통의 각 분류당 1개씩 사용
-- 서보모터
-  - 사용자가 쓰레기를 버릴 때 뚜껑 위로 열리도록 설치
-  - 관리자가 쓰레기통을 비울 때 잠금장치가 열리도록 설치
-  - 쓰레기통의 각 분류당 2개씩 사용
-- HW 추가 사항
-	- 채로 음료 안의 알갱이 같은 것은 걸러지도록 하고, 나머지는 필터를 달아서 자연에 방류
-	- 컵 내의 내용물을 씻을 수 있는 곳
-	- 거울, 태그를 할 때마다 사진을 찍어서 양심 자극
-	- 다 찼을 때는 RFID를 찍어도 더 이상 열리지 않고 가장 가까운 쓰레기통을 알려줄 수 있도록 함
-
-### Frontend(Vue.js)
-시스템 관리자, 관리자(미화원), 학생 세 분류의 유저가 존재하고 일부는 특정 기능 접근 권한이 제한됨
-- 모든 화면 공통 component
-  - navigation bar : main, stats, settings tap과 로그인 버튼이 표시됨
-- 로그인 화면
-  - 로그인을 통해 관리자 전용 화면으로의 전환이 가능
-- 시스템 관리자 전용 화면
-  - 관리자의 권한을 모두 가지고 있음
-  - hover를 통해 해당 쓰레기통의 자세한 정보를 확인할 수 있고 해당 정보를 수정하는 것이 가능함(예시:A동 1층 3구역은 유리의 배출이 거의 없고 플라스틱의 배출량이 상당하므로 해당 쓰레기통을 유리 대신 플라스틱으로 변경함)
-  - 지도나 쓰레기통을 추가/제거할 수 있음
-  - (설정 탭) 관리자를 관리하고 추가할 수 있음
-- 관리자 전용 화면
-	- 층을 선택하면 해당 층의 단면도가 나오고, 쓰레기통의 위치가 표시됨 
-    - 층은 관리자가 한 눈에 현황을 파악할 수 있도록 엘리베이터 버튼처럼 표시됨
-    - 층은 색상(쓰레기통 채워짐 정도, 숫자도 함께 표시), 경고 아이콘(비운 지 오래되거나 꽉 찬 쓰레기통 경고), 알림 아이콘(알림 개수)으로 표현됨
-	- 지도 내부에 쓰레기통 안의 내용물 양이 색과 숫자로 표시됨
-    - 초록색: 0 ~ 39%
-    - 노란색: 40% ~ 69%
-    - 빨간색: 70% ~ 100%
-  - hover를 통해 해당 쓰레기통의 자세한 정보를 확인할 수 있음
-  - 쓰레기통의 분류 변경 가능
-    - 한 층에 각 분류가 최소 하나 씩은 있도록 구현
-  - 비운지 오래되거나 꽉 찬 쓰레기통은 경고 아이콘이 표시됨
-  - 메인 화면과 통계 화면 사이 전환 가능
-  - (통계 탭) 알림 메시지 리스트가 표시됨
-  - (통계 탭) 쓰레기통 ID, 최근 비움 시간, 위치, 종류, 마지막으로 비운 사람 등이 표로 나타나있고 각 column을 기준으로 정렬 가능
-  - (통계 탭) 일정한 기간의 배출량 확인 가능
-  - 로그아웃 구현
-- 사용자 전용 화면
-	- 층을 선택하면 해당 층의 단면도가 나오고, 쓰레기통의 위치가 표시됨
-	- 쓰레기통 사용 가능 여부 확인
-- 내비게이션 바
-  - 로고, 화면 분류, 알림 메시지 아이콘(개수 포함), 로그인/로그아웃 버튼 등으로 구성  
-- Frontend 추가 사항
-	- 관리자) 마지막으로 비워 둔 시간, 시간 별, 장소 별 통계를 내서 어느 곳에서 어느 시간에 쓰레기가 많이 찰지 예측
-	- 사용자) 올바른 분리배출 가이드 제공
-
-### Backend(Python DJango, Maria DB)
-
-* 구성요소
-  - 각 쓰레기통 위치, 종류, 이벤트, 각 층/분류 등등
-* 로그인
-  * 관리자 로그인
-  * 나머지 유저 비 로그인
-
-* DB
-
-1. 사람 Entity
-    1. 사용자(학생)
-        1. 학번(고유)
-        2. 이름
-    2. 관리자(일반)
-        1. 사번(고유)
-        2. 이름
-        3. 선임관리자 여부 - 공통 코드 테이블
-    3. 관리자(마스터)
-        1. 사번(고유)
-        
-2. 사물 Entity
-    1. 캠퍼스(여러 곳의 학교에 서비스를 제공한다는 가정)
-    2. 건물
-        1. PK(고유)
-        2. 건물명
-        3. 건물 설명
-        4. 외래키(캠퍼스)
-    3. 층
-        1. PK(고유)
-        2. 층 수
-        3. 외래키(건물)
-    4. 쓰레기통
-        1. PK(고유)
-        2. 쓰레기통 타입 (일반, 플라스틱, 유리 등)
-        3. 현재 쓰레기 양(무게 혹은 깊이, 수정 가능성 존재)
-        4. 전체 쓰레기 양(무게 혹은 깊이, 수정 가능성 존재)
-        5. 쓰레기통 위치 X 좌표
-        6. 쓰레기통 위치 Y 좌표
-        7. 최근 버린 날짜
-    5. 이벤트
-        1. PK(고유)
-        2. 이벤트 종류
-        3. 상태 세부정보
-        4. 생성 날짜
-        5. 수정 날짜
-        6. 외래키(학생, 관리자, 쓰레기통)
-        
-    
-
-## Web을 통한 DB 수정 권한
-
-- 학생
-    - 없음
-- 관리자(선임)
-    - 쓰레기통 수량 및 위치 변경
-    - 쓰레기통 타입 변경
-- 관리자(마스터)
-    - 학생 추가/삭제
-    - 관리자 추가/변경/삭제
-    - 선임 관리자 권한 부여
+- BE
+<img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white"/>
+<img src="https://img.shields.io/badge/Django-092E20?style=flat&logo=django&logoColor=white"/>
+<img src="https://img.shields.io/badge/Djangorestframework-092E20?style=flat&logo=djangorestframework&logoColor=white"/>
+<img src="https://img.shields.io/badge/Djangocorsheaders-092E20?style=flat&logo=djangocorsheaders&logoColor=white"/>
+<img src="https://img.shields.io/badge/drfyasg-092E20?style=flat&logo=drfyasg&logoColor=white"/>
+<img src="https://img.shields.io/badge/djrestauth-092E20?style=flat&logo=djrestauth&logoColor=white"/>
+<img src="https://img.shields.io/badge/Pandas-150458?style=flat&logo=pandas&logoColor=white"/>
+<img src="https://img.shields.io/badge/JSON-000000?style=flat&logo=json&logoColor=white"/>
 
 
-### 로그 (구현 예정)
+- Infra
+<img src="https://img.shields.io/badge/MariaDB-003545?style=flat&logo=mariadb&logoColor=white"/>
+<img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white"/>
+<img src="https://img.shields.io/badge/AmazonAWS-232F3E?style=flat&logo=amazonaws&logoColor=white"/>
+<img src="https://img.shields.io/badge/AmazonEC2-FF9900?style=flat&logo=amazonec2&logoColor=white"/>
+<img src="https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white"/>
+<img src="https://img.shields.io/badge/NGINX-009639?style=flat&logo=nginx&logoColor=white"/>
 
 
-
-##	구현 목록
-
-##	세부 사항
-
-
-##	추가 기능   
+- HW
+<img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white"/>
+<img src="https://img.shields.io/badge/RaspberryPi-A22846?style=flat&logo=raspberrypi&logoColor=white"/>
 
 
-##	유지보수 측면   
+- CI/CD
+<img src="https://img.shields.io/badge/Jenkins-D24939?style=flat&logo=jenkins&logoColor=white"/>
+
+- Tools
+<img src="https://img.shields.io/badge/Gitlab-FC6D26?style=flat&logo=gitlab&logoColor=white"/>
+<img src="https://img.shields.io/badge/JiraSoftware-0052CC?style=flat&logo=jirasoftware&logoColor=white"/>
