@@ -5,21 +5,21 @@
       <StatsTable />
     </div>
     <div class="trash-stats-chart">
-      <div class="stats-label">월별 쓰레기 배출량</div>
-      <StatsChart />
+      <div class="stats-label">쓰레기통 사용량 통계</div>
+      <StatsPage />
     </div>
   </div>
 </template>
 
 <script>
 import StatsTable from "@/components/stats/StatsTable.vue";
-import StatsChart from "@/components/stats/StatsChart.vue";
+import StatsPage from "@/components/stats/StatsPage.vue";
 
 export default {
   name: "StatsView",
   components: {
     StatsTable,
-    StatsChart,
+    StatsPage,
   },
 };
 </script>
@@ -39,5 +39,30 @@ export default {
   text-align: left;
   font-size: large;
   font-weight: bold;
+}
+.nav-link {
+  max-width: 120px;
+  margin: 5px 10px;
+}
+.trash-map-building-dropdown {
+  width: 150px;
+  margin-bottom: 30px;
+}
+.nav-link {
+  max-width: 120px;
+  margin: 5px 10px;
+}
+.nav-link.active {
+  /* border-bottom: 1px solid black; */
+}
+.navbar-brandname {
+  font-size: 18px;
+  font-weight: bolder;
+  padding: 0 10px;
+}
+.nav-item-logout {
+  padding: 5px;
+  border-radius: 10px;
+  /* background-color: #a5b8a5; */
 }
 </style>
