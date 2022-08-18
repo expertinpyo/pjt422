@@ -1,5 +1,14 @@
 <template>
   <div class="notifications-container">
+    <div class="notification-label">
+      <img
+        src="@/assets/notification.png"
+        width="35"
+        weight="35"
+        class="notification-label-icon"
+      />
+      새로운 알림이 있습니다
+    </div>
     <div
       v-for="notification in notifications"
       :key="notification.id"
@@ -46,7 +55,10 @@ export default {
 <style scoped>
 .notifications-container {
   width: 80%;
-  margin: auto;
+  margin: 100px auto;
+  padding: 50px;
+  background-color: #fafafa;
+  border-radius: 20px;
 }
 .notification {
   display: flex;
@@ -59,5 +71,14 @@ export default {
 }
 .notification-right {
   margin-left: auto;
+}
+.notification-label {
+  margin: 70px 0;
+  font-weight: bolder;
+  font-size: 25px;
+  color: #292929;
+}
+.notification-label img {
+  margin-right: 10px;
 }
 </style>
