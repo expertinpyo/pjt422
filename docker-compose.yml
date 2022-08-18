@@ -1,6 +1,21 @@
 version: "3.9"
 
 services:
+  nginx:
+    image: nginx:stable
+    depends_on:
+      - frontend
+      - backend
+    container_name: 422_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - /etc/letsencrypt:/etc/letsencrypt
+      - /var/www/certbot:/var/www/certbot
+    restart: always
+
   frontend:
     build:
       context: ./Frontend
@@ -8,15 +23,17 @@ services:
         VUE_APP_BACKEND_HOST: ${VUE_APP_BACKEND_HOST}
     image: 422_frontend:${BUILD_TAG}
     container_name: 422_frontend
-    ports:
-      - "80:80"
+    expose:
+      - 80
+    restart: always
     command: nginx -g "daemon off;"
+
   backend:
     build: ./Backend
     image: 422_backend:${BUILD_TAG}
     container_name: 422_backend
-    ports:
-      - "8000:8000"
+    expose:
+      - 8000
     depends_on:
       - db
     command:
@@ -29,6 +46,25 @@ services:
       - ./.env
     restart: always
     entrypoint: ./wait-for-it.sh db:3306 --
+    volumes:
+      - ./Hardware/log:/app/daily_log
+
+  hardware:
+    build: ./Hardware
+    image: 422_hardware:${BUILD_TAG}
+    container_name: 422_hardware
+    ports:
+      - "9999:9999"
+    depends_on:
+      - db
+    command: python server.py
+    env_file:
+      - ./.env
+    restart: always
+    entrypoint: ./wait-for-it.sh db:3306 --
+    volumes:
+      - ./Hardware/log:/app/log
+
   db:
     image: mariadb:latest
     container_name: 422_db
@@ -38,6 +74,7 @@ services:
       - ./.env
     volumes:
       - /var/422/db:/var/lib/mysql
+    restart: always
 
 networks:
   default:

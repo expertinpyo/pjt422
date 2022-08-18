@@ -1,79 +1,61 @@
-from doctest import master
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
-from .serializers.managers import ManagerAllUpdateSerializer, ManagerListSerializer, ManagerSerializer, ManagerUpdateSerializer
+from .serializers.managers import ManagerAllUpdateSerializer, ManagerListSerializer, ManagerCreateSerializer, ManagerUpdateSerializer, ManagerMasterUpdateSerializer, ManagerNormalUpdateSerializer
 from django.contrib.auth import get_user_model
+import re
 
 # Create your views here.
 User = get_user_model()
-@api_view(['GET'])
-def managers(request):
-    managers = User.objects.order_by('pk')
-    serializer = ManagerListSerializer(managers, many=True)
-    return Response(serializer.data)
 
-# 일단 생성은 된다
-# 추가해야할 점
-# 1. campus : 요청 보낸 슈퍼 유저의 캠퍼스 id로 생성되게 할 것
-# 2. position : 값이 MR라면 admin유저로 격상시켜주기(생성시)
-@api_view(['POST'])
-@permission_classes([IsAdminUser])
-def campus_managers(request, campus_id):
-    def manager_create():
-        serializer = ManagerSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+class ManagerAllView(APIView):
+    permission_classes = [IsAdminUser]
     
-    if request.method == 'POST':
-        return manager_create()
+    def get(self, request):
+        managers = User.objects.order_by('pk')
+        serializer = ManagerListSerializer(managers, many=True)
+        return Response(serializer.data)
 
-
-# 기본 로직
-# 1. 해당 캠퍼스의 마스터 매니저가 해당 캠퍼스의 매니저 수정 삭제 가능
-# 2. 일반 / 선임 매니저는 본인 계정의 비밀번호만 변경 가능
-# @api_view(['PUT', 'DELETE'])
-# def manager_detail(request, manager_id):
-    
-#     def update_manager():
-#         # serializer = ManagerSerializer(instance=)
-#         pass
-#     def delete_manager():
-#         pass
-
-#     if request.method == "PUT":
-#         return update_manager()
-#     elif request.method == 'DELETE':
-#         return delete_manager()
-
-
-# 관리자 본인이 자신의 회원 정보를 수정
-@api_view(['PUT'])
-def manager_detail(request, user_pk):
-    user = get_object_or_404(User, pk=user_pk)
-    if request.user == user:
-        serializer = ManagerUpdateSerializer(instance=user, data=request.data, partial=True)
+    def post(self, request):
+        # password = request.data.get('password')
+        # if len(password) < 8:
+        #     return Response({'password': '비밀번호는 8자 이상 입력하세요'})
+        # elif not re.findall('[0-9]+', password) or not re.findall('[a-zA-z]',password):
+        #     return Response({'password': '숫자와 영어의 조합으로 비밀번호를 만들어주세요'})
+        serializer = ManagerCreateSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)
-    return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
 
 
-# master manager가 관리자들의 회원 정보를 수정
-@api_view(['PUT'])
-def edit_managers(request, user_pk):
-    user = get_object_or_404(User, pk=user_pk)
-    print(user.position)
-    if user.position == 'MR':
-        serializer = ManagerAllUpdateSerializer(instance=user, data=request.data, partial=True)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)       
-    return Response(status=status.HTTP_400_BAD_REQUEST)
+class ManagerView(APIView):
+    permission_classes = [IsAuthenticated]
 
+    def put(self, request, user_pk):
+        IsOk = False
+        user = get_object_or_404(User, pk=user_pk)
+        if request.user.position == 'MR':
+            serializer = ManagerMasterUpdateSerializer(instance=user, data=request.data, partial=True)
+            IsOk = True
+        else:
+            if request.user == user:
+                serializer = ManagerNormalUpdateSerializer(instance=user, data=request.data)
+                IsOk = True
+        if IsOk:
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(serializer.data)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
-
-
+    def delete(self, request, user_pk):
+        if request.user.is_superuser:
+            user = get_object_or_404(User, pk=user_pk)
+            user.delete()
+            users = User.objects.all().filter(campus=request.user.campus)
+            serializer = ManagerListSerializer(users, many=True)
+            return Response(serializer.data)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
