@@ -1,6 +1,6 @@
 <template>
   <div class="login-container">
-    <div class="login-label">관리자 로그인</div>
+    <h1>관리자 로그인</h1>
     <div class="form-floating form-id">
       <input
         type="text"
@@ -27,7 +27,7 @@
       ID 혹은 패스워드가 잘못 입력되었습니다.
     </div>
     <button
-      class="btn btn-lg button-login"
+      class="btn btn-lg btn-primary button-login"
       type="button"
       @click="click"
       :disabled="userid === '' || passwd === ''"
@@ -84,35 +84,22 @@ export default {
 <style>
 .login-container {
   width: 500px;
-  margin: 150px auto;
-  color: #354f52;
-  font-weight: lighter;
-}
-.form-control {
-  border-radius: 20px;
-  background-color: #e8e8e8;
+  margin-left: auto;
+  margin-right: auto;
 }
 .form-id {
-  margin-top: 80px;
-  margin-bottom: 20px;
+  margin-top: 40px;
+  margin-bottom: 10px;
 }
 .form-pw {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 .login-fail-text {
   text-align: right;
   color: red;
 }
-.login-container button {
+.button-login {
   margin-top: 20px;
   width: 100%;
-  background-color: #84a98c;
-  color: white;
-  font-weight: regular;
-}
-.login-label {
-  font-family: NanumBarunGothic;
-  font-weight: 700;
-  font-size: 30px;
 }
 </style>

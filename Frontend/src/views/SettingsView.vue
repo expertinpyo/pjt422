@@ -2,13 +2,13 @@
   <div class="settings-container">
     <div class="page-selector">
       <RouterLink to="/settings/building" active-class="active">
-        <button class="btn">건물 관리</button>
+        <button class="btn btn-outline-primary">건물 관리</button>
       </RouterLink>
       <RouterLink to="/settings/user" active-class="active">
-        <button class="btn">사용자 목록</button>
+        <button class="btn btn-outline-primary">사용자 목록</button>
       </RouterLink>
       <RouterLink to="/settings/manager" active-class="active">
-        <button class="btn">관리자 목록</button>
+        <button class="btn btn-outline-primary">관리자 목록</button>
       </RouterLink>
     </div>
     <div class="settings-page">
@@ -31,8 +31,7 @@ export default {
 .page-selector {
   display: flex;
   flex-direction: column;
-  height: 600px;
-  border-right: 1.5px solid #828282;
+  border-right: 1px solid black;
   padding: 10px;
   margin-right: 0;
 }
