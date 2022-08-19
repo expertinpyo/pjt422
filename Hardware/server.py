@@ -57,7 +57,7 @@ def update_data(conn, token, amount):
     cur.execute(sql, (amount, token))
 
     # db에 amount 업데이트 한 후에 status도 업데이트해줘야 함
-    sql2 = 'UPDATE campus_trashbin SET status = CASE WHEN amount >= 0.7 THEN "WAR" WHEN amount >= 0.3 THEN "CAU" ELSE "SAF" END WHERE token = %s'
+    sql2 = 'UPDATE campus_trashbin SET status = CASE WHEN amount >= 0.7 THEN "WAR" WHEN amount >= 0.4 THEN "CAU" ELSE "SAF" END WHERE token = %s'
     cur.execute(sql2, (token))
 
     sql3 = 'SELECT tr.token, tr.trash_type, tr.floor_id, fl.building_id FROM campus_trashbin AS tr INNER JOIN campus_floor AS fl ON tr.floor_id = fl.id WHERE tr.token = %s'
