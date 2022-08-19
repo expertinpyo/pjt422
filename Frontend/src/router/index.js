@@ -2,11 +2,11 @@ import { createRouter, createWebHistory } from "vue-router";
 import MainView from "../views/MainView.vue";
 import NotificationView from "../views/NotificationView.vue";
 import StatsView from "../views/StatsView.vue";
-import SettingsView from "../views/SettingsView.vue";
 import LoginView from "../views/LoginView.vue";
-import SettingsBuilding from "../components/settings/SettingsBuilding.vue";
-import SettingsManager from "../components/settings/SettingsManager.vue";
-import SettingsUser from "../components/settings/SettingsUser.vue";
+// import SettingsView from "../views/SettingsView.vue";
+// import SettingsBuilding from "../components/settings/SettingsBuilding.vue";
+// import SettingsManager from "../components/settings/SettingsManager.vue";
+// import SettingsUser from "../components/settings/SettingsUser.vue";
 import store from "../store";
 
 const requireAuth = () => (to, from, next) => {
@@ -46,27 +46,27 @@ const routes = [
     component: StatsView,
     beforeEnter: requireAuth(),
   },
-  {
-    path: "/settings",
-    name: "settings",
-    component: SettingsView,
-    redirect: "/settings/building",
-    children: [
-      {
-        path: "building",
-        component: SettingsBuilding,
-      },
-      {
-        path: "user",
-        component: SettingsUser,
-      },
-      {
-        path: "manager",
-        component: SettingsManager,
-      },
-    ],
-    beforeEnter: requireAuth(),
-  },
+  // {
+  //   path: "/settings",
+  //   name: "settings",
+  //   component: SettingsView,
+  //   redirect: "/settings/building",
+  //   children: [
+  //     {
+  //       path: "building",
+  //       component: SettingsBuilding,
+  //     },
+  //     {
+  //       path: "user",
+  //       component: SettingsUser,
+  //     },
+  //     {
+  //       path: "manager",
+  //       component: SettingsManager,
+  //     },
+  //   ],
+  //   beforeEnter: requireAuth(),
+  // },
   {
     path: "/login",
     name: "login",
