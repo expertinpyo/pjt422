@@ -36,11 +36,11 @@
               통계
             </RouterLink>
           </li>
-          <li v-if="isAuthed" class="nav-item">
+          <!-- <li v-if="isAuthed" class="nav-item">
             <RouterLink class="nav-link" active-class="active" to="/settings">
               설정
             </RouterLink>
-          </li>
+          </li> -->
           <li v-if="isAuthed" class="nav-item">
             <RouterLink class="nav-link" active-class="active" to="/logout">
               <span class="nav-item-logout">로그아웃</span>
