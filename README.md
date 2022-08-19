@@ -50,8 +50,6 @@
   - 테스트 계정: // 로그인이 필요한 경우, 사용 가능한 테스트 계정(ID/PW) 기입
 
 * 자세한 사항은 [Wiki](https://lab.ssafy.com/s07-webmobile3-sub2/S07P12A207/-/wikis/home) 참조
-* 프로젝트 명세서
-  - [링크](https://www.notion.so/deeplearningbest/A207-PJT-27012dcbaeb148adbe262816cf1cbc19)
 
 
 ## 팀 소개
